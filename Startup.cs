@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace fin_app_backend
 {
@@ -25,7 +26,14 @@ namespace fin_app_backend
 
     public void ConfigureServices(IServiceCollection services)
     {
-
+      var connectionString = "";
+      var serverVersion = new MySqlServerVersion(new Version(8, 0, 21));
+      services.AddDbContext<finappContext>(
+          dbContextOptions => dbContextOptions
+              .UseMySql(connectionString, serverVersion)
+              .EnableSensitiveDataLogging()
+              .EnableDetailedErrors()
+      );
       services.AddControllers();
       services.AddSwaggerGen(c =>
       {
