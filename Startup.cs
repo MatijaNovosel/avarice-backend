@@ -15,6 +15,9 @@ using Microsoft.EntityFrameworkCore;
 using fin_app_backend.Repositories.Base;
 using fin_app_backend.Repositories;
 using fin_app_backend.Repositories.Interfaces;
+using fin_app_backend.Services;
+using fin_app_backend.Services.Interfaces;
+using AutoMapper;
 
 namespace fin_app_backend
 {
@@ -37,8 +40,14 @@ namespace fin_app_backend
               .EnableDetailedErrors()
       );
 
+      // Repositories
       services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
       services.AddScoped<ITagRepository, TagRepository>();
+
+      // Service layer
+      services.AddScoped<ITagService, TagService>();
+
+      services.AddAutoMapper(typeof(Startup));
 
       services.AddControllers();
       services.AddSwaggerGen(c =>
