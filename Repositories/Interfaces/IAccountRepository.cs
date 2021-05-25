@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 
 namespace fin_app_backend.Repositories.Interfaces
 {
-  public interface ITagRepository : IRepository<Tag>
+  public interface IAccountRepository : IRepository<Account>
   {
+    Task<double> GetCurrentAmount(int accountId);
   }
 }

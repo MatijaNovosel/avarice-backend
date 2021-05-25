@@ -12,9 +12,9 @@ using System.Threading.Tasks;
 
 namespace fin_app_backend.Repositories
 {
-  public class TagRepository : Repository<Tag>, ITagRepository
+  public class HistoryRepository : Repository<History>, IHistoryRepository
   {
-    public TagRepository(finappContext dbContext) : base(dbContext)
+    public HistoryRepository(finappContext dbContext) : base(dbContext)
     {
     }
   }

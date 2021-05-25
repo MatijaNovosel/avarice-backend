@@ -15,6 +15,7 @@ namespace fin_app_backend
 
         public string Description { get; set; }
         public int? UserId { get; set; }
+        public sbyte? System { get; set; }
 
         public virtual User User { get; set; }
         public virtual ICollection<Transactiontag> Transactiontags { get; set; }

@@ -12,10 +12,16 @@ using System.Threading.Tasks;
 
 namespace fin_app_backend.Repositories
 {
-  public class TagRepository : Repository<Tag>, ITagRepository
+  public class AccountRepository : Repository<Account>, IAccountRepository
   {
-    public TagRepository(finappContext dbContext) : base(dbContext)
+    public AccountRepository(finappContext dbContext) : base(dbContext)
     {
+    }
+
+    public async Task<double> GetCurrentAmount(int accountId)
+    {
+      var latestHistoryEntry = await _dbContext.Histories.Where(historyEntry => historyEntry.AccountId == accountId).FirstOrDefaultAsync();
+      return latestHistoryEntry.Amount;
     }
   }
 }

@@ -19,7 +19,7 @@ namespace fin_app_backend.Services
 
     public async Task<IEnumerable<TagModel>> GetTags()
     {
-      var tags = await _tagRepository.GetTagListAsync();
+      var tags = await _tagRepository.GetAllAsync();
       var mapped = ObjectMapper.Mapper.Map<IEnumerable<TagModel>>(tags);
       return mapped;
     }
