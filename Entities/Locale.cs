@@ -9,12 +9,12 @@ namespace fin_app_backend
     {
         public Locale()
         {
-            Appsettings = new HashSet<Appsetting>();
+            Settings = new HashSet<Setting>();
         }
 
         public int Id { get; set; }
         public string Text { get; set; }
 
-        public virtual ICollection<Appsetting> Appsettings { get; set; }
+        public virtual ICollection<Setting> Settings { get; set; }
     }
 }

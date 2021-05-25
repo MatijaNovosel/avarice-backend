@@ -26,11 +26,10 @@ namespace fin_app_backend
 
     public void ConfigureServices(IServiceCollection services)
     {
-      var connectionString = "";
       var serverVersion = new MySqlServerVersion(new Version(8, 0, 21));
       services.AddDbContext<finappContext>(
           dbContextOptions => dbContextOptions
-              .UseMySql(connectionString, serverVersion)
+              .UseMySql(Configuration["ConnectionString"], serverVersion)
               .EnableSensitiveDataLogging()
               .EnableDetailedErrors()
       );
