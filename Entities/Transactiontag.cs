@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using fin_app_backend.Entities.Base;
 
 #nullable disable
 
 namespace fin_app_backend
 {
-    public partial class Transactiontag
+    public partial class Transactiontag : Entity
     {
-        public int Id { get; set; }
         public int? TransactionId { get; set; }
         public int? TagId { get; set; }
 

@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using fin_app_backend.Entities.Base;
 
 #nullable disable
 
 namespace fin_app_backend
 {
-    public partial class Transaction
+    public partial class Transaction : Entity
     {
         public Transaction()
         {
             Transactiontags = new HashSet<Transactiontag>();
         }
 
-        public int Id { get; set; }
         public double? Amount { get; set; }
         public DateTime CreatedAt { get; set; }
         public string Description { get; set; }

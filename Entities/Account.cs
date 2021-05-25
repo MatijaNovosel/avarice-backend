@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using fin_app_backend.Entities.Base;
 
 #nullable disable
 
 namespace fin_app_backend
 {
-    public partial class Account
+    public partial class Account : Entity
     {
         public Account()
         {
             Histories = new HashSet<History>();
             Transactions = new HashSet<Transaction>();
         }
-
-        public int Id { get; set; }
         public string Currency { get; set; }
         public string Icon { get; set; }
         public string Description { get; set; }

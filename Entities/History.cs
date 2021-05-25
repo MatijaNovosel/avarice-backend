@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using fin_app_backend.Entities.Base;
 
 #nullable disable
 
 namespace fin_app_backend
 {
-    public partial class History
+    public partial class History : Entity
     {
-        public int Id { get; set; }
         public int? AccountId { get; set; }
         public double Amount { get; set; }
         public DateTime CreatedAt { get; set; }

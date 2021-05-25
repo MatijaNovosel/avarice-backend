@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using fin_app_backend.Entities.Base;
 
 #nullable disable
 
 namespace fin_app_backend
 {
-    public partial class Setting
+    public partial class Setting : Entity
     {
-        public int Id { get; set; }
         public bool? DarkMode { get; set; }
         public int? LocaleId { get; set; }
         public string PreferredCurrency { get; set; }

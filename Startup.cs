@@ -13,6 +13,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using fin_app_backend.Repositories.Base;
+using fin_app_backend.Repositories;
+using fin_app_backend.Repositories.Interfaces;
 
 namespace fin_app_backend
 {
@@ -34,7 +36,10 @@ namespace fin_app_backend
               .EnableSensitiveDataLogging()
               .EnableDetailedErrors()
       );
+
       services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+      services.AddScoped<ITagRepository, TagRepository>();
+
       services.AddControllers();
       services.AddSwaggerGen(c =>
       {

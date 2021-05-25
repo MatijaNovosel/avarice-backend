@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using fin_app_backend.Repositories.Interfaces;
 
 namespace fin_app_backend.Controllers
 {
@@ -12,16 +13,19 @@ namespace fin_app_backend.Controllers
   public class TagController : ControllerBase
   {
     private readonly finappContext _context;
+    private readonly ITagRepository _repo;
 
-    public TagController(finappContext context)
+    public TagController(finappContext context, ITagRepository repo)
     {
       _context = context;
+      _repo = repo;
     }
 
     [HttpGet]
-    public IEnumerable<TagDto> Get()
+    public async Task<IEnumerable<Tag>> Get()
     {
-      return _context.Tags.Select(x => new TagDto() { Description = x.Description, Id = x.Id, UserId = x.UserId }).ToList();
+      var data = await _repo.GetTagListAsync();
+      return data;
     }
   }
 }
