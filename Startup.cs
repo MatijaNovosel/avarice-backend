@@ -55,10 +55,7 @@ namespace fin_app_backend
       services.AddAutoMapper(typeof(Startup));
 
       services.AddControllers();
-      services.AddSwaggerGen(c =>
-      {
-        c.SwaggerDoc("v1", new OpenApiInfo { Title = "fin_app_backend", Version = "v1" });
-      });
+      services.AddSwaggerDocument();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -66,16 +63,12 @@ namespace fin_app_backend
       if (env.IsDevelopment())
       {
         app.UseDeveloperExceptionPage();
-        app.UseSwagger();
-        app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "fin_app_backend v1"));
+        app.UseOpenApi();
+        app.UseSwaggerUi3();
       }
-
       app.UseHttpsRedirection();
-
       app.UseRouting();
-
       app.UseAuthorization();
-
       app.UseEndpoints(endpoints =>
       {
         endpoints.MapControllers();
