@@ -51,6 +51,7 @@ namespace fin_app_backend
       // Service layer
       services.AddScoped<ITagService, TagService>();
       services.AddScoped<ITransactionService, TransactionService>();
+      services.AddScoped<IHistoryService, HistoryService>();
 
       services.AddAutoMapper(typeof(Startup));
 

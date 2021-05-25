@@ -17,5 +17,15 @@ namespace fin_app_backend.Repositories
     public HistoryRepository(finappContext dbContext) : base(dbContext)
     {
     }
+
+    public async Task<IEnumerable<DateTime>> GetGroupedByCreatedAt(int userId, DateTime from, DateTime to)
+    {
+      var res = await _dbContext.Histories
+        .Where(history => history.CreatedAt >= from && history.CreatedAt <= to && history.UserId == userId)
+        .GroupBy(history => history.CreatedAt)
+        .Select(createdAt => createdAt.Key)
+        .ToListAsync();
+      return res;
+    }
   }
 }
