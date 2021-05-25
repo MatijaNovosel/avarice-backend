@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using fin_app_backend.Entities.Base;
+using Microsoft.AspNetCore.Identity;
 
 #nullable disable
 
 namespace fin_app_backend
 {
-  public partial class User : Entity
+  public partial class User : IdentityUser
   {
     public User()
     {
@@ -16,12 +17,6 @@ namespace fin_app_backend
       Tags = new HashSet<Tag>();
       Transactions = new HashSet<Transaction>();
     }
-
-    public string Email { get; set; }
-    public string PhotoUrl { get; set; }
-    public string DisplayName { get; set; }
-    public string Password { get; set; }
-    public sbyte EmailConfirmed { get; set; }
 
     public virtual ICollection<Account> Accounts { get; set; }
     public virtual ICollection<History> Histories { get; set; }

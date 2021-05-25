@@ -2,12 +2,13 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 #nullable disable
 
 namespace fin_app_backend
 {
-  public partial class finappContext : DbContext
+  public partial class finappContext : IdentityDbContext<User>
   {
     public IConfiguration Configuration { get; }
 
@@ -28,7 +29,6 @@ namespace fin_app_backend
     public virtual DbSet<Tag> Tags { get; set; }
     public virtual DbSet<Transaction> Transactions { get; set; }
     public virtual DbSet<Transactiontag> Transactiontags { get; set; }
-    public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -40,14 +40,15 @@ namespace fin_app_backend
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+      base.OnModelCreating(modelBuilder);
       modelBuilder.HasCharSet("latin1");
 
       modelBuilder.Entity<Account>(entity =>
       {
         entity.ToTable("account");
 
-        entity.HasCharSet("utf8")
-                  .UseCollation("utf8_general_ci");
+        entity.HasCharSet("latin1")
+                  .UseCollation("latin1_swedish_ci");
 
         entity.HasIndex(e => e.UserId, "userId");
 
@@ -72,7 +73,6 @@ namespace fin_app_backend
                   .HasDefaultValueSql("'eye'");
 
         entity.Property(e => e.UserId)
-                  .HasColumnType("int(11)")
                   .HasColumnName("userId");
 
         entity.HasOne(d => d.User)
@@ -85,8 +85,8 @@ namespace fin_app_backend
       {
         entity.ToTable("history");
 
-        entity.HasCharSet("utf8")
-                  .UseCollation("utf8_general_ci");
+        entity.HasCharSet("latin1")
+                  .UseCollation("latin1_swedish_ci");
 
         entity.HasIndex(e => e.AccountId, "accountId");
 
@@ -108,7 +108,6 @@ namespace fin_app_backend
                   .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
         entity.Property(e => e.UserId)
-                  .HasColumnType("int(11)")
                   .HasColumnName("userId");
 
         entity.HasOne(d => d.Account)
@@ -126,8 +125,8 @@ namespace fin_app_backend
       {
         entity.ToTable("locale");
 
-        entity.HasCharSet("utf8")
-                  .UseCollation("utf8_general_ci");
+        entity.HasCharSet("latin1")
+                  .UseCollation("latin1_swedish_ci");
 
         entity.Property(e => e.Id)
                   .HasColumnType("int(11)")
@@ -142,8 +141,8 @@ namespace fin_app_backend
       {
         entity.ToTable("settings");
 
-        entity.HasCharSet("utf8")
-                  .UseCollation("utf8_general_ci");
+        entity.HasCharSet("latin1")
+                  .UseCollation("latin1_swedish_ci");
 
         entity.HasIndex(e => e.LocaleId, "settings_ibfk_2");
 
@@ -172,7 +171,6 @@ namespace fin_app_backend
                   .HasDefaultValueSql("'HRK'");
 
         entity.Property(e => e.UserId)
-                  .HasColumnType("int(11)")
                   .HasColumnName("userId");
 
         entity.HasOne(d => d.Locale)
@@ -190,8 +188,8 @@ namespace fin_app_backend
       {
         entity.ToTable("tag");
 
-        entity.HasCharSet("utf8")
-                  .UseCollation("utf8_general_ci");
+        entity.HasCharSet("latin1")
+                  .UseCollation("latin1_swedish_ci");
 
         entity.HasIndex(e => e.UserId, "userId");
 
@@ -204,7 +202,6 @@ namespace fin_app_backend
                   .HasColumnName("description");
 
         entity.Property(e => e.UserId)
-                  .HasColumnType("int(11)")
                   .HasColumnName("userId");
 
         entity.HasOne(d => d.User)
@@ -217,8 +214,8 @@ namespace fin_app_backend
       {
         entity.ToTable("transaction");
 
-        entity.HasCharSet("utf8")
-                  .UseCollation("utf8_general_ci");
+        entity.HasCharSet("latin1")
+                  .UseCollation("latin1_swedish_ci");
 
         entity.HasIndex(e => e.AccountId, "accountId");
 
@@ -250,7 +247,6 @@ namespace fin_app_backend
                   .HasColumnName("transfer");
 
         entity.Property(e => e.UserId)
-                  .HasColumnType("int(11)")
                   .HasColumnName("userId");
 
         entity.HasOne(d => d.Account)
@@ -268,8 +264,8 @@ namespace fin_app_backend
       {
         entity.ToTable("transactiontag");
 
-        entity.HasCharSet("utf8")
-                  .UseCollation("utf8_general_ci");
+        entity.HasCharSet("latin1")
+                  .UseCollation("latin1_swedish_ci");
 
         entity.HasIndex(e => e.TagId, "tagId");
 
@@ -296,38 +292,6 @@ namespace fin_app_backend
                   .WithMany(p => p.Transactiontags)
                   .HasForeignKey(d => d.TransactionId)
                   .HasConstraintName("transactiontag_ibfk_1");
-      });
-
-      modelBuilder.Entity<User>(entity =>
-      {
-        entity.ToTable("user");
-
-        entity.HasCharSet("utf8")
-                  .UseCollation("utf8_general_ci");
-
-        entity.Property(e => e.Id)
-                  .HasColumnType("int(11)")
-                  .HasColumnName("id");
-
-        entity.Property(e => e.DisplayName)
-                  .HasMaxLength(255)
-                  .HasColumnName("displayName");
-
-        entity.Property(e => e.Email)
-                  .HasMaxLength(255)
-                  .HasColumnName("email");
-
-        entity.Property(e => e.EmailConfirmed)
-                  .HasColumnType("tinyint(4)")
-                  .HasColumnName("emailConfirmed");
-
-        entity.Property(e => e.Password)
-                  .HasMaxLength(255)
-                  .HasColumnName("password");
-
-        entity.Property(e => e.PhotoUrl)
-                  .HasMaxLength(255)
-                  .HasColumnName("photoURL");
       });
 
       OnModelCreatingPartial(modelBuilder);

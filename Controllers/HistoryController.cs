@@ -23,7 +23,7 @@ namespace fin_app_backend.Controllers
     }
 
     [HttpGet("total")]
-    public async Task<IEnumerable<HistoryTotalModel>> Total(int userId, DateTime from, DateTime to)
+    public async Task<IEnumerable<HistoryTotalModel>> Total(string userId, DateTime from, DateTime to)
     {
       var data = await _historyService.GetTotal(userId, from, to);
       return data;

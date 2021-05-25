@@ -17,7 +17,7 @@ namespace fin_app_backend.Services
       _historyRepository = historyRepository ?? throw new ArgumentNullException(nameof(historyRepository));
     }
 
-    public async Task<IEnumerable<HistoryTotalModel>> GetTotal(int userId, DateTime from, DateTime to)
+    public async Task<IEnumerable<HistoryTotalModel>> GetTotal(string userId, DateTime from, DateTime to)
     {
       var historyGrouped = await _historyRepository.GetGroupedByCreatedAt(userId, from, to);
       List<HistoryTotalModel> res = new List<HistoryTotalModel>();

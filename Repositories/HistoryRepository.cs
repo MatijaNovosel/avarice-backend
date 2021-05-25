@@ -18,7 +18,7 @@ namespace fin_app_backend.Repositories
     {
     }
 
-    public async Task<IEnumerable<DateTime>> GetGroupedByCreatedAt(int userId, DateTime from, DateTime to)
+    public async Task<IEnumerable<DateTime>> GetGroupedByCreatedAt(string userId, DateTime from, DateTime to)
     {
       var res = await _dbContext.Histories
         .Where(history => history.CreatedAt >= from && history.CreatedAt <= to && history.UserId == userId)

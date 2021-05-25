@@ -12,7 +12,7 @@ namespace fin_app_backend
         public int? LocaleId { get; set; }
         public string PreferredCurrency { get; set; }
         public string DateFormat { get; set; }
-        public int? UserId { get; set; }
+        public string UserId { get; set; }
 
         public virtual Locale Locale { get; set; }
         public virtual User User { get; set; }

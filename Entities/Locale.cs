@@ -6,15 +6,15 @@ using fin_app_backend.Entities.Base;
 
 namespace fin_app_backend
 {
-    public partial class Locale : Entity
+  public partial class Locale : Entity
+  {
+    public Locale()
     {
-        public Locale()
-        {
-            Settings = new HashSet<Setting>();
-        }
-
-        public string Text { get; set; }
-
-        public virtual ICollection<Setting> Settings { get; set; }
+      Settings = new HashSet<Setting>();
     }
+
+    public string Text { get; set; }
+
+    public virtual ICollection<Setting> Settings { get; set; }
+  }
 }
