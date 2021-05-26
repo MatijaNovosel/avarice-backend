@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace fin_app_backend
 {
-  public partial class User : IdentityUser
+  public partial class User : IdentityUser, IEntityBase<string>
   {
     public User()
     {

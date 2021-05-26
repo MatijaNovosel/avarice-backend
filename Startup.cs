@@ -75,11 +75,13 @@ namespace fin_app_backend
       services.AddScoped<ITransactionTagRepository, TransactionTagRepository>();
       services.AddScoped<IAccountRepository, AccountRepository>();
       services.AddScoped<IHistoryRepository, HistoryRepository>();
+      services.AddScoped<IUserRepository, UserRepository>();
 
       // Service layer
       services.AddScoped<ITagService, TagService>();
       services.AddScoped<ITransactionService, TransactionService>();
       services.AddScoped<IHistoryService, HistoryService>();
+      services.AddScoped<IAuthService, AuthService>();
 
       services.AddAutoMapper(typeof(Startup));
 
