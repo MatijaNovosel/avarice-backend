@@ -6,11 +6,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using fin_app_backend.Services.Interfaces;
 using fin_app_backend.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace fin_app_backend.Controllers
 {
+  [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
   [ApiController]
-  [Route("[controller]")]
+  [Route("api/transaction")]
   public class TransactionController : ControllerBase
   {
     private readonly finappContext _context;

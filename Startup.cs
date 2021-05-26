@@ -85,7 +85,17 @@ namespace fin_app_backend
       services.AddAutoMapper(typeof(Startup));
 
       services.AddControllers();
-      services.AddSwaggerDocument();
+      services.AddSwaggerDocument(settings =>
+      {
+        settings.Title = "FinApp API";
+        settings.AddSecurity("Bearer", new NSwag.OpenApiSecurityScheme
+        {
+          Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+          Name = "Authorization",
+          In = NSwag.OpenApiSecurityApiKeyLocation.Header,
+          Type = NSwag.OpenApiSecuritySchemeType.ApiKey
+        });
+      });
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -10,7 +10,7 @@ using fin_app_backend.Models;
 namespace fin_app_backend.Controllers
 {
   [ApiController]
-  [Route("[controller]")]
+  [Route("api/auth")]
   public class AuthController : ControllerBase
   {
     private readonly finappContext _context;
