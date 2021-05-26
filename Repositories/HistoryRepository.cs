@@ -27,5 +27,15 @@ namespace fin_app_backend.Repositories
         .ToListAsync();
       return res;
     }
+
+    public async Task<IEnumerable<DateTime>> GetGroupedByCreatedAt(string userId)
+    {
+      var res = await _dbContext.Histories
+        .Where(history => history.UserId == userId)
+        .GroupBy(history => history.CreatedAt)
+        .Select(createdAt => createdAt.Key)
+        .ToListAsync();
+      return res;
+    }
   }
 }

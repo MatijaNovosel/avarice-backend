@@ -23,4 +23,11 @@ namespace fin_app_backend
     public double Deposits { get; set; }
     public double Withdrawals { get; set; }
   }
+
+  public class DailyChangeModel
+  {
+    public double Deposits { get; set; }
+    public double Withdrawals { get; set; }
+    public DateTime CreatedAt { get; set; }
+  }
 }

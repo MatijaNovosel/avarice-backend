@@ -22,6 +22,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
+using NSwag.Generation.Processors.Security;
 
 using Microsoft.AspNetCore.Authorization;
 
@@ -103,8 +104,10 @@ namespace fin_app_backend
           Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
           Name = "Authorization",
           In = NSwag.OpenApiSecurityApiKeyLocation.Header,
-          Type = NSwag.OpenApiSecuritySchemeType.ApiKey
+          Type = NSwag.OpenApiSecuritySchemeType.ApiKey,
+          Scheme = "bearer"
         });
+        settings.OperationProcessors.Add(new OperationSecurityScopeProcessor("Bearer"));
       });
     }
 

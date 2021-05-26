@@ -9,5 +9,7 @@ namespace fin_app_backend.Services.Interfaces
   {
     Task<IEnumerable<HistoryTotalModel>> GetTotal(string userId, DateTime from, DateTime to);
     Task<RecentDepositsAndWithdrawalsModel> GetRecentDepositsAndWithdrawals(string userId);
+    Task<IEnumerable<DailyChangeModel>> GetDailyChanges(string userId);
+    Task<double> GetDailyChangeForDate(DateTime date, bool expense);
   }
 }

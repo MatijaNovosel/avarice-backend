@@ -25,6 +25,7 @@ namespace fin_app_backend.Controllers
       _historyService = historyService;
     }
 
+    [Authorize(Policy = "UserMustBeAuthor")]
     [HttpGet("total")]
     public async Task<IEnumerable<HistoryTotalModel>> Total(string userId, DateTime from, DateTime to)
     {

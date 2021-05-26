@@ -9,5 +9,6 @@ namespace fin_app_backend.Repositories.Interfaces
   public interface IHistoryRepository : IRepository<History>
   {
     Task<IEnumerable<DateTime>> GetGroupedByCreatedAt(string userId, DateTime from, DateTime to);
+    Task<IEnumerable<DateTime>> GetGroupedByCreatedAt(string userId);
   }
 }
