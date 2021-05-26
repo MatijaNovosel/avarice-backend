@@ -22,10 +22,21 @@ namespace fin_app_backend.Controllers
       _authService = authService;
     }
 
-    [HttpPost]
-    public async Task<AuthResultModel> Add(RegistrationModel payload)
+    [HttpPost("register")]
+    public async Task<IActionResult> Register(RegistrationModel payload)
     {
-      var data = await _authService.Register(payload);
+      if (ModelState.IsValid)
+      {
+        var data = await _authService.Register(payload);
+        return Ok(data);
+      }
+      return BadRequest("Invalid data!");
+    }
+
+    [HttpPost("login")]
+    public async Task<AuthResultModel> Login(LoginModel payload)
+    {
+      var data = await _authService.Login(payload);
       return data;
     }
   }

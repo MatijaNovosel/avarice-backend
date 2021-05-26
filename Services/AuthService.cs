@@ -8,27 +8,33 @@ using System.IdentityModel.Tokens.Jwt;
 using Microsoft.Extensions.Configuration;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Identity;
+using System.Collections.Generic;
 
 namespace fin_app_backend.Services
 {
   public class AuthService : IAuthService
   {
-    private readonly IUserRepository _userRepository;
+    private readonly UserManager<User> _userManager;
     public IConfiguration Configuration { get; }
 
-    public AuthService(IUserRepository userRepository, IConfiguration configuration)
+    public AuthService(UserManager<User> userManager, IConfiguration configuration)
     {
-      _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
+      _userManager = userManager;
       Configuration = configuration;
     }
 
     public async Task<AuthResultModel> Register(RegistrationModel payload)
     {
-      bool userExists = await _userRepository.UserExistsByEmail(payload.Email);
+      var user = await _userManager.FindByEmailAsync(payload.Email);
 
-      if (userExists)
+      if (user != null)
       {
-        throw new Exception("User already exists!");
+        return new AuthResultModel()
+        {
+          Result = false,
+          Errors = new List<string>() { "User with that email already exist!" }
+        };
       }
 
       var newUser = new User()
@@ -37,12 +43,55 @@ namespace fin_app_backend.Services
         UserName = payload.Username
       };
 
-      var jwtToken = GenerateJwtToken(newUser);
+      var isCreated = await _userManager.CreateAsync(newUser, payload.Password);
+
+      if (isCreated.Succeeded)
+      {
+        var jwtToken = GenerateJwtToken(newUser);
+        return new AuthResultModel()
+        {
+          Result = true,
+          Token = jwtToken
+        };
+      }
+
+      return new AuthResultModel()
+        {
+          Result = false,
+          Errors = new List<string>() { "Failed to create user!" }
+        };
+    }
+
+    public async Task<AuthResultModel> Login(LoginModel payload)
+    {
+      var user = await _userManager.FindByEmailAsync(payload.Email);
+
+      if (user == null)
+      {
+        return new AuthResultModel()
+        {
+          Result = false,
+          Errors = new List<string>() { "User with that email does not exist!" }
+        };
+      }
+
+      bool correctPassword = await _userManager.CheckPasswordAsync(user, payload.Password);
+
+      if (!correctPassword)
+      {
+        return new AuthResultModel()
+        {
+          Result = false,
+          Errors = new List<string>() { "Incorrect password!" }
+        };
+      }
+
+      var jwtToken = GenerateJwtToken(user);
 
       return new AuthResultModel()
       {
-        Result = true,
-        Token = jwtToken
+        Token = jwtToken,
+        Result = true
       };
     }
 

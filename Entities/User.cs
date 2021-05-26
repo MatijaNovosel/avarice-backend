@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using fin_app_backend.Entities.Base;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
 
 #nullable disable
 
 namespace fin_app_backend
 {
-  public partial class User : IdentityUser, IEntityBase<string>
+  public partial class User : IdentityUser
   {
     public User()
     {
