@@ -5,6 +5,7 @@ namespace fin_app_backend.Services.Interfaces
 {
   public interface ITransactionService
   {
-    Task<int> AddTransaction(TransactionModel transaction);
+    Task AddTransaction(AddTransactionDto transaction);
+    Task AddTransfer(AddTransferDto transfer);
   }
 }

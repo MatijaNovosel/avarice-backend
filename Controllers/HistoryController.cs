@@ -31,5 +31,13 @@ namespace fin_app_backend.Controllers
       var data = await _historyService.GetTotal(userId, from, to);
       return data;
     }
+
+    [Authorize(Policy = "UserMustBeAuthor")]
+    [HttpGet("recent-deposits-and-withdrawals")]
+    public async Task<RecentDepositsAndWithdrawalsModel> RecentDepositsAndWithdrawals(string userId)
+    {
+      var data = await _historyService.GetRecentDepositsAndWithdrawals(userId);
+      return data;
+    }
   }
 }

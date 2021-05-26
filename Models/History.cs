@@ -17,4 +17,10 @@ namespace fin_app_backend
     public double Amount { get; set; }
     public DateTime CreatedAt { get; set; }
   }
+
+  public class RecentDepositsAndWithdrawalsModel
+  {
+    public double Deposits { get; set; }
+    public double Withdrawals { get; set; }
+  }
 }

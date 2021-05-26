@@ -17,11 +17,13 @@ using fin_app_backend.Repositories;
 using fin_app_backend.Repositories.Interfaces;
 using fin_app_backend.Services;
 using fin_app_backend.Services.Interfaces;
+using fin_app_backend.Authorization;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.AspNetCore.Identity;
+
+using Microsoft.AspNetCore.Authorization;
 
 namespace fin_app_backend
 {
@@ -80,9 +82,17 @@ namespace fin_app_backend
       services.AddScoped<ITagService, TagService>();
       services.AddScoped<ITransactionService, TransactionService>();
       services.AddScoped<IHistoryService, HistoryService>();
+      services.AddScoped<IUserService, UserService>();
       services.AddScoped<IAuthService, AuthService>();
 
       services.AddAutoMapper(typeof(Startup));
+
+      services.AddAuthorization(options =>
+      {
+        options.AddPolicy("UserMustBeAuthor", policy => policy.Requirements.Add(new UserMustBeAuthorRequirement()));
+      });
+
+      services.AddTransient<IAuthorizationHandler, UserAuthorHandler>();
 
       services.AddControllers();
       services.AddSwaggerDocument(settings =>

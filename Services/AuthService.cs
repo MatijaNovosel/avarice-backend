@@ -10,18 +10,21 @@ using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
 
 namespace fin_app_backend.Services
 {
   public class AuthService : IAuthService
   {
     private readonly UserManager<User> _userManager;
+    private readonly IHttpContextAccessor _accessor;
     public IConfiguration Configuration { get; }
 
-    public AuthService(UserManager<User> userManager, IConfiguration configuration)
+    public AuthService(UserManager<User> userManager, IConfiguration configuration, IHttpContextAccessor accessor)
     {
       _userManager = userManager;
       Configuration = configuration;
+      _accessor = accessor;
     }
 
     public async Task<AuthResultModel> Register(RegistrationModel payload)
@@ -56,10 +59,10 @@ namespace fin_app_backend.Services
       }
 
       return new AuthResultModel()
-        {
-          Result = false,
-          Errors = new List<string>() { "Failed to create user!" }
-        };
+      {
+        Result = false,
+        Errors = new List<string>() { "Failed to create user!" }
+      };
     }
 
     public async Task<AuthResultModel> Login(LoginModel payload)
@@ -93,6 +96,11 @@ namespace fin_app_backend.Services
         Token = jwtToken,
         Result = true
       };
+    }
+
+    public ClaimsPrincipal GetUser()
+    {
+      return _accessor?.HttpContext?.User as ClaimsPrincipal;
     }
 
     private string GenerateJwtToken(User user)

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace fin_app_backend.Models
 {
-  public class TransactionModel
+  public class AddTransactionDto
   {
     public string UserId { get; set; }
     public double Amount { get; set; }
@@ -12,5 +12,13 @@ namespace fin_app_backend.Models
     public bool Expense { get; set; }
     public int AccountId { get; set; }
     public List<int> TagIds { get; set; }
+  }
+
+  public class AddTransferDto
+  {
+    public string UserId { get; set; }
+    public double Amount { get; set; }
+    public int AccountFromId { get; set; }
+    public int AccountToId { get; set; }
   }
 }

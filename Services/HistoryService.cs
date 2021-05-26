@@ -5,16 +5,19 @@ using fin_app_backend.Services.Interfaces;
 using fin_app_backend.Repositories.Interfaces;
 using fin_app_backend.Models;
 using fin_app_backend.Mapper;
+using Microsoft.AspNetCore.Identity;
 
 namespace fin_app_backend.Services
 {
   public class HistoryService : IHistoryService
   {
     private readonly IHistoryRepository _historyRepository;
+    private readonly IUserService _userService;
 
-    public HistoryService(IHistoryRepository historyRepository)
+    public HistoryService(IHistoryRepository historyRepository, IUserService userService)
     {
       _historyRepository = historyRepository ?? throw new ArgumentNullException(nameof(historyRepository));
+      _userService = userService ?? throw new ArgumentNullException(nameof(userService));
     }
 
     public async Task<IEnumerable<HistoryTotalModel>> GetTotal(string userId, DateTime from, DateTime to)
@@ -40,6 +43,15 @@ namespace fin_app_backend.Services
       }
 
       return res;
+    }
+
+    public async Task<RecentDepositsAndWithdrawalsModel> GetRecentDepositsAndWithdrawals(string userId)
+    {
+      return new RecentDepositsAndWithdrawalsModel()
+      {
+        Deposits = 100,
+        Withdrawals = 200
+      };
     }
   }
 }

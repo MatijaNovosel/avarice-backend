@@ -5,10 +5,8 @@ using System.Security.Claims;
 
 namespace fin_app_backend.Services.Interfaces
 {
-  public interface IAuthService
+  public interface IUserService
   {
-    Task<AuthResultModel> Register(RegistrationModel payload);
-    Task<AuthResultModel> Login(LoginModel payload);
     ClaimsPrincipal GetUser();
   }
 }

@@ -26,10 +26,15 @@ namespace fin_app_backend.Controllers
     }
 
     [HttpPost]
-    public async Task<int> Add(TransactionModel payload)
+    public async Task Add(AddTransactionDto payload)
     {
-      var data = await _transactionService.AddTransaction(payload);
-      return data;
+      await _transactionService.AddTransaction(payload);
+    }
+
+    [HttpPost("transfer")]
+    public async Task Transfer(AddTransferDto payload)
+    {
+      await _transactionService.AddTransfer(payload);
     }
   }
 }
