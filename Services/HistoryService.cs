@@ -111,5 +111,55 @@ namespace fin_app_backend.Services
       var historyGrouped = await _historyRepository.GetGroupedByCreatedAt(userId);
       return historyGrouped.Last();
     }
+
+    public async Task<IEnumerable<HistoryTotalModel>> GetHistoryForAccount(string userId, int accountId)
+    {
+      var historyGrouped = await _historyRepository.GetGroupedByCreatedAt(userId);
+      List<HistoryTotalModel> res = new List<HistoryTotalModel>();
+
+      foreach (var createdAt in historyGrouped)
+      {
+        double total = 0;
+        var history = await _historyRepository.GetAsync(history => history.UserId == userId && history.CreatedAt == createdAt && history.AccountId == accountId);
+
+        foreach (var h in history)
+        {
+          total += h.Amount;
+        }
+
+        res.Add(new HistoryTotalModel()
+        {
+          Amount = total,
+          CreatedAt = createdAt
+        });
+      }
+
+      return res;
+    }
+
+    public async Task<IEnumerable<HistoryTotalModel>> GetHistoryForAccount(string userId, int accountId, DateTime from, DateTime to)
+    {
+      var historyGrouped = await _historyRepository.GetGroupedByCreatedAt(userId, from, to);
+      List<HistoryTotalModel> res = new List<HistoryTotalModel>();
+
+      foreach (var createdAt in historyGrouped)
+      {
+        double total = 0;
+        var history = await _historyRepository.GetAsync(history => history.UserId == userId && history.CreatedAt == createdAt && history.AccountId == accountId);
+
+        foreach (var h in history)
+        {
+          total += h.Amount;
+        }
+
+        res.Add(new HistoryTotalModel()
+        {
+          Amount = total,
+          CreatedAt = createdAt
+        });
+      }
+
+      return res;
+    }
   }
 }

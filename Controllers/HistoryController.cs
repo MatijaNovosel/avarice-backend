@@ -56,5 +56,21 @@ namespace fin_app_backend.Controllers
       var data = await _historyService.GetLatestDate(userId);
       return data;
     }
+
+    [Authorize(Policy = "UserMustBeAuthor")]
+    [HttpGet("account-total/{accountId}")]
+    public async Task<IEnumerable<HistoryTotalModel>> AccountHistoryTotal([FromRoute] int accountId, string userId)
+    {
+      var data = await _historyService.GetHistoryForAccount(userId, accountId);
+      return data;
+    }
+
+    [Authorize(Policy = "UserMustBeAuthor")]
+    [HttpGet("account/{accountId}")]
+    public async Task<IEnumerable<HistoryTotalModel>> AccountHistory([FromRoute] int accountId, string userId, DateTime from, DateTime to)
+    {
+      var data = await _historyService.GetHistoryForAccount(userId, accountId, from, to);
+      return data;
+    }
   }
 }
