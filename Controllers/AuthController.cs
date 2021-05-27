@@ -23,7 +23,7 @@ namespace fin_app_backend.Controllers
     }
 
     [HttpPost("register")]
-    public async Task<IActionResult> Register(RegistrationModel payload)
+    public async Task<ActionResult<AuthResultModel>> Register(RegistrationModel payload)
     {
       if (ModelState.IsValid)
       {

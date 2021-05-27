@@ -112,8 +112,8 @@ namespace fin_app_backend.Services
         Subject = new ClaimsIdentity(new[]
         {
           new Claim("Id", user.Id),
-          new Claim(JwtRegisteredClaimNames.Sub, user.Email),
-          new Claim(JwtRegisteredClaimNames.Email, user.Email)
+          new Claim(JwtRegisteredClaimNames.Email, user.Email),
+          new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName)
         }),
         Expires = DateTime.UtcNow.AddHours(6),
         SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha512Signature)

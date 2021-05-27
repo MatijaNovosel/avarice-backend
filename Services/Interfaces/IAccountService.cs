@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 
 namespace fin_app_backend.Services.Interfaces
 {
-  public interface ITagService
+  public interface IAccountService
   {
-    Task<IEnumerable<TagModel>> GetTags(string userId);
+    Task<IEnumerable<AccountLatestValueModel>> GetLatestValues(string userId);
   }
 }

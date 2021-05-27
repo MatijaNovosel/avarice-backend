@@ -40,5 +40,21 @@ namespace fin_app_backend.Controllers
       var data = await _historyService.GetRecentDepositsAndWithdrawals(userId);
       return data;
     }
+
+    [Authorize(Policy = "UserMustBeAuthor")]
+    [HttpGet("daily-changes")]
+    public async Task<IEnumerable<DailyChangeModel>> DailyChanges(string userId)
+    {
+      var data = await _historyService.GetDailyChanges(userId);
+      return data;
+    }
+
+    [Authorize(Policy = "UserMustBeAuthor")]
+    [HttpGet("latest-date")]
+    public async Task<DateTime> LatestDate(string userId)
+    {
+      var data = await _historyService.GetLatestDate(userId);
+      return data;
+    }
   }
 }

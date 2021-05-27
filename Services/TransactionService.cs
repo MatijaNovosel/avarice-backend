@@ -18,8 +18,8 @@ namespace fin_app_backend.Services
 
     public TransactionService(ITransactionRepository transactionRepository, ITransactionTagRepository transactionTagRepository, IAccountRepository accountRepository, IHistoryRepository historyRepository)
     {
-      _transactionRepository = _transactionRepository ?? throw new ArgumentNullException(nameof(transactionRepository));
-      _transactionTagRepository = _transactionTagRepository ?? throw new ArgumentNullException(nameof(transactionTagRepository));
+      _transactionRepository = transactionRepository ?? throw new ArgumentNullException(nameof(transactionRepository));
+      _transactionTagRepository = transactionTagRepository ?? throw new ArgumentNullException(nameof(transactionTagRepository));
       _accountRepository = accountRepository ?? throw new ArgumentNullException(nameof(accountRepository));
       _historyRepository = historyRepository ?? throw new ArgumentNullException(nameof(historyRepository));
     }
@@ -29,14 +29,14 @@ namespace fin_app_backend.Services
       var mappedTransaction = ObjectMapper.Mapper.Map<Transaction>(payload);
       await _transactionRepository.AddAsync(mappedTransaction);
 
-      payload.TagIds.ForEach(async TagId =>
+      foreach (var TagId in payload.TagIds)
       {
         await _transactionTagRepository.AddAsync(new Transactiontag()
         {
           TagId = TagId,
           TransactionId = mappedTransaction.Id
         });
-      });
+      };
 
       var Accounts = await _accountRepository.GetAsync(account => account.UserId == payload.UserId);
 
@@ -48,7 +48,7 @@ namespace fin_app_backend.Services
           AccountId = account.Id,
           CreatedAt = payload.CreatedAt,
           UserId = payload.UserId,
-          Amount = payload.AccountId == account.Id ? (payload.Expense ? currentAccountAmount - payload.Amount : currentAccountAmount + payload.Amount) : currentAccountAmount
+          Amount = payload.AccountId == account.Id ? ((bool)payload.Expense == true ? (currentAccountAmount - payload.Amount) : (currentAccountAmount + payload.Amount)) : currentAccountAmount
         });
       }
     }
@@ -96,7 +96,7 @@ namespace fin_app_backend.Services
           UserId = transfer.UserId,
           Amount = account.Id == transfer.AccountFromId ?
             (currentAccountAmount - transfer.Amount) :
-            (account.Id == transfer.AccountToId ? currentAccountAmount + transfer.Amount : currentAccountAmount)
+            (account.Id == transfer.AccountToId ? (currentAccountAmount + transfer.Amount) : currentAccountAmount)
         });
       }
     }

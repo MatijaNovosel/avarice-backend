@@ -17,9 +17,9 @@ namespace fin_app_backend.Services
       _tagRepository = tagRepository ?? throw new ArgumentNullException(nameof(tagRepository));
     }
 
-    public async Task<IEnumerable<TagModel>> GetTags()
+    public async Task<IEnumerable<TagModel>> GetTags(string userId)
     {
-      var tags = await _tagRepository.GetAllAsync();
+      var tags = await _tagRepository.GetAsync(x => x.System == 0);
       var mapped = ObjectMapper.Mapper.Map<IEnumerable<TagModel>>(tags);
       return mapped;
     }

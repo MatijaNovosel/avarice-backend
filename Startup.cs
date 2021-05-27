@@ -25,6 +25,7 @@ using Microsoft.IdentityModel.Tokens;
 using NSwag.Generation.Processors.Security;
 
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 
 namespace fin_app_backend
 {
@@ -71,6 +72,19 @@ namespace fin_app_backend
 
       services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<finappContext>();
 
+      services.AddCors(options =>
+      {
+        options.AddDefaultPolicy(
+          builder =>
+          {
+            builder
+              .WithOrigins("http://localhost:8080", "https://localhost:8080", "null")
+              .AllowAnyMethod()
+              .AllowAnyHeader()
+              .AllowCredentials();
+          });
+      });
+
       // Repositories
       services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
       services.AddScoped<ITagRepository, TagRepository>();
@@ -85,6 +99,7 @@ namespace fin_app_backend
       services.AddScoped<IHistoryService, HistoryService>();
       services.AddScoped<IUserService, UserService>();
       services.AddScoped<IAuthService, AuthService>();
+      services.AddScoped<IAccountService, AccountService>();
 
       services.AddAutoMapper(typeof(Startup));
 
@@ -94,6 +109,12 @@ namespace fin_app_backend
       });
 
       services.AddTransient<IAuthorizationHandler, UserAuthorHandler>();
+
+      services.AddHttpsRedirection(options =>
+      {
+        options.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;
+        options.HttpsPort = 5001;
+      });
 
       services.AddControllers();
       services.AddSwaggerDocument(settings =>
@@ -119,6 +140,7 @@ namespace fin_app_backend
         app.UseOpenApi();
         app.UseSwaggerUi3();
       }
+      app.UseCors();
       app.UseHttpsRedirection();
       app.UseRouting();
       app.UseAuthorization();

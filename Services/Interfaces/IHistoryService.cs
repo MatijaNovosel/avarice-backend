@@ -11,5 +11,6 @@ namespace fin_app_backend.Services.Interfaces
     Task<RecentDepositsAndWithdrawalsModel> GetRecentDepositsAndWithdrawals(string userId);
     Task<IEnumerable<DailyChangeModel>> GetDailyChanges(string userId);
     Task<double> GetDailyChangeForDate(DateTime date, bool expense);
+    Task<DateTime> GetLatestDate(string userId);
   }
 }

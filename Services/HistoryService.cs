@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using fin_app_backend.Services.Interfaces;
 using fin_app_backend.Repositories.Interfaces;
+using System.Linq;
 
 namespace fin_app_backend.Services
 {
@@ -66,8 +67,8 @@ namespace fin_app_backend.Services
 
       return new RecentDepositsAndWithdrawalsModel()
       {
-        Deposits = withdrawalSum,
-        Withdrawals = depositSum
+        Deposits = depositSum,
+        Withdrawals = withdrawalSum
       };
     }
 
@@ -103,6 +104,12 @@ namespace fin_app_backend.Services
       }
 
       return amount;
+    }
+
+    public async Task<DateTime> GetLatestDate(string userId)
+    {
+      var historyGrouped = await _historyRepository.GetGroupedByCreatedAt(userId);
+      return historyGrouped.Last();
     }
   }
 }

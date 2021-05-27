@@ -13,23 +13,23 @@ namespace fin_app_backend.Controllers
 {
   [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
   [ApiController]
-  [Route("api/tag")]
-  public class TagController : ControllerBase
+  [Route("api/account")]
+  public class AccountController : ControllerBase
   {
     private readonly finappContext _context;
-    private readonly ITagService _tagService;
+    private readonly IAccountService _accountService;
 
-    public TagController(finappContext context, ITagService tagService)
+    public AccountController(finappContext context, IAccountService accountService)
     {
       _context = context;
-      _tagService = tagService;
+      _accountService = accountService;
     }
 
     [Authorize(Policy = "UserMustBeAuthor")]
     [HttpGet]
-    public async Task<IEnumerable<TagModel>> Get(string userId)
+    public async Task<IEnumerable<AccountLatestValueModel>> LatestValues(string userId)
     {
-      var data = await _tagService.GetTags(userId);
+      var data = await _accountService.GetLatestValues(userId);
       return data;
     }
   }
