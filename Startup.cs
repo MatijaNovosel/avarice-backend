@@ -23,7 +23,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using NSwag.Generation.Processors.Security;
-
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 
@@ -140,11 +139,11 @@ namespace fin_app_backend
         app.UseOpenApi();
         app.UseSwaggerUi3();
       }
-      app.UseCors();
       app.UseHttpsRedirection();
       app.UseRouting();
-      app.UseAuthorization();
+      app.UseCors();
       app.UseAuthentication();
+      app.UseAuthorization();
       app.UseEndpoints(endpoints =>
       {
         endpoints.MapControllers();
