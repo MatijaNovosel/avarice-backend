@@ -10,5 +10,7 @@ namespace fin_app_backend.Repositories.Interfaces
   {
     Task<IEnumerable<DateTime>> GetGroupedByCreatedAt(string userId, DateTime from, DateTime to);
     Task<IEnumerable<DateTime>> GetGroupedByCreatedAt(string userId);
+    Task<IEnumerable<DateTime>> GetGroupedByCreatedAtTruncateTime(string userId, DateTime from, DateTime to);
+    Task<IEnumerable<DateTime>> GetGroupedByCreatedAtTruncateTime(string userId);
   }
 }

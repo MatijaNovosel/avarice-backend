@@ -74,13 +74,13 @@ namespace fin_app_backend.Services
 
     public async Task<IEnumerable<DailyChangeModel>> GetDailyChanges(string userId)
     {
-      var historyGrouped = await _historyRepository.GetGroupedByCreatedAt(userId);
+      var historyGrouped = await _historyRepository.GetGroupedByCreatedAtTruncateTime(userId);
       List<DailyChangeModel> dailyChanges = new List<DailyChangeModel>();
 
       foreach (var date in historyGrouped)
       {
-        var deposits = await GetDailyChangeForDate(date, false);
-        var withdrawals = await GetDailyChangeForDate(date, true);
+        var deposits = await GetDailyChangeForDateTruncateTime(date, false);
+        var withdrawals = await GetDailyChangeForDateTruncateTime(date, true);
         dailyChanges.Add(new DailyChangeModel()
         {
           CreatedAt = date,
@@ -97,6 +97,20 @@ namespace fin_app_backend.Services
       double amount = 0;
 
       var transactions = await _transactionRepository.GetAsync(t => t.CreatedAt == date && t.Expense == expense && t.Transfer == 0);
+
+      foreach (var transaction in transactions)
+      {
+        amount += (double)transaction.Amount;
+      }
+
+      return amount;
+    }
+
+    public async Task<double> GetDailyChangeForDateTruncateTime(DateTime date, bool expense)
+    {
+      double amount = 0;
+
+      var transactions = await _transactionRepository.GetAsync(t => t.CreatedAt.Date == date.Date && t.Expense == expense && t.Transfer == 0);
 
       foreach (var transaction in transactions)
       {
