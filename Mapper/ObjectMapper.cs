@@ -30,6 +30,7 @@ namespace fin_app_backend.Mapper
     {
       CreateMap<Tag, TagModel>();
       CreateMap<AddTransactionDto, Transaction>();
+      CreateMap<Account, AccountModel>();
     }
   }
 }

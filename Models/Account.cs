@@ -14,4 +14,9 @@ namespace fin_app_backend.Models
   {
     public string Description { get; set; }
   }
+
+  public class AccountModel : BaseModel
+  {
+    public string Description { get; set; }
+  }
 }

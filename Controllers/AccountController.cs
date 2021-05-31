@@ -26,10 +26,18 @@ namespace fin_app_backend.Controllers
     }
 
     [Authorize(Policy = "UserMustBeAuthor")]
-    [HttpGet]
-    public async Task<IEnumerable<AccountLatestValueModel>> LatestValues(string userId)
+    [HttpGet("latest-values")]
+    public async Task<IEnumerable<AccountLatestValueModel>> GetLatestValues(string userId)
     {
       var data = await _accountService.GetLatestValues(userId);
+      return data;
+    }
+
+    [Authorize(Policy = "UserMustBeAuthor")]
+    [HttpGet]
+    public async Task<IEnumerable<AccountModel>> GetUserAccounts(string userId)
+    {
+      var data = await _accountService.GetUserAccounts(userId);
       return data;
     }
   }

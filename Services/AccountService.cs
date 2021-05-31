@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using fin_app_backend.Services.Interfaces;
 using fin_app_backend.Repositories.Interfaces;
 using fin_app_backend.Models;
+using fin_app_backend.Mapper;
 using System.Linq;
 
 namespace fin_app_backend.Services
@@ -22,9 +23,9 @@ namespace fin_app_backend.Services
     public async Task<IEnumerable<AccountLatestValueModel>> GetLatestValues(string userId)
     {
       List<AccountLatestValueModel> data = new List<AccountLatestValueModel>();
-      var Accounts = await _accountRepository.GetAsync(account => account.UserId == userId);
+      var accounts = await _accountRepository.GetAsync(account => account.UserId == userId);
 
-      foreach (var account in Accounts)
+      foreach (var account in accounts)
       {
         var historyRecord = await _historyRepository.GetAsync(x => x.AccountId == account.Id);
         data.Add(new AccountLatestValueModel()
@@ -37,6 +38,14 @@ namespace fin_app_backend.Services
         });
       }
 
+      return data;
+    }
+
+    public async Task<IEnumerable<AccountModel>> GetUserAccounts(string userId)
+    {
+      List<AccountModel> data = new List<AccountModel>();
+      var accounts = await _accountRepository.GetAsync(account => account.UserId == userId);
+      var mapped = ObjectMapper.Mapper.Map<IEnumerable<AccountModel>>(accounts);
       return data;
     }
   }
