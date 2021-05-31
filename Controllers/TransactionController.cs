@@ -36,5 +36,12 @@ namespace fin_app_backend.Controllers
     {
       await _transactionService.AddTransfer(payload);
     }
+
+    [HttpGet]
+    public async Task<IEnumerable<TransactionModel>> Get(string userId)
+    {
+      var data = await _transactionService.GetAll(userId);
+      return data;
+    }
   }
 }

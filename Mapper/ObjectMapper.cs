@@ -2,6 +2,8 @@ using fin_app_backend.Models;
 using fin_app_backend.Entities;
 using AutoMapper;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace fin_app_backend.Mapper
 {

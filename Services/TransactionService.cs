@@ -6,22 +6,25 @@ using fin_app_backend.Repositories.Interfaces;
 using fin_app_backend.Constants;
 using fin_app_backend.Models;
 using fin_app_backend.Mapper;
+using System.Linq;
 
 namespace fin_app_backend.Services
 {
   public class TransactionService : ITransactionService
   {
     private readonly ITransactionRepository _transactionRepository;
+    private readonly ITagRepository _tagRepository;
     private readonly ITransactionTagRepository _transactionTagRepository;
     private readonly IAccountRepository _accountRepository;
     private readonly IHistoryRepository _historyRepository;
 
-    public TransactionService(ITransactionRepository transactionRepository, ITransactionTagRepository transactionTagRepository, IAccountRepository accountRepository, IHistoryRepository historyRepository)
+    public TransactionService(ITransactionRepository transactionRepository, ITransactionTagRepository transactionTagRepository, IAccountRepository accountRepository, IHistoryRepository historyRepository, ITagRepository tagRepository)
     {
       _transactionRepository = transactionRepository ?? throw new ArgumentNullException(nameof(transactionRepository));
       _transactionTagRepository = transactionTagRepository ?? throw new ArgumentNullException(nameof(transactionTagRepository));
       _accountRepository = accountRepository ?? throw new ArgumentNullException(nameof(accountRepository));
       _historyRepository = historyRepository ?? throw new ArgumentNullException(nameof(historyRepository));
+      _tagRepository = tagRepository ?? throw new ArgumentNullException(nameof(tagRepository));
     }
 
     public async Task AddTransaction(AddTransactionDto payload)
@@ -54,8 +57,6 @@ namespace fin_app_backend.Services
     }
     public async Task AddTransfer(AddTransferDto transfer)
     {
-      DateTime now = new DateTime();
-
       var transferFrom = new Transaction()
       {
         Amount = transfer.Amount,
@@ -64,7 +65,7 @@ namespace fin_app_backend.Services
         Transfer = 1,
         AccountId = transfer.AccountFromId,
         UserId = transfer.UserId,
-        CreatedAt = now
+        CreatedAt = transfer.CreatedAt
       };
 
       var transferTo = new Transaction()
@@ -75,7 +76,7 @@ namespace fin_app_backend.Services
         Transfer = 1,
         AccountId = transfer.AccountToId,
         UserId = transfer.UserId,
-        CreatedAt = now
+        CreatedAt = transfer.CreatedAt
       };
 
       await _transactionRepository.AddAsync(transferFrom);
@@ -92,13 +93,45 @@ namespace fin_app_backend.Services
         await _historyRepository.AddAsync(new History()
         {
           AccountId = account.Id,
-          CreatedAt = now,
+          CreatedAt = transfer.CreatedAt,
           UserId = transfer.UserId,
           Amount = account.Id == transfer.AccountFromId ?
             (currentAccountAmount - transfer.Amount) :
             (account.Id == transfer.AccountToId ? (currentAccountAmount + transfer.Amount) : currentAccountAmount)
         });
       }
+    }
+
+    public async Task<IEnumerable<TransactionModel>> GetAll(string userId)
+    {
+      var res = new List<TransactionModel>();
+      var transactions = await _transactionRepository.GetTransactionsPaginated(userId);
+
+      foreach (var transaction in transactions)
+      {
+        var tagIds = transaction.Transactiontags.Select(y => y.TagId);
+        var tags = await _tagRepository.GetAsync(y => tagIds.Contains(y.Id));
+        var mappedTags = ObjectMapper.Mapper.Map<IEnumerable<TagModel>>(tags);
+
+        res.Add(new TransactionModel()
+        {
+          Id = transaction.Id,
+          Amount = transaction.Amount,
+          CreatedAt = transaction.CreatedAt,
+          Description = transaction.Description,
+          Expense = transaction.Expense,
+          Transfer = Convert.ToBoolean(transaction.Transfer),
+          UserId = userId,
+          Tags = mappedTags.ToList(),
+          Account = new AccountTransactionModel()
+          {
+            Description = transaction.Account.Description,
+            Id = transaction.Account.Id
+          }
+        });
+      }
+
+      return res;
     }
   }
 }
