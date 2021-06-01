@@ -32,17 +32,17 @@ namespace fin_app_backend
   {
     public Startup(IConfiguration configuration)
     {
-      Configuration = configuration;
+      _configuration = configuration;
     }
 
-    public IConfiguration Configuration { get; }
+    private readonly IConfiguration _configuration;
 
     public void ConfigureServices(IServiceCollection services)
     {
       var serverVersion = new MySqlServerVersion(new Version(8, 0, 21));
       services.AddDbContext<finappContext>(
           dbContextOptions => dbContextOptions
-              .UseMySql(Configuration["ConnectionString"], serverVersion)
+              .UseMySql(_configuration["ConnectionString"], serverVersion)
               .EnableSensitiveDataLogging()
               .EnableDetailedErrors()
       );
@@ -55,7 +55,7 @@ namespace fin_app_backend
       })
       .AddJwtBearer(jwt =>
       {
-        var key = Encoding.ASCII.GetBytes(Configuration["SecretKey"]);
+        var key = Encoding.ASCII.GetBytes(_configuration["SecretKey"]);
 
         jwt.SaveToken = true;
         jwt.TokenValidationParameters = new TokenValidationParameters

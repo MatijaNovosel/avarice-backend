@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using fin_app_backend.Services.Interfaces;
 using fin_app_backend.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace fin_app_backend.Controllers
 {
@@ -15,11 +16,13 @@ namespace fin_app_backend.Controllers
   {
     private readonly finappContext _context;
     private readonly IAuthService _authService;
+    private readonly IConfiguration _configuration;
 
-    public AuthController(finappContext context, IAuthService authService)
+    public AuthController(finappContext context, IAuthService authService, IConfiguration configuration)
     {
       _context = context;
       _authService = authService;
+      _configuration = configuration;
     }
 
     [HttpPost("register")]
@@ -38,6 +41,12 @@ namespace fin_app_backend.Controllers
     {
       var data = await _authService.Login(payload);
       return data;
+    }
+
+    [HttpGet("settings")]
+    public IActionResult Settings()
+    {
+      return Ok(_configuration["ConnectionString"]);
     }
   }
 }

@@ -18,12 +18,12 @@ namespace fin_app_backend.Services
   {
     private readonly UserManager<User> _userManager;
     private readonly IHttpContextAccessor _accessor;
-    public IConfiguration Configuration { get; }
+    private readonly IConfiguration _configuration;
 
     public AuthService(UserManager<User> userManager, IConfiguration configuration, IHttpContextAccessor accessor)
     {
       _userManager = userManager;
-      Configuration = configuration;
+      _configuration = configuration;
       _accessor = accessor;
     }
 
@@ -106,7 +106,7 @@ namespace fin_app_backend.Services
     private string GenerateJwtToken(User user)
     {
       var jwtTokenHandler = new JwtSecurityTokenHandler();
-      var key = Encoding.ASCII.GetBytes(Configuration["SecretKey"]);
+      var key = Encoding.ASCII.GetBytes(_configuration["SecretKey"]);
       var tokenDescriptor = new SecurityTokenDescriptor
       {
         Subject = new ClaimsIdentity(new[]
