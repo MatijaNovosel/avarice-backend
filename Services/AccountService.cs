@@ -43,10 +43,9 @@ namespace fin_app_backend.Services
 
     public async Task<IEnumerable<AccountModel>> GetUserAccounts(string userId)
     {
-      List<AccountModel> data = new List<AccountModel>();
       var accounts = await _accountRepository.GetAsync(account => account.UserId == userId);
       var mapped = ObjectMapper.Mapper.Map<IEnumerable<AccountModel>>(accounts);
-      return data;
+      return mapped;
     }
   }
 }
