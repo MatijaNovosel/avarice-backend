@@ -81,12 +81,16 @@ namespace fin_app_backend.Services
       {
         var deposits = await GetDailyChangeForDateTruncateTime(date, false);
         var withdrawals = await GetDailyChangeForDateTruncateTime(date, true);
-        dailyChanges.Add(new DailyChangeModel()
+
+        if (deposits != 0 && withdrawals != 0)
         {
-          CreatedAt = date,
-          Deposits = deposits,
-          Withdrawals = withdrawals
-        });
+          dailyChanges.Add(new DailyChangeModel()
+          {
+            CreatedAt = date,
+            Deposits = deposits,
+            Withdrawals = withdrawals
+          });
+        }
       }
 
       return dailyChanges;
@@ -96,7 +100,7 @@ namespace fin_app_backend.Services
     {
       double amount = 0;
 
-      var transactions = await _transactionRepository.GetAsync(t => t.CreatedAt == date && t.Expense == expense);
+      var transactions = await _transactionRepository.GetAsync(t => t.CreatedAt == date && t.Expense == expense && t.Transfer == 0);
 
       foreach (var transaction in transactions)
       {
@@ -110,7 +114,7 @@ namespace fin_app_backend.Services
     {
       double amount = 0;
 
-      var transactions = await _transactionRepository.GetAsync(t => t.CreatedAt.Date == date.Date && t.Expense == expense);
+      var transactions = await _transactionRepository.GetAsync(t => t.CreatedAt.Date == date.Date && t.Expense == expense && t.Transfer == 0);
 
       foreach (var transaction in transactions)
       {
