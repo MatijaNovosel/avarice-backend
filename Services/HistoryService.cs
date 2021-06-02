@@ -82,15 +82,17 @@ namespace fin_app_backend.Services
         var deposits = await GetDailyChangeForDateTruncateTime(date, false);
         var withdrawals = await GetDailyChangeForDateTruncateTime(date, true);
 
-        if (deposits != 0 && withdrawals != 0)
+        if (deposits == 0 && withdrawals == 0)
         {
-          dailyChanges.Add(new DailyChangeModel()
-          {
-            CreatedAt = date,
-            Deposits = deposits,
-            Withdrawals = withdrawals
-          });
+          continue;
         }
+
+        dailyChanges.Add(new DailyChangeModel()
+        {
+          CreatedAt = date,
+          Deposits = deposits,
+          Withdrawals = withdrawals
+        });
       }
 
       return dailyChanges;
