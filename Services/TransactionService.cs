@@ -108,7 +108,7 @@ namespace fin_app_backend.Services
       }
     }
 
-    public async Task<IEnumerable<TransactionModel>> GetAll(string userId, int skip, int take)
+    public async Task<IEnumerable<TransactionModel>> GetAll(string userId, int? skip, int? take)
     {
       var res = new List<TransactionModel>();
       var transactions = await _transactionRepository.GetTransactionsPaginated(userId, skip, take);

@@ -8,6 +8,6 @@ namespace fin_app_backend.Repositories.Interfaces
 {
   public interface ITransactionRepository : IRepository<Transaction>
   {
-    Task<IEnumerable<Transaction>> GetTransactionsPaginated(string userId, int skip, int take);
+    Task<IEnumerable<Transaction>> GetTransactionsPaginated(string userId, int? skip, int? take);
   }
 }
