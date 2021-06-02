@@ -38,10 +38,15 @@ namespace fin_app_backend.Controllers
     }
 
     [HttpGet]
-    public async Task<IEnumerable<TransactionModel>> Get(string userId, int skip, int take)
+    public async Task<PageableCollection<TransactionModel>> Get(string userId, int skip, int take)
     {
       var data = await _transactionService.GetAll(userId, skip, take);
-      return data;
+      var count = await _transactionService.GetCount(userId);
+      
+      return new PageableCollection<TransactionModel>() {
+        Results = data,
+        Total = count
+      };
     }
   }
 }

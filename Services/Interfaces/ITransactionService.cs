@@ -9,5 +9,6 @@ namespace fin_app_backend.Services.Interfaces
     Task AddTransaction(AddTransactionDto transaction);
     Task AddTransfer(AddTransferDto transfer);
     Task<IEnumerable<TransactionModel>> GetAll(string userId, int? skip, int? take);
+    Task<long> GetCount(string userId);
   }
 }

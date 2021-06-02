@@ -139,5 +139,11 @@ namespace fin_app_backend.Services
 
       return res;
     }
+
+    public async Task<long> GetCount(string userId) 
+    {
+      var transactions = await _transactionRepository.GetAllAsync();
+      return transactions.Count;
+    }
   }
 }
