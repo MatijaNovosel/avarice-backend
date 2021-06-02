@@ -96,7 +96,7 @@ namespace fin_app_backend.Services
     {
       double amount = 0;
 
-      var transactions = await _transactionRepository.GetAsync(t => t.CreatedAt == date && t.Expense == expense && t.Transfer == 0);
+      var transactions = await _transactionRepository.GetAsync(t => t.CreatedAt == date && t.Expense == expense);
 
       foreach (var transaction in transactions)
       {
@@ -110,7 +110,7 @@ namespace fin_app_backend.Services
     {
       double amount = 0;
 
-      var transactions = await _transactionRepository.GetAsync(t => t.CreatedAt.Date == date.Date && t.Expense == expense && t.Transfer == 0);
+      var transactions = await _transactionRepository.GetAsync(t => t.CreatedAt.Date == date.Date && t.Expense == expense);
 
       foreach (var transaction in transactions)
       {

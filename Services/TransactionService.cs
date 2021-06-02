@@ -18,7 +18,13 @@ namespace fin_app_backend.Services
     private readonly IAccountRepository _accountRepository;
     private readonly IHistoryRepository _historyRepository;
 
-    public TransactionService(ITransactionRepository transactionRepository, ITransactionTagRepository transactionTagRepository, IAccountRepository accountRepository, IHistoryRepository historyRepository, ITagRepository tagRepository)
+    public TransactionService(
+      ITransactionRepository transactionRepository,
+      ITransactionTagRepository transactionTagRepository,
+      IAccountRepository accountRepository,
+      IHistoryRepository historyRepository,
+      ITagRepository tagRepository
+    )
     {
       _transactionRepository = transactionRepository ?? throw new ArgumentNullException(nameof(transactionRepository));
       _transactionTagRepository = transactionTagRepository ?? throw new ArgumentNullException(nameof(transactionTagRepository));
@@ -102,10 +108,10 @@ namespace fin_app_backend.Services
       }
     }
 
-    public async Task<IEnumerable<TransactionModel>> GetAll(string userId)
+    public async Task<IEnumerable<TransactionModel>> GetAll(string userId, int skip, int take)
     {
       var res = new List<TransactionModel>();
-      var transactions = await _transactionRepository.GetTransactionsPaginated(userId);
+      var transactions = await _transactionRepository.GetTransactionsPaginated(userId, skip, take);
 
       foreach (var transaction in transactions)
       {

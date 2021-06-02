@@ -38,9 +38,9 @@ namespace fin_app_backend.Controllers
     }
 
     [HttpGet]
-    public async Task<IEnumerable<TransactionModel>> Get(string userId)
+    public async Task<IEnumerable<TransactionModel>> Get(string userId, int skip, int take)
     {
-      var data = await _transactionService.GetAll(userId);
+      var data = await _transactionService.GetAll(userId, skip, take);
       return data;
     }
   }
