@@ -72,5 +72,13 @@ namespace fin_app_backend.Controllers
       var data = await _historyService.GetHistoryForAccount(userId, accountId, from, to);
       return data;
     }
+
+    [Authorize(Policy = "UserMustBeAuthor")]
+    [HttpGet("tag-percentages")]
+    public async Task<IEnumerable<TagPercentageModel>> TagPercentages(string userId)
+    {
+      var data = await _historyService.GetTagPercentages(userId);
+      return data;
+    }
   }
 }

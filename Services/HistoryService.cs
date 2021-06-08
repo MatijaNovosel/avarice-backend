@@ -11,12 +11,16 @@ namespace fin_app_backend.Services
   {
     private readonly IHistoryRepository _historyRepository;
     private readonly ITransactionRepository _transactionRepository;
+    private readonly ITagRepository _tagRepository;
+    private readonly ITransactionTagRepository _transactionTagRepository;
     private readonly IUserService _userService;
 
-    public HistoryService(IHistoryRepository historyRepository, IUserService userService, ITransactionRepository transactionRepository)
+    public HistoryService(IHistoryRepository historyRepository, IUserService userService, ITransactionRepository transactionRepository, ITagRepository tagRepository, ITransactionTagRepository transactionTagRepository)
     {
       _historyRepository = historyRepository ?? throw new ArgumentNullException(nameof(historyRepository));
       _transactionRepository = transactionRepository ?? throw new ArgumentNullException(nameof(transactionRepository));
+      _tagRepository = tagRepository ?? throw new ArgumentNullException(nameof(tagRepository));
+      _transactionTagRepository = transactionTagRepository ?? throw new ArgumentNullException(nameof(transactionTagRepository));
       _userService = userService ?? throw new ArgumentNullException(nameof(userService));
     }
 
@@ -180,6 +184,46 @@ namespace fin_app_backend.Services
       }
 
       return res;
+    }
+
+    public async Task<IEnumerable<TagPercentageModel>> GetTagPercentages(string userId)
+    {
+      var data = new List<TagPercentageModel>();
+      var tagMap = new Dictionary<int, int>();
+      var totalTags = 0;
+
+      var tags = await _tagRepository.GetAsync(x => x.UserId == userId);
+
+      foreach (var tag in tags)
+      {
+        tagMap[tag.Id] = 0;
+      }
+
+      var transactions = await _transactionRepository.GetTransactionsPaginated(userId, null, null);
+
+      foreach (var t in transactions.Where(x => x.Transfer == 0))
+      {
+        var tagIds = t.Transactiontags.Select(x => x.TagId);
+        foreach (var tagId in tagIds)
+        {
+          tagMap[(int)tagId]++;
+          totalTags++;
+        }
+      }
+
+      foreach (var tag in tags)
+      {
+        if (tagMap[tag.Id] != 0)
+        {
+          data.Add(new TagPercentageModel()
+          {
+            Description = tag.Description,
+            Percentage = tagMap[tag.Id] / (double)totalTags
+          });
+        }
+      }
+
+      return data;
     }
   }
 }

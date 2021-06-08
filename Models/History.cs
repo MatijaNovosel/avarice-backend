@@ -30,4 +30,10 @@ namespace fin_app_backend
     public double Withdrawals { get; set; }
     public DateTime CreatedAt { get; set; }
   }
+
+  public class TagPercentageModel
+  {
+    public double Percentage { get; set; }
+    public string Description { get; set; }
+  }
 }
