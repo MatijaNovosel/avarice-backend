@@ -201,7 +201,7 @@ namespace fin_app_backend.Services
 
       var transactions = await _transactionRepository.GetTransactionsPaginated(userId, null, null);
 
-      foreach (var t in transactions.Where(x => x.Transfer == 0))
+      foreach (var t in transactions.Where(x => x.Transfer == 0 && x.Expense == true))
       {
         var tagIds = t.Transactiontags.Select(x => x.TagId);
         foreach (var tagId in tagIds)
