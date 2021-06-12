@@ -8,6 +8,7 @@ using fin_app_backend.Services.Interfaces;
 using fin_app_backend.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Security.Claims;
 
 namespace fin_app_backend.Controllers
 {
@@ -25,11 +26,10 @@ namespace fin_app_backend.Controllers
       _tagService = tagService;
     }
 
-    [Authorize(Policy = "UserMustBeAuthor")]
     [HttpGet]
-    public async Task<IEnumerable<TagModel>> Get(string userId)
+    public async Task<IEnumerable<TagModel>> Get()
     {
-      var data = await _tagService.GetTags(userId);
+      var data = await _tagService.GetTags(((ClaimsIdentity)User.Identity).FindFirst("Id").Value);
       return data;
     }
   }

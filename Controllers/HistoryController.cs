@@ -8,6 +8,7 @@ using fin_app_backend.Services.Interfaces;
 using fin_app_backend.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Security.Claims;
 
 namespace fin_app_backend.Controllers
 {
@@ -25,59 +26,52 @@ namespace fin_app_backend.Controllers
       _historyService = historyService;
     }
 
-    [Authorize(Policy = "UserMustBeAuthor")]
     [HttpGet("total")]
-    public async Task<IEnumerable<HistoryTotalModel>> Total(string userId, DateTime from, DateTime to)
+    public async Task<IEnumerable<HistoryTotalModel>> Total(DateTime from, DateTime to)
     {
-      var data = await _historyService.GetTotal(userId, from, to);
+      var data = await _historyService.GetTotal(((ClaimsIdentity)User.Identity).FindFirst("Id").Value, from, to);
       return data;
     }
 
-    [Authorize(Policy = "UserMustBeAuthor")]
     [HttpGet("recent-deposits-and-withdrawals")]
-    public async Task<RecentDepositsAndWithdrawalsModel> RecentDepositsAndWithdrawals(string userId)
+    public async Task<RecentDepositsAndWithdrawalsModel> RecentDepositsAndWithdrawals()
     {
-      var data = await _historyService.GetRecentDepositsAndWithdrawals(userId);
+      var data = await _historyService.GetRecentDepositsAndWithdrawals(((ClaimsIdentity)User.Identity).FindFirst("Id").Value);
       return data;
     }
 
-    [Authorize(Policy = "UserMustBeAuthor")]
     [HttpGet("daily-changes")]
-    public async Task<IEnumerable<DailyChangeModel>> DailyChanges(string userId)
+    public async Task<IEnumerable<DailyChangeModel>> DailyChanges()
     {
-      var data = await _historyService.GetDailyChanges(userId);
+      var data = await _historyService.GetDailyChanges(((ClaimsIdentity)User.Identity).FindFirst("Id").Value);
       return data;
     }
 
-    [Authorize(Policy = "UserMustBeAuthor")]
     [HttpGet("latest-date")]
-    public async Task<DateTime> LatestDate(string userId)
+    public async Task<DateTime> LatestDate()
     {
-      var data = await _historyService.GetLatestDate(userId);
+      var data = await _historyService.GetLatestDate(((ClaimsIdentity)User.Identity).FindFirst("Id").Value);
       return data;
     }
 
-    [Authorize(Policy = "UserMustBeAuthor")]
     [HttpGet("account-total/{accountId}")]
-    public async Task<IEnumerable<HistoryTotalModel>> AccountHistoryTotal([FromRoute] int accountId, string userId)
+    public async Task<IEnumerable<HistoryTotalModel>> AccountHistoryTotal([FromRoute] int accountId)
     {
-      var data = await _historyService.GetHistoryForAccount(userId, accountId);
+      var data = await _historyService.GetHistoryForAccount(((ClaimsIdentity)User.Identity).FindFirst("Id").Value, accountId);
       return data;
     }
 
-    [Authorize(Policy = "UserMustBeAuthor")]
     [HttpGet("account/{accountId}")]
-    public async Task<IEnumerable<HistoryTotalModel>> AccountHistory([FromRoute] int accountId, string userId, DateTime from, DateTime to)
+    public async Task<IEnumerable<HistoryTotalModel>> AccountHistory([FromRoute] int accountId, DateTime from, DateTime to)
     {
-      var data = await _historyService.GetHistoryForAccount(userId, accountId, from, to);
+      var data = await _historyService.GetHistoryForAccount(((ClaimsIdentity)User.Identity).FindFirst("Id").Value, accountId, from, to);
       return data;
     }
 
-    [Authorize(Policy = "UserMustBeAuthor")]
     [HttpGet("tag-percentages")]
-    public async Task<IEnumerable<TagPercentageModel>> TagPercentages(string userId)
+    public async Task<IEnumerable<TagPercentageModel>> TagPercentages()
     {
-      var data = await _historyService.GetTagPercentages(userId);
+      var data = await _historyService.GetTagPercentages(((ClaimsIdentity)User.Identity).FindFirst("Id").Value);
       return data;
     }
   }

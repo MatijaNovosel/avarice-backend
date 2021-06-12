@@ -8,6 +8,7 @@ using fin_app_backend.Services.Interfaces;
 using fin_app_backend.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Security.Claims;
 
 namespace fin_app_backend.Controllers
 {
@@ -25,19 +26,17 @@ namespace fin_app_backend.Controllers
       _accountService = accountService;
     }
 
-    [Authorize(Policy = "UserMustBeAuthor")]
     [HttpGet("latest-values")]
-    public async Task<IEnumerable<AccountLatestValueModel>> GetLatestValues(string userId)
+    public async Task<IEnumerable<AccountLatestValueModel>> GetLatestValues()
     {
-      var data = await _accountService.GetLatestValues(userId);
+      var data = await _accountService.GetLatestValues(((ClaimsIdentity)User.Identity).FindFirst("Id").Value);
       return data;
     }
 
-    [Authorize(Policy = "UserMustBeAuthor")]
     [HttpGet]
-    public async Task<IEnumerable<AccountModel>> GetUserAccounts(string userId)
+    public async Task<IEnumerable<AccountModel>> GetUserAccounts()
     {
-      var data = await _accountService.GetUserAccounts(userId);
+      var data = await _accountService.GetUserAccounts(((ClaimsIdentity)User.Identity).FindFirst("Id").Value);
       return data;
     }
   }

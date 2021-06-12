@@ -8,6 +8,7 @@ using fin_app_backend.Services.Interfaces;
 using fin_app_backend.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Security.Claims;
 
 namespace fin_app_backend.Controllers
 {
@@ -38,10 +39,10 @@ namespace fin_app_backend.Controllers
     }
 
     [HttpGet]
-    public async Task<PageableCollection<TransactionModel>> Get(string userId, int skip, int take)
+    public async Task<PageableCollection<TransactionModel>> Get(int skip, int take)
     {
-      var data = await _transactionService.GetAll(userId, skip, take);
-      var count = await _transactionService.GetCount(userId);
+      var data = await _transactionService.GetAll(((ClaimsIdentity)User.Identity).FindFirst("Id").Value, skip, take);
+      var count = await _transactionService.GetCount(((ClaimsIdentity)User.Identity).FindFirst("Id").Value);
       
       return new PageableCollection<TransactionModel>() {
         Results = data,
