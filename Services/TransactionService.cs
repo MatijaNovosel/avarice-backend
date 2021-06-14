@@ -33,7 +33,7 @@ namespace fin_app_backend.Services
       _tagRepository = tagRepository ?? throw new ArgumentNullException(nameof(tagRepository));
     }
 
-    public async Task AddTransaction(AddTransactionDto payload)
+    public async Task AddTransaction(AddTransactionDto payload, string userId)
     {
       var mappedTransaction = ObjectMapper.Mapper.Map<Transaction>(payload);
       await _transactionRepository.AddAsync(mappedTransaction);
@@ -47,7 +47,7 @@ namespace fin_app_backend.Services
         });
       };
 
-      var Accounts = await _accountRepository.GetAsync(account => account.UserId == payload.UserId);
+      var Accounts = await _accountRepository.GetAsync(account => account.UserId == userId);
 
       foreach (var account in Accounts)
       {
@@ -56,12 +56,12 @@ namespace fin_app_backend.Services
         {
           AccountId = account.Id,
           CreatedAt = payload.CreatedAt,
-          UserId = payload.UserId,
+          UserId = userId,
           Amount = payload.AccountId == account.Id ? ((bool)payload.Expense == true ? (currentAccountAmount - payload.Amount) : (currentAccountAmount + payload.Amount)) : currentAccountAmount
         });
       }
     }
-    public async Task AddTransfer(AddTransferDto transfer)
+    public async Task AddTransfer(AddTransferDto transfer, string userId)
     {
       var transferFrom = new Transaction()
       {
@@ -70,7 +70,7 @@ namespace fin_app_backend.Services
         Expense = true,
         Transfer = 1,
         AccountId = transfer.AccountFromId,
-        UserId = transfer.UserId,
+        UserId = userId,
         CreatedAt = transfer.CreatedAt
       };
 
@@ -81,7 +81,7 @@ namespace fin_app_backend.Services
         Expense = false,
         Transfer = 1,
         AccountId = transfer.AccountToId,
-        UserId = transfer.UserId,
+        UserId = userId,
         CreatedAt = transfer.CreatedAt
       };
 
@@ -91,7 +91,7 @@ namespace fin_app_backend.Services
       await _transactionTagRepository.AddAsync(new Transactiontag() { TagId = (int)SystemTags.Transfer, TransactionId = transferFrom.Id });
       await _transactionTagRepository.AddAsync(new Transactiontag() { TagId = (int)SystemTags.Transfer, TransactionId = transferTo.Id });
 
-      var Accounts = await _accountRepository.GetAsync(account => account.UserId == transfer.UserId);
+      var Accounts = await _accountRepository.GetAsync(account => account.UserId == userId);
 
       foreach (var account in Accounts)
       {
@@ -100,7 +100,7 @@ namespace fin_app_backend.Services
         {
           AccountId = account.Id,
           CreatedAt = transfer.CreatedAt,
-          UserId = transfer.UserId,
+          UserId = userId,
           Amount = account.Id == transfer.AccountFromId ?
             (currentAccountAmount - transfer.Amount) :
             (account.Id == transfer.AccountToId ? (currentAccountAmount + transfer.Amount) : currentAccountAmount)

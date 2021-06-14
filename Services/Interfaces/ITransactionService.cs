@@ -6,8 +6,8 @@ namespace fin_app_backend.Services.Interfaces
 {
   public interface ITransactionService
   {
-    Task AddTransaction(AddTransactionDto transaction);
-    Task AddTransfer(AddTransferDto transfer);
+    Task AddTransaction(AddTransactionDto transaction, string userId);
+    Task AddTransfer(AddTransferDto transfer, string userId);
     Task<IEnumerable<TransactionModel>> GetAll(string userId, int? skip, int? take);
     Task<long> GetCount(string userId);
   }

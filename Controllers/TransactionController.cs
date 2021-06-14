@@ -29,13 +29,13 @@ namespace fin_app_backend.Controllers
     [HttpPost]
     public async Task Add(AddTransactionDto payload)
     {
-      await _transactionService.AddTransaction(payload);
+      await _transactionService.AddTransaction(payload, ((ClaimsIdentity)User.Identity).FindFirst("Id").Value);
     }
 
     [HttpPost("transfer")]
     public async Task Transfer(AddTransferDto payload)
     {
-      await _transactionService.AddTransfer(payload);
+      await _transactionService.AddTransfer(payload, ((ClaimsIdentity)User.Identity).FindFirst("Id").Value);
     }
 
     [HttpGet]
