@@ -35,15 +35,24 @@ namespace fin_app_backend.Services
 
     public async Task AddTransaction(AddTransactionDto payload, string userId)
     {
-      var mappedTransaction = ObjectMapper.Mapper.Map<Transaction>(payload);
-      await _transactionRepository.AddAsync(mappedTransaction);
+      var newTransaction = new Transaction() {
+        AccountId = payload.AccountId,
+        Amount = payload.Amount,
+        CreatedAt = payload.CreatedAt,
+        Description = payload.Description,
+        Transfer = 0,
+        Expense = payload.Expense,
+        UserId = userId
+      };
+
+      await _transactionRepository.AddAsync(newTransaction);
 
       foreach (var TagId in payload.TagIds)
       {
         await _transactionTagRepository.AddAsync(new Transactiontag()
         {
           TagId = TagId,
-          TransactionId = mappedTransaction.Id
+          TransactionId = newTransaction.Id
         });
       };
 
