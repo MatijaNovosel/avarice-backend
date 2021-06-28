@@ -74,5 +74,12 @@ namespace fin_app_backend.Controllers
       var data = await _historyService.GetTagPercentages(((ClaimsIdentity)User.Identity).FindFirst("Id").Value);
       return data;
     }
+
+    [HttpGet("spending-by-tag")]
+    public async Task<IEnumerable<SpendingByTagModel>> SpendingByTag()
+    {
+      var data = await _historyService.SpendingByTag(((ClaimsIdentity)User.Identity).FindFirst("Id").Value);
+      return data;
+    }
   }
 }

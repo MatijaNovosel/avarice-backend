@@ -36,4 +36,10 @@ namespace fin_app_backend
     public double Percentage { get; set; }
     public string Description { get; set; }
   }
+
+  public class SpendingByTagModel
+  {
+    public double Amount { get; set; }
+    public string Description { get; set; }
+  }
 }

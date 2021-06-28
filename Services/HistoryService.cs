@@ -225,5 +225,43 @@ namespace fin_app_backend.Services
 
       return data;
     }
+
+    public async Task<IEnumerable<SpendingByTagModel>> SpendingByTag(string userId)
+    {
+      var data = new List<SpendingByTagModel>();
+      var tagMap = new Dictionary<int, double>();
+
+      var tags = await _tagRepository.GetAsync(x => x.UserId == userId);
+
+      foreach (var tag in tags)
+      {
+        tagMap[tag.Id] = 0;
+      }
+
+      var transactions = await _transactionRepository.GetTransactionsPaginated(userId, null, null);
+
+      foreach (var t in transactions.Where(x => x.Transfer == 0 && x.Expense == true))
+      {
+        var tagIds = t.Transactiontags.Select(x => x.TagId);
+        foreach (var tagId in tagIds)
+        {
+          tagMap[(int)tagId] = tagMap[(int)tagId] + (double)t.Amount;
+        }
+      }
+
+      foreach (var tag in tags)
+      {
+        if (tagMap[tag.Id] != 0)
+        {
+          data.Add(new SpendingByTagModel()
+          {
+            Description = tag.Description,
+            Amount = tagMap[tag.Id]
+          });
+        }
+      }
+
+      return data;
+    }
   }
 }

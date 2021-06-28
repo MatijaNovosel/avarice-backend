@@ -15,5 +15,6 @@ namespace fin_app_backend.Services.Interfaces
     Task<double> GetDailyChangeForDate(DateTime date, bool expense);
     Task<DateTime> GetLatestDate(string userId);
     Task<IEnumerable<TagPercentageModel>> GetTagPercentages(string userId);
+    Task<IEnumerable<SpendingByTagModel>> SpendingByTag(string userId);
   }
 }
