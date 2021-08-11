@@ -18,23 +18,10 @@ namespace fin_app_backend.Services
       _accountRepository = accountRepository ?? throw new ArgumentNullException(nameof(accountRepository));
     }
 
-    public async Task<IEnumerable<AccountLatestValueModel>> GetLatestValues(string userId)
+    public async Task<IEnumerable<Account>> GetLatestValues(string userId)
     {
-      List<AccountLatestValueModel> data = new List<AccountLatestValueModel>();
       var accounts = await _accountRepository.GetAsync(account => account.UserId == userId);
-
-      foreach (var account in accounts)
-      {
-        data.Add(new AccountLatestValueModel()
-        {
-          Balance = account.Balance,
-          Currency = account.Currency,
-          Name = account.Name,
-          Id = account.Id
-        });
-      }
-
-      return data;
+      return accounts;
     }
   }
 }

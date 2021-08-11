@@ -27,7 +27,7 @@ namespace fin_app_backend.Controllers
     }
 
     [HttpGet]
-    public async Task<IEnumerable<AccountLatestValueModel>> GetUserAccounts()
+    public async Task<IEnumerable<Account>> GetUserAccounts()
     {
       var data = await _accountService.GetLatestValues(((ClaimsIdentity)User.Identity).FindFirst("Id").Value);
       return data;
