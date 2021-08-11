@@ -20,8 +20,7 @@ namespace fin_app_backend.Repositories
 
     public async Task<double> GetCurrentAmount(int accountId)
     {
-      var latestHistoryEntry = await _dbContext.Histories.Where(historyEntry => historyEntry.AccountId == accountId).OrderBy(x => x.CreatedAt).LastOrDefaultAsync();
-      return latestHistoryEntry.Amount;
+      return 2500;
     }
   }
 }

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace fin_app_backend.Migrations
 {
-    public partial class Authentication : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -66,22 +66,6 @@ namespace fin_app_backend.Migrations
                 .Annotation("MySql:CharSet", "latin1");
 
             migrationBuilder.CreateTable(
-                name: "locale",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "int(11)", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    text = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true, collation: "latin1_swedish_ci")
-                        .Annotation("MySql:CharSet", "latin1")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_locale", x => x.id);
-                })
-                .Annotation("MySql:CharSet", "latin1")
-                .Annotation("Relational:Collation", "latin1_swedish_ci");
-
-            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -112,11 +96,9 @@ namespace fin_app_backend.Migrations
                 {
                     id = table.Column<int>(type: "int(11)", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    currency = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false, defaultValueSql: "'HRK'", collation: "latin1_swedish_ci")
+                    currency = table.Column<string>(type: "varchar(32)", maxLength: 32, nullable: false, defaultValueSql: "'HRK'", collation: "latin1_swedish_ci")
                         .Annotation("MySql:CharSet", "latin1"),
-                    icon = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false, defaultValueSql: "'eye'", collation: "latin1_swedish_ci")
-                        .Annotation("MySql:CharSet", "latin1"),
-                    description = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true, collation: "latin1_swedish_ci")
+                    name = table.Column<string>(type: "varchar(64)", maxLength: 64, nullable: true, collation: "latin1_swedish_ci")
                         .Annotation("MySql:CharSet", "latin1"),
                     userId = table.Column<string>(type: "varchar(255)", nullable: true, collation: "latin1_swedish_ci")
                         .Annotation("MySql:CharSet", "latin1")
@@ -237,87 +219,25 @@ namespace fin_app_backend.Migrations
                 .Annotation("MySql:CharSet", "latin1");
 
             migrationBuilder.CreateTable(
-                name: "tag",
+                name: "category",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int(11)", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    description = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true, collation: "latin1_swedish_ci")
+                    name = table.Column<string>(type: "varchar(32)", maxLength: 32, nullable: true, collation: "latin1_swedish_ci")
                         .Annotation("MySql:CharSet", "latin1"),
-                    userId = table.Column<string>(type: "varchar(255)", nullable: true, collation: "latin1_swedish_ci")
+                    icon = table.Column<string>(type: "varchar(32)", maxLength: 32, nullable: true, collation: "latin1_swedish_ci")
                         .Annotation("MySql:CharSet", "latin1"),
-                    System = table.Column<sbyte>(type: "tinyint", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_tag", x => x.id);
-                    table.ForeignKey(
-                        name: "tag_ibfk_1",
-                        column: x => x.userId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                })
-                .Annotation("MySql:CharSet", "latin1")
-                .Annotation("Relational:Collation", "latin1_swedish_ci");
-
-            migrationBuilder.CreateTable(
-                name: "settings",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "int(11)", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    darkMode = table.Column<bool>(type: "tinyint(1)", nullable: true),
-                    localeId = table.Column<int>(type: "int(11)", nullable: true),
-                    preferredCurrency = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false, defaultValueSql: "'HRK'", collation: "latin1_swedish_ci")
-                        .Annotation("MySql:CharSet", "latin1"),
-                    dateFormat = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false, defaultValueSql: "'dd.MM.yyyy. HH:mm'", collation: "latin1_swedish_ci")
+                    color = table.Column<string>(type: "varchar(32)", maxLength: 32, nullable: true, collation: "latin1_swedish_ci")
                         .Annotation("MySql:CharSet", "latin1"),
                     userId = table.Column<string>(type: "varchar(255)", nullable: true, collation: "latin1_swedish_ci")
                         .Annotation("MySql:CharSet", "latin1")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_settings", x => x.id);
+                    table.PrimaryKey("PK_category", x => x.id);
                     table.ForeignKey(
-                        name: "settings_ibfk_1",
-                        column: x => x.userId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "settings_ibfk_2",
-                        column: x => x.localeId,
-                        principalTable: "locale",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
-                })
-                .Annotation("MySql:CharSet", "latin1")
-                .Annotation("Relational:Collation", "latin1_swedish_ci");
-
-            migrationBuilder.CreateTable(
-                name: "history",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "int(11)", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    accountId = table.Column<int>(type: "int(11)", nullable: true),
-                    amount = table.Column<double>(type: "double", nullable: false),
-                    createdAt = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
-                    userId = table.Column<string>(type: "varchar(255)", nullable: true, collation: "latin1_swedish_ci")
-                        .Annotation("MySql:CharSet", "latin1")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_history", x => x.id);
-                    table.ForeignKey(
-                        name: "history_ibfk_1",
-                        column: x => x.accountId,
-                        principalTable: "account",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "history_ibfk_2",
+                        name: "category_ibfk_1",
                         column: x => x.userId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -330,17 +250,17 @@ namespace fin_app_backend.Migrations
                 name: "transaction",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int(11)", nullable: false)
+                    id = table.Column<int>(type: "int(18)", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     amount = table.Column<double>(type: "double", nullable: true),
-                    createdAt = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
                     description = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true, collation: "latin1_swedish_ci")
                         .Annotation("MySql:CharSet", "latin1"),
-                    expense = table.Column<bool>(type: "tinyint(1)", nullable: true),
-                    accountId = table.Column<int>(type: "int(11)", nullable: true),
-                    userId = table.Column<string>(type: "varchar(255)", nullable: true, collation: "latin1_swedish_ci")
+                    transactionType = table.Column<string>(type: "varchar(3)", maxLength: 3, nullable: true, collation: "latin1_swedish_ci")
                         .Annotation("MySql:CharSet", "latin1"),
-                    transfer = table.Column<sbyte>(type: "tinyint(4)", nullable: false)
+                    accountId = table.Column<int>(type: "int(11)", nullable: true),
+                    categoryId = table.Column<int>(type: "int(11)", nullable: true),
+                    userId = table.Column<string>(type: "varchar(255)", nullable: true, collation: "latin1_swedish_ci")
+                        .Annotation("MySql:CharSet", "latin1")
                 },
                 constraints: table =>
                 {
@@ -357,32 +277,10 @@ namespace fin_app_backend.Migrations
                         principalTable: "account",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
-                })
-                .Annotation("MySql:CharSet", "latin1")
-                .Annotation("Relational:Collation", "latin1_swedish_ci");
-
-            migrationBuilder.CreateTable(
-                name: "transactiontag",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "int(11)", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    transactionId = table.Column<int>(type: "int(11)", nullable: true),
-                    tagId = table.Column<int>(type: "int(11)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_transactiontag", x => x.id);
                     table.ForeignKey(
-                        name: "transactiontag_ibfk_1",
-                        column: x => x.transactionId,
-                        principalTable: "transaction",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "transactiontag_ibfk_2",
-                        column: x => x.tagId,
-                        principalTable: "tag",
+                        name: "transaction_ibfk_3",
+                        column: x => x.categoryId,
+                        principalTable: "category",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 })
@@ -432,49 +330,24 @@ namespace fin_app_backend.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_category_userId",
+                table: "category",
+                column: "userId");
+
+            migrationBuilder.CreateIndex(
                 name: "accountId",
-                table: "history",
+                table: "transaction",
                 column: "accountId");
+
+            migrationBuilder.CreateIndex(
+                name: "categoryId",
+                table: "transaction",
+                column: "categoryId");
 
             migrationBuilder.CreateIndex(
                 name: "userId1",
-                table: "history",
-                column: "userId");
-
-            migrationBuilder.CreateIndex(
-                name: "settings_ibfk_2",
-                table: "settings",
-                column: "localeId");
-
-            migrationBuilder.CreateIndex(
-                name: "userId2",
-                table: "settings",
-                column: "userId");
-
-            migrationBuilder.CreateIndex(
-                name: "userId3",
-                table: "tag",
-                column: "userId");
-
-            migrationBuilder.CreateIndex(
-                name: "accountId1",
-                table: "transaction",
-                column: "accountId");
-
-            migrationBuilder.CreateIndex(
-                name: "userId4",
                 table: "transaction",
                 column: "userId");
-
-            migrationBuilder.CreateIndex(
-                name: "tagId",
-                table: "transactiontag",
-                column: "tagId");
-
-            migrationBuilder.CreateIndex(
-                name: "transactionId",
-                table: "transactiontag",
-                column: "transactionId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -495,28 +368,16 @@ namespace fin_app_backend.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "history");
-
-            migrationBuilder.DropTable(
-                name: "settings");
-
-            migrationBuilder.DropTable(
-                name: "transactiontag");
+                name: "transaction");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "locale");
-
-            migrationBuilder.DropTable(
-                name: "transaction");
-
-            migrationBuilder.DropTable(
-                name: "tag");
-
-            migrationBuilder.DropTable(
                 name: "account");
+
+            migrationBuilder.DropTable(
+                name: "category");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

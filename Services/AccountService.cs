@@ -12,12 +12,10 @@ namespace fin_app_backend.Services
   public class AccountService : IAccountService
   {
     private readonly IAccountRepository _accountRepository;
-    private readonly IHistoryRepository _historyRepository;
 
-    public AccountService(IAccountRepository accountRepository, IHistoryRepository historyRepository)
+    public AccountService(IAccountRepository accountRepository)
     {
       _accountRepository = accountRepository ?? throw new ArgumentNullException(nameof(accountRepository));
-      _historyRepository = historyRepository ?? throw new ArgumentNullException(nameof(historyRepository));
     }
 
     public async Task<IEnumerable<AccountLatestValueModel>> GetLatestValues(string userId)
@@ -27,25 +25,16 @@ namespace fin_app_backend.Services
 
       foreach (var account in accounts)
       {
-        var historyRecord = await _historyRepository.GetAsync(x => x.AccountId == account.Id);
         data.Add(new AccountLatestValueModel()
         {
-          Amount = historyRecord.Last().Amount,
+          Balance = account.Balance,
           Currency = account.Currency,
-          Description = account.Description,
-          Icon = account.Icon,
+          Name = account.Name,
           Id = account.Id
         });
       }
 
       return data;
-    }
-
-    public async Task<IEnumerable<AccountModel>> GetUserAccounts(string userId)
-    {
-      var accounts = await _accountRepository.GetAsync(account => account.UserId == userId);
-      var mapped = ObjectMapper.Mapper.Map<IEnumerable<AccountModel>>(accounts);
-      return mapped;
     }
   }
 }

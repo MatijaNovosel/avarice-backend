@@ -10,16 +10,12 @@ namespace fin_app_backend
     public User()
     {
       Accounts = new HashSet<Account>();
-      Histories = new HashSet<History>();
-      Settings = new HashSet<Setting>();
-      Tags = new HashSet<Tag>();
       Transactions = new HashSet<Transaction>();
+      Categories = new HashSet<Category>();
     }
 
     public virtual ICollection<Account> Accounts { get; set; }
-    public virtual ICollection<History> Histories { get; set; }
-    public virtual ICollection<Setting> Settings { get; set; }
-    public virtual ICollection<Tag> Tags { get; set; }
     public virtual ICollection<Transaction> Transactions { get; set; }
+    public virtual ICollection<Category> Categories { get; set; }
   }
 }

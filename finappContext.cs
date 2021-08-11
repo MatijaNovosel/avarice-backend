@@ -23,12 +23,8 @@ namespace fin_app_backend
     }
 
     public virtual DbSet<Account> Accounts { get; set; }
-    public virtual DbSet<History> Histories { get; set; }
-    public virtual DbSet<Locale> Locales { get; set; }
-    public virtual DbSet<Setting> Settings { get; set; }
-    public virtual DbSet<Tag> Tags { get; set; }
     public virtual DbSet<Transaction> Transactions { get; set; }
-    public virtual DbSet<Transactiontag> Transactiontags { get; set; }
+    public virtual DbSet<Category> Categories { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -52,25 +48,21 @@ namespace fin_app_backend
 
         entity.HasIndex(e => e.UserId, "userId");
 
+        entity.Property(e => e.Balance).HasColumnName("balance");
+
         entity.Property(e => e.Id)
                   .HasColumnType("int(11)")
                   .HasColumnName("id");
 
         entity.Property(e => e.Currency)
                   .IsRequired()
-                  .HasMaxLength(50)
+                  .HasMaxLength(32)
                   .HasColumnName("currency")
                   .HasDefaultValueSql("'HRK'");
 
-        entity.Property(e => e.Description)
-                  .HasMaxLength(255)
-                  .HasColumnName("description");
-
-        entity.Property(e => e.Icon)
-                  .IsRequired()
-                  .HasMaxLength(50)
-                  .HasColumnName("icon")
-                  .HasDefaultValueSql("'eye'");
+        entity.Property(e => e.Name)
+                  .HasMaxLength(64)
+                  .HasColumnName("name");
 
         entity.Property(e => e.UserId)
                   .HasColumnName("userId");
@@ -79,135 +71,6 @@ namespace fin_app_backend
                   .WithMany(p => p.Accounts)
                   .HasForeignKey(d => d.UserId)
                   .HasConstraintName("account_ibfk_1");
-      });
-
-      modelBuilder.Entity<History>(entity =>
-      {
-        entity.ToTable("history");
-
-        entity.HasCharSet("latin1")
-                  .UseCollation("latin1_swedish_ci");
-
-        entity.HasIndex(e => e.AccountId, "accountId");
-
-        entity.HasIndex(e => e.UserId, "userId");
-
-        entity.Property(e => e.Id)
-                  .HasColumnType("int(11)")
-                  .HasColumnName("id");
-
-        entity.Property(e => e.AccountId)
-                  .HasColumnType("int(11)")
-                  .HasColumnName("accountId");
-
-        entity.Property(e => e.Amount).HasColumnName("amount");
-
-        entity.Property(e => e.CreatedAt)
-                  .HasColumnType("datetime")
-                  .HasColumnName("createdAt")
-                  .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-        entity.Property(e => e.UserId)
-                  .HasColumnName("userId");
-
-        entity.HasOne(d => d.Account)
-                  .WithMany(p => p.Histories)
-                  .HasForeignKey(d => d.AccountId)
-                  .HasConstraintName("history_ibfk_1");
-
-        entity.HasOne(d => d.User)
-                  .WithMany(p => p.Histories)
-                  .HasForeignKey(d => d.UserId)
-                  .HasConstraintName("history_ibfk_2");
-      });
-
-      modelBuilder.Entity<Locale>(entity =>
-      {
-        entity.ToTable("locale");
-
-        entity.HasCharSet("latin1")
-                  .UseCollation("latin1_swedish_ci");
-
-        entity.Property(e => e.Id)
-                  .HasColumnType("int(11)")
-                  .HasColumnName("id");
-
-        entity.Property(e => e.Text)
-                  .HasMaxLength(50)
-                  .HasColumnName("text");
-      });
-
-      modelBuilder.Entity<Setting>(entity =>
-      {
-        entity.ToTable("settings");
-
-        entity.HasCharSet("latin1")
-                  .UseCollation("latin1_swedish_ci");
-
-        entity.HasIndex(e => e.LocaleId, "settings_ibfk_2");
-
-        entity.HasIndex(e => e.UserId, "userId");
-
-        entity.Property(e => e.Id)
-                  .HasColumnType("int(11)")
-                  .HasColumnName("id");
-
-        entity.Property(e => e.DarkMode).HasColumnName("darkMode");
-
-        entity.Property(e => e.DateFormat)
-                  .IsRequired()
-                  .HasMaxLength(50)
-                  .HasColumnName("dateFormat")
-                  .HasDefaultValueSql("'dd.MM.yyyy. HH:mm'");
-
-        entity.Property(e => e.LocaleId)
-                  .HasColumnType("int(11)")
-                  .HasColumnName("localeId");
-
-        entity.Property(e => e.PreferredCurrency)
-                  .IsRequired()
-                  .HasMaxLength(50)
-                  .HasColumnName("preferredCurrency")
-                  .HasDefaultValueSql("'HRK'");
-
-        entity.Property(e => e.UserId)
-                  .HasColumnName("userId");
-
-        entity.HasOne(d => d.Locale)
-                  .WithMany(p => p.Settings)
-                  .HasForeignKey(d => d.LocaleId)
-                  .HasConstraintName("settings_ibfk_2");
-
-        entity.HasOne(d => d.User)
-                  .WithMany(p => p.Settings)
-                  .HasForeignKey(d => d.UserId)
-                  .HasConstraintName("settings_ibfk_1");
-      });
-
-      modelBuilder.Entity<Tag>(entity =>
-      {
-        entity.ToTable("tag");
-
-        entity.HasCharSet("latin1")
-                  .UseCollation("latin1_swedish_ci");
-
-        entity.HasIndex(e => e.UserId, "userId");
-
-        entity.Property(e => e.Id)
-                  .HasColumnType("int(11)")
-                  .HasColumnName("id");
-
-        entity.Property(e => e.Description)
-                  .HasMaxLength(255)
-                  .HasColumnName("description");
-
-        entity.Property(e => e.UserId)
-                  .HasColumnName("userId");
-
-        entity.HasOne(d => d.User)
-                  .WithMany(p => p.Tags)
-                  .HasForeignKey(d => d.UserId)
-                  .HasConstraintName("tag_ibfk_1");
       });
 
       modelBuilder.Entity<Transaction>(entity =>
@@ -221,30 +84,29 @@ namespace fin_app_backend
 
         entity.HasIndex(e => e.UserId, "userId");
 
+        entity.HasIndex(e => e.CategoryId, "categoryId");
+
         entity.Property(e => e.Id)
-                  .HasColumnType("int(11)")
+                  .HasColumnType("int(18)")
                   .HasColumnName("id");
 
         entity.Property(e => e.AccountId)
                   .HasColumnType("int(11)")
                   .HasColumnName("accountId");
 
-        entity.Property(e => e.Amount).HasColumnName("amount");
+        entity.Property(e => e.CategoryId)
+                  .HasColumnType("int(11)")
+                  .HasColumnName("categoryId");
 
-        entity.Property(e => e.CreatedAt)
-                  .HasColumnType("datetime")
-                  .HasColumnName("createdAt")
-                  .HasDefaultValueSql("CURRENT_TIMESTAMP");
+        entity.Property(e => e.Amount).HasColumnName("amount");
 
         entity.Property(e => e.Description)
                   .HasMaxLength(255)
                   .HasColumnName("description");
 
-        entity.Property(e => e.Expense).HasColumnName("expense");
-
-        entity.Property(e => e.Transfer)
-                  .HasColumnType("tinyint(4)")
-                  .HasColumnName("transfer");
+        entity.Property(e => e.TransactionType)
+                  .HasMaxLength(3)
+                  .HasColumnName("transactionType");
 
         entity.Property(e => e.UserId)
                   .HasColumnName("userId");
@@ -258,40 +120,43 @@ namespace fin_app_backend
                   .WithMany(p => p.Transactions)
                   .HasForeignKey(d => d.UserId)
                   .HasConstraintName("transaction_ibfk_1");
+
+        entity.HasOne(d => d.Category)
+                  .WithMany(p => p.Transactions)
+                  .HasForeignKey(d => d.CategoryId)
+                  .HasConstraintName("transaction_ibfk_3");
       });
 
-      modelBuilder.Entity<Transactiontag>(entity =>
+      modelBuilder.Entity<Category>(entity =>
       {
-        entity.ToTable("transactiontag");
+        entity.ToTable("category");
 
         entity.HasCharSet("latin1")
                   .UseCollation("latin1_swedish_ci");
-
-        entity.HasIndex(e => e.TagId, "tagId");
-
-        entity.HasIndex(e => e.TransactionId, "transactionId");
 
         entity.Property(e => e.Id)
                   .HasColumnType("int(11)")
                   .HasColumnName("id");
 
-        entity.Property(e => e.TagId)
-                  .HasColumnType("int(11)")
-                  .HasColumnName("tagId");
+        entity.Property(e => e.UserId)
+                  .HasColumnName("userId");
 
-        entity.Property(e => e.TransactionId)
-                  .HasColumnType("int(11)")
-                  .HasColumnName("transactionId");
+        entity.Property(e => e.Name)
+                  .HasMaxLength(32)
+                  .HasColumnName("name");
 
-        entity.HasOne(d => d.Tag)
-                  .WithMany(p => p.Transactiontags)
-                  .HasForeignKey(d => d.TagId)
-                  .HasConstraintName("transactiontag_ibfk_2");
+        entity.Property(e => e.Icon)
+                  .HasMaxLength(32)
+                  .HasColumnName("icon");
 
-        entity.HasOne(d => d.Transaction)
-                  .WithMany(p => p.Transactiontags)
-                  .HasForeignKey(d => d.TransactionId)
-                  .HasConstraintName("transactiontag_ibfk_1");
+        entity.Property(e => e.Color)
+                  .HasMaxLength(32)
+                  .HasColumnName("color");
+
+        entity.HasOne(d => d.User)
+                  .WithMany(p => p.Categories)
+                  .HasForeignKey(d => d.UserId)
+                  .HasConstraintName("category_ibfk_1");
       });
 
       OnModelCreatingPartial(modelBuilder);

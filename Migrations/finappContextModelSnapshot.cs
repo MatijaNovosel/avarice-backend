@@ -16,7 +16,7 @@ namespace fin_app_backend.Migrations
             modelBuilder
                 .HasCharSet("latin1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64)
-                .HasAnnotation("ProductVersion", "5.0.6");
+                .HasAnnotation("ProductVersion", "5.0.5");
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -160,23 +160,15 @@ namespace fin_app_backend.Migrations
                     b.Property<string>("Currency")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
+                        .HasMaxLength(32)
+                        .HasColumnType("varchar(32)")
                         .HasColumnName("currency")
                         .HasDefaultValueSql("'HRK'");
 
-                    b.Property<string>("Description")
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)")
-                        .HasColumnName("description");
-
-                    b.Property<string>("Icon")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("icon")
-                        .HasDefaultValueSql("'eye'");
+                    b.Property<string>("Name")
+                        .HasMaxLength(64)
+                        .HasColumnType("varchar(64)")
+                        .HasColumnName("name");
 
                     b.Property<string>("UserId")
                         .HasColumnType("varchar(255)")
@@ -193,26 +185,27 @@ namespace fin_app_backend.Migrations
                         .UseCollation("latin1_swedish_ci");
                 });
 
-            modelBuilder.Entity("fin_app_backend.History", b =>
+            modelBuilder.Entity("fin_app_backend.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int(11)")
                         .HasColumnName("id");
 
-                    b.Property<int?>("AccountId")
-                        .HasColumnType("int(11)")
-                        .HasColumnName("accountId");
+                    b.Property<string>("Color")
+                        .HasMaxLength(32)
+                        .HasColumnType("varchar(32)")
+                        .HasColumnName("color");
 
-                    b.Property<double>("Amount")
-                        .HasColumnType("double")
-                        .HasColumnName("amount");
+                    b.Property<string>("Icon")
+                        .HasMaxLength(32)
+                        .HasColumnType("varchar(32)")
+                        .HasColumnName("icon");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime")
-                        .HasColumnName("createdAt")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    b.Property<string>("Name")
+                        .HasMaxLength(32)
+                        .HasColumnType("varchar(32)")
+                        .HasColumnName("name");
 
                     b.Property<string>("UserId")
                         .HasColumnType("varchar(255)")
@@ -220,113 +213,9 @@ namespace fin_app_backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex(new[] { "AccountId" }, "accountId");
+                    b.HasIndex("UserId");
 
-                    b.HasIndex(new[] { "UserId" }, "userId")
-                        .HasDatabaseName("userId1");
-
-                    b.ToTable("history");
-
-                    b
-                        .HasCharSet("latin1")
-                        .UseCollation("latin1_swedish_ci");
-                });
-
-            modelBuilder.Entity("fin_app_backend.Locale", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int(11)")
-                        .HasColumnName("id");
-
-                    b.Property<string>("Text")
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("locale");
-
-                    b
-                        .HasCharSet("latin1")
-                        .UseCollation("latin1_swedish_ci");
-                });
-
-            modelBuilder.Entity("fin_app_backend.Setting", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int(11)")
-                        .HasColumnName("id");
-
-                    b.Property<bool?>("DarkMode")
-                        .HasColumnType("tinyint(1)")
-                        .HasColumnName("darkMode");
-
-                    b.Property<string>("DateFormat")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("dateFormat")
-                        .HasDefaultValueSql("'dd.MM.yyyy. HH:mm'");
-
-                    b.Property<int?>("LocaleId")
-                        .HasColumnType("int(11)")
-                        .HasColumnName("localeId");
-
-                    b.Property<string>("PreferredCurrency")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
-                        .HasColumnName("preferredCurrency")
-                        .HasDefaultValueSql("'HRK'");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("varchar(255)")
-                        .HasColumnName("userId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex(new[] { "LocaleId" }, "settings_ibfk_2");
-
-                    b.HasIndex(new[] { "UserId" }, "userId")
-                        .HasDatabaseName("userId2");
-
-                    b.ToTable("settings");
-
-                    b
-                        .HasCharSet("latin1")
-                        .UseCollation("latin1_swedish_ci");
-                });
-
-            modelBuilder.Entity("fin_app_backend.Tag", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int(11)")
-                        .HasColumnName("id");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)")
-                        .HasColumnName("description");
-
-                    b.Property<sbyte?>("System")
-                        .HasColumnType("tinyint");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("varchar(255)")
-                        .HasColumnName("userId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex(new[] { "UserId" }, "userId")
-                        .HasDatabaseName("userId3");
-
-                    b.ToTable("tag");
+                    b.ToTable("category");
 
                     b
                         .HasCharSet("latin1")
@@ -337,7 +226,7 @@ namespace fin_app_backend.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int(11)")
+                        .HasColumnType("int(18)")
                         .HasColumnName("id");
 
                     b.Property<int?>("AccountId")
@@ -348,24 +237,19 @@ namespace fin_app_backend.Migrations
                         .HasColumnType("double")
                         .HasColumnName("amount");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime")
-                        .HasColumnName("createdAt")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    b.Property<int?>("CategoryId")
+                        .HasColumnType("int(11)")
+                        .HasColumnName("categoryId");
 
                     b.Property<string>("Description")
                         .HasMaxLength(255)
                         .HasColumnType("varchar(255)")
                         .HasColumnName("description");
 
-                    b.Property<bool?>("Expense")
-                        .HasColumnType("tinyint(1)")
-                        .HasColumnName("expense");
-
-                    b.Property<sbyte>("Transfer")
-                        .HasColumnType("tinyint(4)")
-                        .HasColumnName("transfer");
+                    b.Property<string>("TransactionType")
+                        .HasMaxLength(3)
+                        .HasColumnType("varchar(3)")
+                        .HasColumnName("transactionType");
 
                     b.Property<string>("UserId")
                         .HasColumnType("varchar(255)")
@@ -373,41 +257,14 @@ namespace fin_app_backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex(new[] { "AccountId" }, "accountId")
-                        .HasDatabaseName("accountId1");
+                    b.HasIndex(new[] { "AccountId" }, "accountId");
+
+                    b.HasIndex(new[] { "CategoryId" }, "categoryId");
 
                     b.HasIndex(new[] { "UserId" }, "userId")
-                        .HasDatabaseName("userId4");
+                        .HasDatabaseName("userId1");
 
                     b.ToTable("transaction");
-
-                    b
-                        .HasCharSet("latin1")
-                        .UseCollation("latin1_swedish_ci");
-                });
-
-            modelBuilder.Entity("fin_app_backend.Transactiontag", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int(11)")
-                        .HasColumnName("id");
-
-                    b.Property<int?>("TagId")
-                        .HasColumnType("int(11)")
-                        .HasColumnName("tagId");
-
-                    b.Property<int?>("TransactionId")
-                        .HasColumnType("int(11)")
-                        .HasColumnName("transactionId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex(new[] { "TagId" }, "tagId");
-
-                    b.HasIndex(new[] { "TransactionId" }, "transactionId");
-
-                    b.ToTable("transactiontag");
 
                     b
                         .HasCharSet("latin1")
@@ -539,46 +396,12 @@ namespace fin_app_backend.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("fin_app_backend.History", b =>
-                {
-                    b.HasOne("fin_app_backend.Account", "Account")
-                        .WithMany("Histories")
-                        .HasForeignKey("AccountId")
-                        .HasConstraintName("history_ibfk_1");
-
-                    b.HasOne("fin_app_backend.User", "User")
-                        .WithMany("Histories")
-                        .HasForeignKey("UserId")
-                        .HasConstraintName("history_ibfk_2");
-
-                    b.Navigation("Account");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("fin_app_backend.Setting", b =>
-                {
-                    b.HasOne("fin_app_backend.Locale", "Locale")
-                        .WithMany("Settings")
-                        .HasForeignKey("LocaleId")
-                        .HasConstraintName("settings_ibfk_2");
-
-                    b.HasOne("fin_app_backend.User", "User")
-                        .WithMany("Settings")
-                        .HasForeignKey("UserId")
-                        .HasConstraintName("settings_ibfk_1");
-
-                    b.Navigation("Locale");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("fin_app_backend.Tag", b =>
+            modelBuilder.Entity("fin_app_backend.Category", b =>
                 {
                     b.HasOne("fin_app_backend.User", "User")
-                        .WithMany("Tags")
+                        .WithMany("Categories")
                         .HasForeignKey("UserId")
-                        .HasConstraintName("tag_ibfk_1");
+                        .HasConstraintName("category_ibfk_1");
 
                     b.Navigation("User");
                 });
@@ -590,6 +413,11 @@ namespace fin_app_backend.Migrations
                         .HasForeignKey("AccountId")
                         .HasConstraintName("transaction_ibfk_2");
 
+                    b.HasOne("fin_app_backend.Category", "Category")
+                        .WithMany("Transactions")
+                        .HasForeignKey("CategoryId")
+                        .HasConstraintName("transaction_ibfk_3");
+
                     b.HasOne("fin_app_backend.User", "User")
                         .WithMany("Transactions")
                         .HasForeignKey("UserId")
@@ -597,57 +425,26 @@ namespace fin_app_backend.Migrations
 
                     b.Navigation("Account");
 
+                    b.Navigation("Category");
+
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("fin_app_backend.Transactiontag", b =>
-                {
-                    b.HasOne("fin_app_backend.Tag", "Tag")
-                        .WithMany("Transactiontags")
-                        .HasForeignKey("TagId")
-                        .HasConstraintName("transactiontag_ibfk_2");
-
-                    b.HasOne("fin_app_backend.Transaction", "Transaction")
-                        .WithMany("Transactiontags")
-                        .HasForeignKey("TransactionId")
-                        .HasConstraintName("transactiontag_ibfk_1");
-
-                    b.Navigation("Tag");
-
-                    b.Navigation("Transaction");
                 });
 
             modelBuilder.Entity("fin_app_backend.Account", b =>
                 {
-                    b.Navigation("Histories");
-
                     b.Navigation("Transactions");
                 });
 
-            modelBuilder.Entity("fin_app_backend.Locale", b =>
+            modelBuilder.Entity("fin_app_backend.Category", b =>
                 {
-                    b.Navigation("Settings");
-                });
-
-            modelBuilder.Entity("fin_app_backend.Tag", b =>
-                {
-                    b.Navigation("Transactiontags");
-                });
-
-            modelBuilder.Entity("fin_app_backend.Transaction", b =>
-                {
-                    b.Navigation("Transactiontags");
+                    b.Navigation("Transactions");
                 });
 
             modelBuilder.Entity("fin_app_backend.User", b =>
                 {
                     b.Navigation("Accounts");
 
-                    b.Navigation("Histories");
-
-                    b.Navigation("Settings");
-
-                    b.Navigation("Tags");
+                    b.Navigation("Categories");
 
                     b.Navigation("Transactions");
                 });

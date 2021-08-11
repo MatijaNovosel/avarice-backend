@@ -7,6 +7,5 @@ namespace fin_app_backend.Services.Interfaces
   public interface IAccountService
   {
     Task<IEnumerable<AccountLatestValueModel>> GetLatestValues(string userId);
-    Task<IEnumerable<AccountModel>> GetUserAccounts(string userId);
   }
 }

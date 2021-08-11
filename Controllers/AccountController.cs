@@ -26,17 +26,10 @@ namespace fin_app_backend.Controllers
       _accountService = accountService;
     }
 
-    [HttpGet("latest-values")]
-    public async Task<IEnumerable<AccountLatestValueModel>> GetLatestValues()
+    [HttpGet]
+    public async Task<IEnumerable<AccountLatestValueModel>> GetUserAccounts()
     {
       var data = await _accountService.GetLatestValues(((ClaimsIdentity)User.Identity).FindFirst("Id").Value);
-      return data;
-    }
-
-    [HttpGet]
-    public async Task<IEnumerable<AccountModel>> GetUserAccounts()
-    {
-      var data = await _accountService.GetUserAccounts(((ClaimsIdentity)User.Identity).FindFirst("Id").Value);
       return data;
     }
   }

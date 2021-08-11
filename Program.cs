@@ -24,15 +24,7 @@ namespace fin_app_backend
       Host.CreateDefaultBuilder(args)
         .ConfigureAppConfiguration((context, config) =>
         {
-          var settings = config.Build();
-          var keyVaultEndpoint = settings["AzureKeyVaultEndpoint"];
-
-          if (!string.IsNullOrEmpty(keyVaultEndpoint))
-          {
-            var azureServiceTokenProvider = new AzureServiceTokenProvider();
-            var keyVaultClient = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback));
-            config.AddAzureKeyVault(keyVaultEndpoint, keyVaultClient, new DefaultKeyVaultSecretManager());
-          }
+          config.AddUserSecrets<Program>();
         })
         .ConfigureWebHostDefaults(webBuilder =>
         {

@@ -14,13 +14,13 @@ namespace fin_app_backend.Models
   {
     [Required]
     [MinLength(5)]
-    [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8}$", ErrorMessage = "Password must meet requirements")]
     public string Username { get; set; }
     [Required]
     [EmailAddress]
     public string Email { get; set; }
     [Required]
-    [MinLength(5)]
+    [MinLength(8)]
+    [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).{8,}$", ErrorMessage = "Password must meet requirements")]
     public string Password { get; set; }
   }
 
