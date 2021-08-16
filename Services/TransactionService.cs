@@ -26,7 +26,27 @@ namespace fin_app_backend.Services
 
     public async Task AddTransaction(AddTransactionDto payload, string userId)
     {
-      //
+      var account = await _accountRepository.GetByIdAsync(payload.AccountId);
+
+      account.Balance = payload.TransactionType == "EXP" ? account.Balance - payload.Amount : account.Balance + payload.Amount;
+
+      /*
+
+        Transaction Id -> 2021-08-12-14-56-45
+        YEAR - MONTH - DAY - HOURS - MINUTES - SECONDS
+
+      */
+
+      await _transactionRepository.AddAsync(new Transaction()
+      {
+        AccountId = account.Id,
+        Amount = payload.Amount,
+        TransactionType = payload.TransactionType,
+        CategoryId = payload.CategoryId,
+        Description = payload.Description,
+        UserId = userId,
+        Id = long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss"))
+      });
     }
 
     public async Task AddTransfer(AddTransferDto transfer, string userId)

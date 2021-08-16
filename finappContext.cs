@@ -87,7 +87,7 @@ namespace fin_app_backend
         entity.HasIndex(e => e.CategoryId, "categoryId");
 
         entity.Property(e => e.Id)
-                  .HasColumnType("int(18)")
+                  .HasColumnType("bigint")
                   .HasColumnName("id");
 
         entity.Property(e => e.AccountId)
@@ -157,6 +157,36 @@ namespace fin_app_backend
                   .WithMany(p => p.Categories)
                   .HasForeignKey(d => d.UserId)
                   .HasConstraintName("category_ibfk_1");
+      });
+
+      modelBuilder.Entity<User>().HasData(new User
+      {
+        Id = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserName = "Novosel",
+        Email = "mnovosel5@gmail.com",
+        NormalizedEmail = "MNOVOSEL5@GMAIL.COM",
+        EmailConfirmed = false,
+        PasswordHash = "AQAAAAEAACcQAAAAEM0Wt1TEKVt7yHabPEkIPjgI1nmxtwcdhGuteBZVD1DSoSRSPans/Q+LChfIteJucw==",
+        SecurityStamp = "KQLSA5W3M75PPLZ34LBVUTTSVTMJ7ANN",
+        ConcurrencyStamp = "89704630-4abf-4488-9cbd-4f9ec29fcb8b"
+      });
+
+      modelBuilder.Entity<Account>().HasData(new Account()
+      {
+        Id = 1,
+        Name = "Gyro",
+        Balance = 14000,
+        Currency = "HRK",
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 1,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "red",
+        Icon = "mdi-account",
+        Name = "Testing category"
       });
 
       OnModelCreatingPartial(modelBuilder);

@@ -72,7 +72,7 @@ namespace fin_app_backend.Repositories.Base
       return await query.ToListAsync();
     }
 
-    public virtual async Task<T> GetByIdAsync(int id)
+    public virtual async Task<T> GetByIdAsync(long id)
     {
       return await _dbContext.Set<T>().FindAsync(id);
     }

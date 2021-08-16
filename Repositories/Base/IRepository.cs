@@ -21,7 +21,7 @@ namespace fin_app_backend.Repositories.Base
                                     List<Expression<Func<T, object>>> includes = null,
                                     bool disableTracking = true);
     Task<IReadOnlyList<T>> GetAsync(ISpecification<T> spec);
-    Task<T> GetByIdAsync(int id);
+    Task<T> GetByIdAsync(long id);
     Task<T> AddAsync(T entity);
     Task UpdateAsync(T entity);
     Task DeleteAsync(T entity);
