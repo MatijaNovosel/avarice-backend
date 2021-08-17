@@ -9,18 +9,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using fin_app_backend.Models;
 
 namespace fin_app_backend.Repositories
 {
   public class AccountRepository : Repository<Account>, IAccountRepository
   {
+
     public AccountRepository(finappContext dbContext) : base(dbContext)
     {
-    }
-
-    public async Task<double> GetCurrentAmount(int accountId)
-    {
-      return 2500;
     }
   }
 }

@@ -32,5 +32,12 @@ namespace fin_app_backend.Controllers
       var data = await _accountService.GetLatestValues(((ClaimsIdentity)User.Identity).FindFirst("Id").Value);
       return data;
     }
+
+    [HttpGet("expense-income/{id}")]
+    public async Task<AccountExpenseAndIncomeModel> GetExpenseAndIncomeInTimePeriod(int id)
+    {
+      var data = await _accountService.GetExpensesAndIncomeInTimePeriod(((ClaimsIdentity)User.Identity).FindFirst("Id").Value, id);
+      return data;
+    }
   }
 }
