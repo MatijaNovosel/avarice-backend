@@ -26,11 +26,8 @@ namespace fin_app_backend.Models
     public double? Amount { get; set; }
     public DateTime CreatedAt { get; set; }
     public string Description { get; set; }
-    public bool? Expense { get; set; }
-    public string UserId { get; set; }
-    public bool? Transfer { get; set; }
-    public List<TagModel> Tags { get; set; }
-    public AccountTransactionModel Account { get; set; }
-
+    public string Category { get; set; }
+    public string TransactionType { get; set; }
+    public string Account { get; set; }
   }
 }

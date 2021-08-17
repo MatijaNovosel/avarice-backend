@@ -17,6 +17,7 @@ namespace fin_app_backend
     public string Icon { get; set; }
     public string Color { get; set; }
     public string UserId { get; set; }
+    public bool System { get; set; }
 
     public virtual User User { get; set; }
     public virtual ICollection<Transaction> Transactions { get; set; }

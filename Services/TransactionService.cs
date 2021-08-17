@@ -6,6 +6,7 @@ using fin_app_backend.Repositories.Interfaces;
 using fin_app_backend.Constants;
 using fin_app_backend.Models;
 using fin_app_backend.Mapper;
+using fin_app_backend.Utils;
 using System.Linq;
 
 namespace fin_app_backend.Services
@@ -27,8 +28,8 @@ namespace fin_app_backend.Services
     public async Task AddTransaction(AddTransactionDto payload, string userId)
     {
       var account = await _accountRepository.GetByIdAsync(payload.AccountId);
-
-      account.Balance = payload.TransactionType == "EXP" ? account.Balance - payload.Amount : account.Balance + payload.Amount;
+      account.Balance = payload.TransactionType == TransactionType.Expense ? account.Balance - payload.Amount : account.Balance + payload.Amount;
+      await _accountRepository.UpdateAsync(account);
 
       /*
 
@@ -51,17 +52,44 @@ namespace fin_app_backend.Services
 
     public async Task AddTransfer(AddTransferDto transfer, string userId)
     {
-      //
+      var accountFrom = await _accountRepository.GetByIdAsync(transfer.AccountFromId);
+      var accountTo = await _accountRepository.GetByIdAsync(transfer.AccountToId);
+
+      accountFrom.Balance = accountFrom.Balance - transfer.Amount;
+      accountTo.Balance = accountFrom.Balance + transfer.Amount;
+
+      await _accountRepository.UpdateAsync(accountFrom);
+      await _accountRepository.UpdateAsync(accountTo);
+
+      /*
+
+        Transaction Id -> 2021-08-12-14-56-45
+        YEAR - MONTH - DAY - HOURS - MINUTES - SECONDS
+
+      */
+
+      await _transactionRepository.AddAsync(new Transaction()
+      {
+        AccountId = accountFrom.Id,
+        Amount = transfer.Amount,
+        TransactionType = TransactionType.Transfer,
+        CategoryId = (long)SystemCategory.Transfer,
+        Description = $"Transfer ({accountFrom.Name} => {accountTo.Name})",
+        UserId = userId,
+        Id = long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss"))
+      });
     }
 
     public async Task<IEnumerable<TransactionModel>> GetAll(string userId, int? skip, int? take)
     {
-      return new List<TransactionModel>();
+      var transactions = await _transactionRepository.GetTransactionsPaginated(userId, skip, take);
+      var mapped = ObjectMapper.Mapper.Map<IEnumerable<TransactionModel>>(transactions);
+      return mapped;
     }
 
     public async Task<long> GetCount(string userId)
     {
-      var transactions = await _transactionRepository.GetAllAsync();
+      var transactions = await _transactionRepository.GetAsync(x => x.UserId == userId);
       return transactions.Count;
     }
   }

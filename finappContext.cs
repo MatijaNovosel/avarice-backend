@@ -145,6 +145,11 @@ namespace fin_app_backend
                   .HasMaxLength(32)
                   .HasColumnName("name");
 
+        entity.Property(e => e.System)
+                  .HasColumnType("bit")
+                  .HasColumnName("system")
+                  .HasDefaultValue(false);
+
         entity.Property(e => e.Icon)
                   .HasMaxLength(32)
                   .HasColumnName("icon");
@@ -183,6 +188,15 @@ namespace fin_app_backend
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 1,
+        UserId = null,
+        Color = "grey",
+        Icon = "mdi-swap-horizontal",
+        Name = "Transfer"
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 2,
         UserId = "ee103364-7617-4474-889e-320838e5f3a5",
         Color = "red",
         Icon = "mdi-account",
