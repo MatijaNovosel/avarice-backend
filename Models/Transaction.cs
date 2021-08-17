@@ -21,7 +21,7 @@ namespace fin_app_backend.Models
     public DateTime CreatedAt { get; set; }
   }
 
-  public class TransactionModel : BaseModel
+  public class TransactionModel
   {
     public double? Amount { get; set; }
     public DateTime CreatedAt { get; set; }

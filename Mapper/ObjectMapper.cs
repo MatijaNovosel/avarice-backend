@@ -4,6 +4,7 @@ using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Globalization;
 
 namespace fin_app_backend.Mapper
 {
@@ -30,6 +31,7 @@ namespace fin_app_backend.Mapper
       CreateMap<Account, AccountModel>();
       CreateMap<Transaction, TransactionModel>()
         .ForMember(dest => dest.Account, m => m.MapFrom(x => x.Account.Name))
+        .ForMember(dest => dest.CreatedAt, m => m.MapFrom(x => DateTime.ParseExact(x.Id.ToString(), "yyyyMMddHHmmss", CultureInfo.InvariantCulture)))
         .ForMember(dest => dest.Category, m => m.MapFrom(x => x.Category.Name));
     }
   }
