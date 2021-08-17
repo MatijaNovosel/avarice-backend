@@ -31,8 +31,13 @@ namespace fin_app_backend.Mapper
       CreateMap<Account, AccountModel>();
       CreateMap<Transaction, TransactionModel>()
         .ForMember(dest => dest.Account, m => m.MapFrom(x => x.Account.Name))
-        .ForMember(dest => dest.CreatedAt, m => m.MapFrom(x => DateTime.ParseExact(x.Id.ToString(), "yyyyMMddHHmmss", CultureInfo.InvariantCulture)))
-        .ForMember(dest => dest.Category, m => m.MapFrom(x => x.Category.Name));
+        .ForMember(dest => dest.CreatedAt, m => m.MapFrom(x => 
+          DateTime.ParseExact(x.Id.ToString(), "yyyyMMddHHmmss", CultureInfo.InvariantCulture)
+        ))
+        .ForMember(dest => dest.Category, m => m.MapFrom(x => new TransactionCategoryModel { 
+          Name = x.Category.Name, 
+          Icon = x.Category.Icon 
+        }));
     }
   }
 }
