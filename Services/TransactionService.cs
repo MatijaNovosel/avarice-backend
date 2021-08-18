@@ -92,5 +92,18 @@ namespace fin_app_backend.Services
       var transactions = await _transactionRepository.GetAsync(x => x.UserId == userId);
       return transactions.Count;
     }
+
+    public async Task DeleteTransaction(string userId, int tId)
+    {
+      var transaction = await _transactionRepository.GetByIdAsync(tId);
+      var account = await _accountRepository.GetByIdAsync((long)transaction.AccountId);
+
+      account.Balance = (double)(transaction.TransactionType == TransactionType.Expense ?
+        account.Balance + transaction.Amount :
+        account.Balance - transaction.Amount);
+
+      await _accountRepository.UpdateAsync(account);
+      await _transactionRepository.DeleteAsync(transaction);
+    }
   }
 }

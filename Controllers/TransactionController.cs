@@ -38,13 +38,20 @@ namespace fin_app_backend.Controllers
       await _transactionService.AddTransfer(payload, ((ClaimsIdentity)User.Identity).FindFirst("Id").Value);
     }
 
+    [HttpDelete("{id}")]
+    public async Task Delete(int accountId)
+    {
+      await _transactionService.DeleteTransaction(((ClaimsIdentity)User.Identity).FindFirst("Id").Value, accountId);
+    }
+
     [HttpGet]
     public async Task<PageableCollection<TransactionModel>> Get(int skip, int take)
     {
       var data = await _transactionService.GetAll(((ClaimsIdentity)User.Identity).FindFirst("Id").Value, skip, take);
       var count = await _transactionService.GetCount(((ClaimsIdentity)User.Identity).FindFirst("Id").Value);
-      
-      return new PageableCollection<TransactionModel>() {
+
+      return new PageableCollection<TransactionModel>()
+      {
         Results = data,
         Total = count
       };
