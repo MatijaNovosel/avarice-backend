@@ -75,6 +75,7 @@ namespace fin_app_backend.Services
         TransactionType = TransactionType.Transfer,
         CategoryId = (long)SystemCategory.Transfer,
         Description = $"Transfer ({accountFrom.Name} => {accountTo.Name})",
+        TransferAccountId = accountTo.Id,
         UserId = userId,
         Id = long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss"))
       });
@@ -98,9 +99,18 @@ namespace fin_app_backend.Services
       var transaction = await _transactionRepository.GetByIdAsync(tId);
       var account = await _accountRepository.GetByIdAsync((long)transaction.AccountId);
 
-      account.Balance = (double)(transaction.TransactionType == TransactionType.Expense ?
-        account.Balance + transaction.Amount :
-        account.Balance - transaction.Amount);
+      if (transaction.TransactionType == TransactionType.Transfer)
+      {
+        var accountTo = await _accountRepository.GetByIdAsync((long)transaction.TransferAccountId);
+        accountTo.Balance = (double)(accountTo.Balance - transaction.Amount);
+        await _accountRepository.UpdateAsync(accountTo);
+      }
+      else
+      {
+        account.Balance = (double)(transaction.TransactionType == TransactionType.Expense ?
+          account.Balance + transaction.Amount :
+          account.Balance - transaction.Amount);
+      }
 
       await _accountRepository.UpdateAsync(account);
       await _transactionRepository.DeleteAsync(transaction);

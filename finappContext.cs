@@ -94,6 +94,10 @@ namespace fin_app_backend
                   .HasColumnType("int(11)")
                   .HasColumnName("accountId");
 
+        entity.Property(e => e.TransferAccountId)
+                  .HasColumnType("int(11)")
+                  .HasColumnName("transferAccountId");
+
         entity.Property(e => e.CategoryId)
                   .HasColumnType("int(11)")
                   .HasColumnName("categoryId");
@@ -114,17 +118,22 @@ namespace fin_app_backend
         entity.HasOne(d => d.Account)
                   .WithMany(p => p.Transactions)
                   .HasForeignKey(d => d.AccountId)
+                  .HasConstraintName("transaction_ibfk_1");
+
+        entity.HasOne(d => d.Account)
+                  .WithMany(p => p.Transactions)
+                  .HasForeignKey(d => d.TransferAccountId)
                   .HasConstraintName("transaction_ibfk_2");
 
         entity.HasOne(d => d.User)
                   .WithMany(p => p.Transactions)
                   .HasForeignKey(d => d.UserId)
-                  .HasConstraintName("transaction_ibfk_1");
+                  .HasConstraintName("transaction_ibfk_3");
 
         entity.HasOne(d => d.Category)
                   .WithMany(p => p.Transactions)
                   .HasForeignKey(d => d.CategoryId)
-                  .HasConstraintName("transaction_ibfk_3");
+                  .HasConstraintName("transaction_ibfk_4");
       });
 
       modelBuilder.Entity<Category>(entity =>
@@ -182,6 +191,15 @@ namespace fin_app_backend
         Name = "Gyro",
         Balance = 14000,
         Currency = "HRK",
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+      });
+
+      modelBuilder.Entity<Account>().HasData(new Account()
+      {
+        Id = 2,
+        Name = "Euros",
+        Balance = 200,
+        Currency = "EUR",
         UserId = "ee103364-7617-4474-889e-320838e5f3a5"
       });
 
