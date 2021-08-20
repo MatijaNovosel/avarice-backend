@@ -2,7 +2,7 @@ using fin_app_backend.Models.Base;
 
 namespace fin_app_backend.Models
 {
-  public class CategoryModel
+  public class CategoryModel : BaseModel
   {
     public string Name { get; set; }
     public string Icon { get; set; }
