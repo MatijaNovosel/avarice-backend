@@ -21,10 +21,11 @@ namespace fin_app_backend.Services
       _transactionRepository = transactionRepository ?? throw new ArgumentNullException(nameof(transactionRepository));
     }
 
-    public async Task<IEnumerable<Account>> GetLatestValues(string userId)
+    public async Task<IEnumerable<AccountModel>> GetLatestValues(string userId)
     {
       var accounts = await _accountRepository.GetAsync(account => account.UserId == userId);
-      return accounts;
+      var mapped = ObjectMapper.Mapper.Map<IEnumerable<AccountModel>>(accounts);
+      return mapped;
     }
 
     public async Task<AccountExpenseAndIncomeModel> GetExpensesAndIncomeInTimePeriod(string userId, int accountId)

@@ -29,6 +29,7 @@ namespace fin_app_backend.Mapper
     {
       CreateMap<AddTransactionDto, Transaction>();
       CreateMap<Category, CategoryModel>();
+      CreateMap<Account, AccountModel>();
       CreateMap<Transaction, TransactionModel>()
         .ForMember(dest => dest.Account, m => m.MapFrom(x => x.Account.Name))
         .ForMember(dest => dest.CreatedAt, m => m.MapFrom(x =>
