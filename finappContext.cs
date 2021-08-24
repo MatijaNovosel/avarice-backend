@@ -120,8 +120,8 @@ namespace fin_app_backend
                   .HasForeignKey(d => d.AccountId)
                   .HasConstraintName("transaction_ibfk_1");
 
-        entity.HasOne(d => d.Account)
-                  .WithMany(p => p.Transactions)
+        entity.HasOne(d => d.TransferAccount)
+                  .WithMany(p => p.TransferTransactions)
                   .HasForeignKey(d => d.TransferAccountId)
                   .HasConstraintName("transaction_ibfk_2");
 

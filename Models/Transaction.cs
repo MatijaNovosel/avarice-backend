@@ -18,7 +18,6 @@ namespace fin_app_backend.Models
     public double Amount { get; set; }
     public int AccountFromId { get; set; }
     public int AccountToId { get; set; }
-    public DateTime CreatedAt { get; set; }
   }
 
   public class TransactionCategoryModel

@@ -11,6 +11,7 @@ namespace fin_app_backend
     public Account()
     {
       Transactions = new HashSet<Transaction>();
+      TransferTransactions = new HashSet<Transaction>();
     }
     public string Currency { get; set; }
     public string Name { get; set; }
@@ -19,5 +20,6 @@ namespace fin_app_backend
 
     public virtual User User { get; set; }
     public virtual ICollection<Transaction> Transactions { get; set; }
+    public virtual ICollection<Transaction> TransferTransactions { get; set; }
   }
 }
