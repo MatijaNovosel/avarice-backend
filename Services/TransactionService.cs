@@ -28,7 +28,7 @@ namespace fin_app_backend.Services
     public async Task AddTransaction(AddTransactionDto payload, string userId)
     {
       var account = await _accountRepository.GetByIdAsync(payload.AccountId);
-      account.Balance = payload.TransactionType == TransactionType.Expense ? account.Balance - payload.Amount : account.Balance + payload.Amount;
+      account.Balance = account.Balance + payload.Amount;
       await _accountRepository.UpdateAsync(account);
 
       /*
