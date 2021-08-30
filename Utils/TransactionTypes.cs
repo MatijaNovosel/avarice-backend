@@ -1,7 +1,7 @@
 
 namespace fin_app_backend.Utils
 {
-  static class TransactionType
+  public static class TransactionType
   {
     public const string Expense = "EXP";
     public const string Income = "INC";

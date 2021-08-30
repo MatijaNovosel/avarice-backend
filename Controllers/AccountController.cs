@@ -39,5 +39,12 @@ namespace fin_app_backend.Controllers
       var data = await _accountService.GetExpensesAndIncomeInTimePeriod(((ClaimsIdentity)User.Identity).FindFirst("Id").Value, id);
       return data;
     }
+
+    [HttpGet("history/{id}")]
+    public async Task<IEnumerable<AccountHistoryModel>> GetAccountHistor(int id)
+    {
+      var data = await _accountService.GetAccountHistory(((ClaimsIdentity)User.Identity).FindFirst("Id").Value, id, Utils.TimePeriodEnum.ThirtyDays);
+      return data;
+    }
   }
 }

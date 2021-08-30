@@ -1,7 +1,7 @@
 
 namespace fin_app_backend.Utils
 {
-  enum SystemCategory
+  public enum SystemCategoryEnum
   {
     Transfer = 1
   }

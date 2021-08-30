@@ -73,7 +73,7 @@ namespace fin_app_backend.Services
         AccountId = accountFrom.Id,
         Amount = transfer.Amount,
         TransactionType = TransactionType.Transfer,
-        CategoryId = (long)SystemCategory.Transfer,
+        CategoryId = (long)SystemCategoryEnum.Transfer,
         Description = $"Transfer ({accountFrom.Name} => {accountTo.Name})",
         TransferAccountId = accountTo.Id,
         UserId = userId,

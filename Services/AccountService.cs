@@ -7,6 +7,7 @@ using fin_app_backend.Models;
 using fin_app_backend.Mapper;
 using fin_app_backend.Utils;
 using System.Linq;
+using System.Globalization;
 
 namespace fin_app_backend.Services
 {
@@ -49,6 +50,67 @@ namespace fin_app_backend.Services
           .Where(x => x.TransactionType == TransactionType.Income)
           .Sum(x => x.Amount)
       };
+    }
+
+    public async Task<IEnumerable<AccountHistoryModel>> GetAccountHistory(string userId, int accountId, TimePeriodEnum timePeriod)
+    {
+      var res = new List<AccountHistoryModel>();
+
+      var accountBalance = (await _accountRepository.GetByIdAsync(accountId)).Balance;
+
+      var toRange = long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss"));
+      var fromRange = long.Parse(DateTime.Now.AddDays(-30).ToString("yyyyMMddHHmmss"));
+
+      var transactions = await _transactionRepository.GetAsync(t =>
+        t.UserId == userId &&
+        t.AccountId == accountId &&
+        t.Id >= fromRange &&
+        t.Id <= toRange
+      );
+
+      if (transactions.Count != 0)
+      {
+        var currentAmount = accountBalance;
+
+        for (int i = 0; i <= 30; i++)
+        {
+          var id = long.Parse(DateTime.Now.AddDays(i * -1).ToString("yyyyMMddHHmmss"));
+          var transactionAtDate = transactions.Where(x => long.Parse(
+            x.Id.ToString().Substring(0, 8)) == long.Parse(id.ToString().Substring(0, 8))
+          ).ToList();
+
+          if (transactionAtDate.Count != 0)
+          {
+            foreach (var t in transactions)
+            {
+              if (t.TransactionType == TransactionType.Expense)
+              {
+                currentAmount += (double)t.Amount;
+              }
+              else if (t.TransactionType == TransactionType.Income)
+              {
+                currentAmount -= (double)t.Amount;
+              }
+            }
+          }
+
+          res.Add(new AccountHistoryModel
+          {
+            Amount = currentAmount,
+            Date = DateTime.Now.AddDays(i * -1)
+          });
+        }
+      }
+      else
+      {
+        for (int i = 0; i <= 30; i++) res.Add(new AccountHistoryModel
+        {
+          Amount = accountBalance,
+          Date = DateTime.Now.AddDays(i * -1)
+        });
+      }
+
+      return res;
     }
   }
 }
