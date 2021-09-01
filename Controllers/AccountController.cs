@@ -41,7 +41,7 @@ namespace fin_app_backend.Controllers
     }
 
     [HttpGet("history/{id}")]
-    public async Task<IEnumerable<AccountHistoryModel>> GetAccountHistor(int id)
+    public async Task<IEnumerable<AccountHistoryModel>> GetAccountHistory(int id)
     {
       var data = await _accountService.GetAccountHistory(((ClaimsIdentity)User.Identity).FindFirst("Id").Value, id, Utils.TimePeriodEnum.ThirtyDays);
       return data;

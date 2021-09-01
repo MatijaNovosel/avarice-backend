@@ -81,11 +81,11 @@ namespace fin_app_backend.Services
 
           if (transactionAtDate.Count != 0)
           {
-            foreach (var t in transactions)
+            foreach (var t in transactionAtDate)
             {
               if (t.TransactionType == TransactionType.Expense)
               {
-                currentAmount += (double)t.Amount;
+                currentAmount += (double)t.Amount * -1;
               }
               else if (t.TransactionType == TransactionType.Income)
               {
