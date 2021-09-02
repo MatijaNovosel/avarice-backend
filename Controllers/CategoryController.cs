@@ -32,5 +32,11 @@ namespace fin_app_backend.Controllers
       var data = await _categoryService.GetAll(((ClaimsIdentity)User.Identity).FindFirst("Id").Value);
       return data;
     }
+
+    [HttpPost]
+    public async Task Create(CreateCategoryModel newCategory)
+    {
+      await _categoryService.Create(newCategory);
+    }
   }
 }
