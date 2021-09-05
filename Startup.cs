@@ -39,14 +39,6 @@ namespace fin_app_backend
 
     public void ConfigureServices(IServiceCollection services)
     {
-      var serverVersion = new MySqlServerVersion(new Version(8, 0, 21));
-      services.AddDbContext<finappContext>(
-          dbContextOptions => dbContextOptions
-              .UseMySql(_configuration["ConnectionString"], serverVersion)
-              .EnableSensitiveDataLogging()
-              .EnableDetailedErrors()
-      );
-
       services.AddAuthentication(options =>
       {
         options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -68,6 +60,14 @@ namespace fin_app_backend
           ValidateLifetime = true
         };
       });
+
+      var serverVersion = new MySqlServerVersion(new Version(8, 0, 21));
+      services.AddDbContext<finappContext>(
+          dbContextOptions => dbContextOptions
+              .UseMySql(_configuration["ConnectionString"], serverVersion)
+              .EnableSensitiveDataLogging()
+              .EnableDetailedErrors()
+      );
 
       services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<finappContext>();
 

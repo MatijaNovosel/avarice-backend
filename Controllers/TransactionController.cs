@@ -39,7 +39,7 @@ namespace fin_app_backend.Controllers
     }
 
     [HttpDelete("{id}")]
-    public async Task Delete(int id)
+    public async Task Delete(long id)
     {
       await _transactionService.DeleteTransaction(((ClaimsIdentity)User.Identity).FindFirst("Id").Value, id);
     }

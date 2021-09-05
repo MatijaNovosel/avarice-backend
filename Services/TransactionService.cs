@@ -94,8 +94,9 @@ namespace fin_app_backend.Services
       return transactions.Count;
     }
 
-    public async Task DeleteTransaction(string userId, int tId)
+    public async Task DeleteTransaction(string userId, long tId)
     {
+      Console.WriteLine(tId);
       var transaction = await _transactionRepository.GetByIdAsync(tId);
       var account = await _accountRepository.GetByIdAsync((long)transaction.AccountId);
 
