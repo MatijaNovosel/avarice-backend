@@ -29,7 +29,7 @@ namespace fin_app_backend.Services
       return mapped;
     }
 
-    public async Task<AccountExpenseAndIncomeModel> GetExpensesAndIncomeInTimePeriod(string userId, int accountId)
+    public async Task<AccountExpenseAndIncomeModel> GetExpensesAndIncomeInTimePeriod(string userId, long accountId)
     {
       var toRange = long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss"));
       var fromRange = long.Parse(DateTime.Now.AddDays(-30).ToString("yyyyMMddHHmmss"));
@@ -52,7 +52,7 @@ namespace fin_app_backend.Services
       };
     }
 
-    public async Task<IEnumerable<AccountHistoryModel>> GetAccountHistory(string userId, int accountId, TimePeriodEnum timePeriod)
+    public async Task<IEnumerable<AccountHistoryModel>> GetAccountHistory(string userId, long accountId, TimePeriodEnum timePeriod)
     {
       var res = new List<AccountHistoryModel>();
 

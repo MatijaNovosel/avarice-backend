@@ -16,8 +16,8 @@ namespace fin_app_backend.Models
   public class AddTransferDto
   {
     public double Amount { get; set; }
-    public int AccountFromId { get; set; }
-    public int AccountToId { get; set; }
+    public long AccountFromId { get; set; }
+    public long AccountToId { get; set; }
   }
 
   public class TransactionCategoryModel

@@ -8,7 +8,7 @@ namespace fin_app_backend.Services.Interfaces
   public interface IAccountService
   {
     Task<IEnumerable<AccountModel>> GetLatestValues(string userId);
-    Task<IEnumerable<AccountHistoryModel>> GetAccountHistory(string userId, int accountId, TimePeriodEnum timePeriod);
-    Task<AccountExpenseAndIncomeModel> GetExpensesAndIncomeInTimePeriod(string userId, int accountId);
+    Task<IEnumerable<AccountHistoryModel>> GetAccountHistory(string userId, long accountId, TimePeriodEnum timePeriod);
+    Task<AccountExpenseAndIncomeModel> GetExpensesAndIncomeInTimePeriod(string userId, long accountId);
   }
 }

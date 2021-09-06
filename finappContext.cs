@@ -51,8 +51,9 @@ namespace fin_app_backend
         entity.Property(e => e.Balance).HasColumnName("balance");
 
         entity.Property(e => e.Id)
-                  .HasColumnType("int(11)")
-                  .HasColumnName("id");
+                  .HasColumnType("bigint")
+                  .HasColumnName("id")
+                  .ValueGeneratedOnAdd();
 
         entity.Property(e => e.Currency)
                   .IsRequired()
@@ -91,15 +92,15 @@ namespace fin_app_backend
                   .HasColumnName("id");
 
         entity.Property(e => e.AccountId)
-                  .HasColumnType("int(11)")
+                  .HasColumnType("bigint")
                   .HasColumnName("accountId");
 
         entity.Property(e => e.TransferAccountId)
-                  .HasColumnType("int(11)")
+                  .HasColumnType("bigint")
                   .HasColumnName("transferAccountId");
 
         entity.Property(e => e.CategoryId)
-                  .HasColumnType("int(11)")
+                  .HasColumnType("bigint")
                   .HasColumnName("categoryId");
 
         entity.Property(e => e.Amount).HasColumnName("amount");
@@ -144,8 +145,9 @@ namespace fin_app_backend
                   .UseCollation("latin1_swedish_ci");
 
         entity.Property(e => e.Id)
-                  .HasColumnType("int(11)")
-                  .HasColumnName("id");
+                  .HasColumnType("bigint")
+                  .HasColumnName("id")
+                  .ValueGeneratedOnAdd();
 
         entity.Property(e => e.UserId)
                   .HasColumnName("userId");
