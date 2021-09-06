@@ -36,7 +36,7 @@ namespace fin_app_backend.Controllers
     [HttpPost]
     public async Task Create(CreateCategoryModel newCategory)
     {
-      await _categoryService.Create(newCategory);
+      await _categoryService.Create(newCategory, ((ClaimsIdentity)User.Identity).FindFirst("Id").Value);
     }
   }
 }

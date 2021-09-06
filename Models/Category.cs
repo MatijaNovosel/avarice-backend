@@ -14,6 +14,5 @@ namespace fin_app_backend.Models
     public string Name { get; set; }
     public string Icon { get; set; }
     public string Color { get; set; }
-    public string UserId { get; set; }
   }
 }

@@ -26,14 +26,14 @@ namespace fin_app_backend.Services
       return mapped;
     }
 
-    public async Task Create(CreateCategoryModel newCategory)
+    public async Task Create(CreateCategoryModel newCategory, string userId)
     {
       await _categoryRepository.AddAsync(new Category
       {
         Color = newCategory.Color,
         Icon = newCategory.Icon,
         Name = newCategory.Name,
-        UserId = newCategory.UserId,
+        UserId = userId,
         System = false
       });
     }
