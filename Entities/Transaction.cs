@@ -16,7 +16,7 @@ namespace fin_app_backend
     public string Description { get; set; }
     public string TransactionType { get; set; }
     public long AccountId { get; set; }
-    public long TransferAccountId { get; set; }
+    public long? TransferAccountId { get; set; }
     public long CategoryId { get; set; }
     public string UserId { get; set; }
 

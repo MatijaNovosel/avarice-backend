@@ -18,8 +18,11 @@ namespace fin_app_backend
     public string Color { get; set; }
     public string UserId { get; set; }
     public bool System { get; set; }
+    public long? ParentId { get; set; }
+    public Category Parent { get; set; }
 
     public virtual User User { get; set; }
     public virtual ICollection<Transaction> Transactions { get; set; }
+    public ICollection<Category> SubCategories { get; set; }
   }
 }

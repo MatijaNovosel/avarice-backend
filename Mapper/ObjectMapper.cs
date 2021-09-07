@@ -28,7 +28,14 @@ namespace fin_app_backend.Mapper
     public AspnetRunDtoMapper()
     {
       CreateMap<AddTransactionDto, Transaction>();
-      CreateMap<Category, CategoryModel>();
+      CreateMap<Category, CategoryModel>()
+        .ForMember(dest => dest.Parent, m => m.MapFrom(x => new CategoryModel
+        {
+          Color = x.Color,
+          Icon = x.Icon,
+          Id = x.Id,
+          Name = x.Name
+        }));
       CreateMap<Account, AccountModel>();
       CreateMap<Transaction, TransactionModel>()
         .ForMember(dest => dest.Account, m => m.MapFrom(x => x.Account.Name))

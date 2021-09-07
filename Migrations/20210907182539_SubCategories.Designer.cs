@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using fin_app_backend;
 
 namespace fin_app_backend.Migrations
 {
     [DbContext(typeof(finappContext))]
-    partial class finappContextModelSnapshot : ModelSnapshot
+    [Migration("20210907182539_SubCategories")]
+    partial class SubCategories
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -230,8 +232,7 @@ namespace fin_app_backend.Migrations
                         .HasColumnName("name");
 
                     b.Property<long?>("ParentId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("parentId");
+                        .HasColumnType("bigint");
 
                     b.Property<ulong>("System")
                         .ValueGeneratedOnAdd()
@@ -476,8 +477,7 @@ namespace fin_app_backend.Migrations
                 {
                     b.HasOne("fin_app_backend.Category", "Parent")
                         .WithMany("SubCategories")
-                        .HasForeignKey("ParentId")
-                        .HasConstraintName("category_ibfk_2");
+                        .HasForeignKey("ParentId");
 
                     b.HasOne("fin_app_backend.User", "User")
                         .WithMany("Categories")

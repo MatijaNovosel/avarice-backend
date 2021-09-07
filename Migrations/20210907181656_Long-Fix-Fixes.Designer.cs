@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using fin_app_backend;
 
 namespace fin_app_backend.Migrations
 {
     [DbContext(typeof(finappContext))]
-    partial class finappContextModelSnapshot : ModelSnapshot
+    [Migration("20210907181656_Long-Fix-Fixes")]
+    partial class LongFixFixes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -229,10 +231,6 @@ namespace fin_app_backend.Migrations
                         .HasColumnType("varchar(32)")
                         .HasColumnName("name");
 
-                    b.Property<long?>("ParentId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("parentId");
-
                     b.Property<ulong>("System")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
@@ -244,8 +242,6 @@ namespace fin_app_backend.Migrations
                         .HasColumnName("userId");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ParentId");
 
                     b.HasIndex("UserId");
 
@@ -474,17 +470,10 @@ namespace fin_app_backend.Migrations
 
             modelBuilder.Entity("fin_app_backend.Category", b =>
                 {
-                    b.HasOne("fin_app_backend.Category", "Parent")
-                        .WithMany("SubCategories")
-                        .HasForeignKey("ParentId")
-                        .HasConstraintName("category_ibfk_2");
-
                     b.HasOne("fin_app_backend.User", "User")
                         .WithMany("Categories")
                         .HasForeignKey("UserId")
                         .HasConstraintName("category_ibfk_1");
-
-                    b.Navigation("Parent");
 
                     b.Navigation("User");
                 });
@@ -533,8 +522,6 @@ namespace fin_app_backend.Migrations
 
             modelBuilder.Entity("fin_app_backend.Category", b =>
                 {
-                    b.Navigation("SubCategories");
-
                     b.Navigation("Transactions");
                 });
 
