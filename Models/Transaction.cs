@@ -24,6 +24,8 @@ namespace fin_app_backend.Models
   {
     public string Name { get; set; }
     public string Icon { get; set; }
+    public string Color { get; set; }
+    public string ParentName { get; set; }
   }
 
   public class TransactionModel : BaseModel

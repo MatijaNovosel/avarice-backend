@@ -72,7 +72,34 @@ namespace fin_app_backend.Services
       {
         var currentAmount = accountBalance;
 
-        for (int i = 0; i <= 30; i++)
+        // TODO: Fix this later
+        res.Add(new AccountHistoryModel
+        {
+          Amount = currentAmount,
+          Date = DateTime.Now
+        });
+
+        var nowId = long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss"));
+        var transactionNow = transactions.Where(x => long.Parse(
+          x.Id.ToString().Substring(0, 8)) == long.Parse(nowId.ToString().Substring(0, 8))
+        ).ToList();
+
+        if (transactionNow.Count != 0)
+        {
+          foreach (var t in transactionNow)
+          {
+            if (t.TransactionType == TransactionType.Expense)
+            {
+              currentAmount += (double)t.Amount * -1;
+            }
+            else if (t.TransactionType == TransactionType.Income)
+            {
+              currentAmount -= (double)t.Amount;
+            }
+          }
+        }
+
+        for (int i = 1; i <= 30; i++)
         {
           var id = long.Parse(DateTime.Now.AddDays(i * -1).ToString("yyyyMMddHHmmss"));
           var transactionAtDate = transactions.Where(x => long.Parse(

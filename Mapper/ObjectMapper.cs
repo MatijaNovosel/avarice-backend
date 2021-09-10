@@ -31,10 +31,10 @@ namespace fin_app_backend.Mapper
       CreateMap<Category, CategoryModel>()
         .ForMember(dest => dest.Parent, m => m.MapFrom(x => x.ParentId != null ? new CategoryModel
         {
-          Color = x.Color,
-          Icon = x.Icon,
-          Id = x.Id,
-          Name = x.Name
+          Color = x.Parent.Color,
+          Icon = x.Parent.Icon,
+          Id = x.Parent.Id,
+          Name = x.Parent.Name
         } : null));
       CreateMap<Account, AccountModel>();
       CreateMap<Transaction, TransactionModel>()
@@ -46,7 +46,9 @@ namespace fin_app_backend.Mapper
         .ForMember(dest => dest.Category, m => m.MapFrom(x => new TransactionCategoryModel
         {
           Name = x.Category.Name,
-          Icon = x.Category.Icon
+          Icon = x.Category.Icon,
+          Color = x.Category.Color,
+          ParentName = null
         }));
     }
   }

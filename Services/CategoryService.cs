@@ -33,6 +33,7 @@ namespace fin_app_backend.Services
         Color = newCategory.Color,
         Icon = newCategory.Icon,
         Name = newCategory.Name,
+        ParentId = newCategory.ParentId,
         UserId = userId,
         System = false
       });
