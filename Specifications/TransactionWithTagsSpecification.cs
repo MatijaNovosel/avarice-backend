@@ -12,6 +12,7 @@ namespace fin_app_backend.Specifications
     {
       AddInclude(b => b.Account);
       AddInclude(b => b.Category);
+      AddInclude(b => b.Category.Parent);
       ApplyOrderByDescending(b => b.Id);
 
       if (skip != null && take != null)

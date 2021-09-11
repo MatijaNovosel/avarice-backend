@@ -25,6 +25,7 @@ namespace fin_app_backend
     public virtual DbSet<Account> Accounts { get; set; }
     public virtual DbSet<Transaction> Transactions { get; set; }
     public virtual DbSet<Category> Categories { get; set; }
+    public virtual DbSet<Template> Templates { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -137,6 +138,70 @@ namespace fin_app_backend
           .HasConstraintName("transaction_ibfk_4");
       });
 
+      modelBuilder.Entity<Template>(entity =>
+      {
+        entity.ToTable("template");
+
+        entity.HasCharSet("latin1")
+          .UseCollation("latin1_swedish_ci");
+
+        entity.HasIndex(e => e.AccountId, "accountId");
+
+        entity.HasIndex(e => e.UserId, "userId");
+
+        entity.HasIndex(e => e.CategoryId, "categoryId");
+
+        entity.Property(e => e.Id)
+          .HasColumnType("bigint")
+          .HasColumnName("id")
+          .ValueGeneratedOnAdd();
+
+        entity.Property(e => e.AccountId)
+          .HasColumnType("bigint")
+          .HasColumnName("accountId");
+
+        entity.Property(e => e.TransferAccountId)
+          .HasColumnType("bigint")
+          .HasColumnName("transferAccountId");
+
+        entity.Property(e => e.CategoryId)
+          .HasColumnType("bigint")
+          .HasColumnName("categoryId");
+
+        entity.Property(e => e.Amount).HasColumnName("amount");
+
+        entity.Property(e => e.Description)
+          .HasMaxLength(255)
+          .HasColumnName("description");
+
+        entity.Property(e => e.TransactionType)
+          .HasMaxLength(3)
+          .HasColumnName("transactionType");
+
+        entity.Property(e => e.UserId)
+          .HasColumnName("userId");
+
+        entity.HasOne(d => d.Account)
+          .WithMany(p => p.Templates)
+          .HasForeignKey(d => d.AccountId)
+          .HasConstraintName("template_ibfk_1");
+
+        entity.HasOne(d => d.TransferAccount)
+          .WithMany(p => p.TransferTemplates)
+          .HasForeignKey(d => d.TransferAccountId)
+          .HasConstraintName("template_ibfk_2");
+
+        entity.HasOne(d => d.User)
+          .WithMany(p => p.Templates)
+          .HasForeignKey(d => d.UserId)
+          .HasConstraintName("template_ibfk_3");
+
+        entity.HasOne(d => d.Category)
+          .WithMany(p => p.Templates)
+          .HasForeignKey(d => d.CategoryId)
+          .HasConstraintName("template_ibfk_4");
+      });
+
       modelBuilder.Entity<Category>(entity =>
       {
         entity.ToTable("category");
@@ -213,22 +278,51 @@ namespace fin_app_backend
         UserId = "ee103364-7617-4474-889e-320838e5f3a5"
       });
 
+      modelBuilder.Entity<Account>().HasData(new Account()
+      {
+        Id = 3,
+        Name = "Checking",
+        Balance = 0,
+        Currency = "HRK",
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+      });
+
+      modelBuilder.Entity<Account>().HasData(new Account()
+      {
+        Id = 4,
+        Name = "Pocket",
+        Balance = 800,
+        Currency = "HRK",
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+      });
+
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 1,
         UserId = null,
         Color = "grey",
         Icon = "mdi-swap-horizontal",
-        Name = "Transfer"
+        Name = "Transfer",
+        System = true
       });
 
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 2,
         UserId = "ee103364-7617-4474-889e-320838e5f3a5",
-        Color = "red",
+        Color = "#ffffff",
         Icon = "mdi-account",
-        Name = "Testing category"
+        Name = "Food"
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 3,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-file",
+        Name = "Restaurant",
+        ParentId = 2
       });
 
       OnModelCreatingPartial(modelBuilder);

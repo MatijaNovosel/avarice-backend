@@ -37,6 +37,16 @@ namespace fin_app_backend.Mapper
           Name = x.Parent.Name
         } : null));
       CreateMap<Account, AccountModel>();
+      CreateMap<Template, TemplateModel>()
+        .ForMember(dest => dest.Account, m => m.MapFrom(x => x.Account.Name))
+        .ForMember(dest => dest.Currency, m => m.MapFrom(x => x.Account.Currency))
+        .ForMember(dest => dest.Category, m => m.MapFrom(x => new TransactionCategoryModel
+        {
+          Name = x.Category.Name,
+          Icon = x.Category.Icon,
+          Color = x.Category.Color,
+          ParentName = x.Category.Parent != null ? x.Category.Parent.Name : null
+        }));
       CreateMap<Transaction, TransactionModel>()
         .ForMember(dest => dest.Account, m => m.MapFrom(x => x.Account.Name))
         .ForMember(dest => dest.CreatedAt, m => m.MapFrom(x =>
@@ -48,7 +58,7 @@ namespace fin_app_backend.Mapper
           Name = x.Category.Name,
           Icon = x.Category.Icon,
           Color = x.Category.Color,
-          ParentName = null
+          ParentName = x.Category.Parent != null ? x.Category.Parent.Name : null
         }));
     }
   }

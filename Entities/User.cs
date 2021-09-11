@@ -12,10 +12,12 @@ namespace fin_app_backend
       Accounts = new HashSet<Account>();
       Transactions = new HashSet<Transaction>();
       Categories = new HashSet<Category>();
+      Templates = new HashSet<Template>();
     }
 
     public virtual ICollection<Account> Accounts { get; set; }
     public virtual ICollection<Transaction> Transactions { get; set; }
+    public virtual ICollection<Template> Templates { get; set; }
     public virtual ICollection<Category> Categories { get; set; }
   }
 }
