@@ -38,4 +38,12 @@ namespace fin_app_backend.Models
     public string TransactionType { get; set; }
     public string Account { get; set; }
   }
+
+  public class TransactionActivityHeatmapModel
+  {
+    public int Week { get; set; }
+    public int Value { get; set; }
+    public DateTime Date { get; set; }
+    public string WeekDay { get; set; }
+  }
 }

@@ -18,9 +18,9 @@ namespace fin_app_backend.Repositories
     {
     }
 
-    public async Task<IEnumerable<Transaction>> GetTransactionsPaginated(string userId, int? skip, int? take)
+    public async Task<IEnumerable<Transaction>> GetTransactionsPaginated(string userId, int? skip, int? take, string description)
     {
-      var spec = new TransactionWithTagsSpecification(userId, skip, take);
+      var spec = new TransactionWithTagsSpecification(userId, skip, take, description ?? "");
       var transactions = await GetAsync(spec);
       return transactions;
     }

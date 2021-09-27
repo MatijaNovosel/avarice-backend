@@ -45,16 +45,23 @@ namespace fin_app_backend.Controllers
     }
 
     [HttpGet]
-    public async Task<PageableCollection<TransactionModel>> Get(int skip, int take)
+    public async Task<PageableCollection<TransactionModel>> Get(int skip, int take, string description)
     {
-      var data = await _transactionService.GetAll(((ClaimsIdentity)User.Identity).FindFirst("Id").Value, skip, take);
-      var count = await _transactionService.GetCount(((ClaimsIdentity)User.Identity).FindFirst("Id").Value);
+      var data = await _transactionService.GetAll(((ClaimsIdentity)User.Identity).FindFirst("Id").Value, skip, take, description);
+      var count = await _transactionService.GetCount(((ClaimsIdentity)User.Identity).FindFirst("Id").Value, description);
 
       return new PageableCollection<TransactionModel>()
       {
         Results = data,
         Total = count
       };
+    }
+
+    [HttpGet("heatmap")]
+    public async Task<IEnumerable<TransactionActivityHeatmapModel>> GetHeatmap()
+    {
+      var data = await _transactionService.GetTransactionActivityHeatmap(((ClaimsIdentity)User.Identity).FindFirst("Id").Value);
+      return data;
     }
   }
 }
