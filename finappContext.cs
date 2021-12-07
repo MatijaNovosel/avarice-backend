@@ -311,7 +311,7 @@ namespace fin_app_backend
         Id = 2,
         UserId = "ee103364-7617-4474-889e-320838e5f3a5",
         Color = "#ffffff",
-        Icon = "mdi-account",
+        Icon = "mdi-food-fork-drink",
         Name = "Food"
       });
 
@@ -320,7 +320,7 @@ namespace fin_app_backend
         Id = 3,
         UserId = "ee103364-7617-4474-889e-320838e5f3a5",
         Color = "#ffffff",
-        Icon = "mdi-file",
+        Icon = "mdi-silverware-fork-knife",
         Name = "Restaurant",
         ParentId = 2
       });

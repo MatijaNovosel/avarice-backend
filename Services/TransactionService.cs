@@ -47,7 +47,7 @@ namespace fin_app_backend.Services
         CategoryId = payload.CategoryId,
         Description = payload.Description,
         UserId = userId,
-        Id = long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss"))
+        Id = payload.CreatedAt != null ? long.Parse(payload.CreatedAt.Value.ToString("yyyyMMddHHmmss")) : long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss"))
       });
     }
 

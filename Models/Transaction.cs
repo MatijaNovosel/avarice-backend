@@ -11,6 +11,7 @@ namespace fin_app_backend.Models
     public string TransactionType { get; set; }
     public long AccountId { get; set; }
     public long CategoryId { get; set; }
+    public DateTime? CreatedAt { get; set; }
   }
 
   public class AddTransferDto
