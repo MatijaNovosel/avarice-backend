@@ -12,6 +12,7 @@ namespace fin_app_backend.Models
     public long AccountId { get; set; }
     public long CategoryId { get; set; }
     public DateTime? CreatedAt { get; set; }
+    public bool? SaveAsTemplate { get; set; }
   }
 
   public class AddTransferDto

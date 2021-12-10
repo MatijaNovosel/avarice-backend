@@ -12,6 +12,7 @@ namespace fin_app_backend.Models
     public long AccountId { get; set; }
     public long CategoryId { get; set; }
     public long? AccountToId { get; set; }
+    public DateTime? CreatedAt { get; set; }
   }
 
   public class TemplateCategoryModel

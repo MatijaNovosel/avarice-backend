@@ -16,13 +16,16 @@ namespace fin_app_backend.Services
   {
     private readonly ITransactionRepository _transactionRepository;
     private readonly IAccountRepository _accountRepository;
+    private readonly ITemplateRepository _templateRepository;
 
     public TransactionService(
       ITransactionRepository transactionRepository,
-      IAccountRepository accountRepository
+      IAccountRepository accountRepository,
+      ITemplateRepository templateRepository
     )
     {
       _transactionRepository = transactionRepository ?? throw new ArgumentNullException(nameof(transactionRepository));
+      _templateRepository = templateRepository ?? throw new ArgumentNullException(nameof(templateRepository));
       _accountRepository = accountRepository ?? throw new ArgumentNullException(nameof(accountRepository));
     }
 
