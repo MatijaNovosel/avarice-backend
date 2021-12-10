@@ -60,7 +60,7 @@ namespace fin_app_backend.Services
       var accountTo = await _accountRepository.GetByIdAsync(transfer.AccountToId);
 
       accountFrom.Balance = accountFrom.Balance - transfer.Amount;
-      accountTo.Balance = accountFrom.Balance + transfer.Amount;
+      accountTo.Balance = accountTo.Balance + transfer.Amount;
 
       await _accountRepository.UpdateAsync(accountFrom);
       await _accountRepository.UpdateAsync(accountTo);
@@ -81,7 +81,7 @@ namespace fin_app_backend.Services
         Description = $"Transfer ({accountFrom.Name} => {accountTo.Name})",
         TransferAccountId = accountTo.Id,
         UserId = userId,
-        Id = long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss"))
+        Id = transfer.CreatedAt != null ? long.Parse(transfer.CreatedAt.Value.ToString("yyyyMMddHHmmss")) : long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss"))
       });
     }
 

@@ -89,6 +89,7 @@ namespace fin_app_backend
       services.AddScoped<ITransactionRepository, TransactionRepository>();
       services.AddScoped<IAccountRepository, AccountRepository>();
       services.AddScoped<ICategoryRepository, CategoryRepository>();
+      services.AddScoped<ITemplateRepository, TemplateRepository>();
 
       // Service layer
       services.AddScoped<ITransactionService, TransactionService>();
@@ -96,6 +97,7 @@ namespace fin_app_backend
       services.AddScoped<IAuthService, AuthService>();
       services.AddScoped<IAccountService, AccountService>();
       services.AddScoped<ICategoryService, CategoryService>();
+      services.AddScoped<ITemplateService, TemplateService>();
 
       services.AddAutoMapper(typeof(Startup));
 
