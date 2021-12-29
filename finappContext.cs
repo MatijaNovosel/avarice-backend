@@ -474,16 +474,6 @@ namespace fin_app_backend
         Id = 18,
         UserId = "ee103364-7617-4474-889e-320838e5f3a5",
         Color = "#ffffff",
-        Icon = "mdi-paw",
-        Name = "Pets, animals",
-        ParentId = 7
-      });
-
-      modelBuilder.Entity<Category>().HasData(new Category()
-      {
-        Id = 19,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
-        Color = "#ffffff",
         Icon = "mdi-hammer-screwdriver",
         Name = "Stationery, tools",
         ParentId = 7

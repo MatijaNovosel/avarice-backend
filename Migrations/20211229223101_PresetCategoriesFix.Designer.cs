@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using fin_app_backend;
 
 namespace fin_app_backend.Migrations
 {
     [DbContext(typeof(finappContext))]
-    partial class finappContextModelSnapshot : ModelSnapshot
+    [Migration("20211229223101_PresetCategoriesFix")]
+    partial class PresetCategoriesFix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
