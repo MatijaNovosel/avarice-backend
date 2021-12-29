@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using System.Collections.Generic;
 
 #nullable disable
 
@@ -306,13 +307,15 @@ namespace fin_app_backend
         System = true
       });
 
+      // Food & drinks
+
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 2,
         UserId = "ee103364-7617-4474-889e-320838e5f3a5",
         Color = "#ffffff",
         Icon = "mdi-food-fork-drink",
-        Name = "Food"
+        Name = "Food & Drinks"
       });
 
       modelBuilder.Entity<Category>().HasData(new Category()
@@ -320,9 +323,170 @@ namespace fin_app_backend
         Id = 3,
         UserId = "ee103364-7617-4474-889e-320838e5f3a5",
         Color = "#ffffff",
-        Icon = "mdi-silverware-fork-knife",
-        Name = "Restaurant",
+        Icon = "mdi-food",
+        Name = "Restaurant, fast-food",
         ParentId = 2
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 4,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-glass-cocktail",
+        Name = "Bar, cafe",
+        ParentId = 2
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 5,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-glass-cocktail",
+        Name = "Bar, cafe",
+        ParentId = 2
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 6,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-cart",
+        Name = "Groceries",
+        ParentId = 2
+      });
+
+      // Shopping
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 7,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-basket",
+        Name = "Shopping"
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 8,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-tshirt-crew",
+        Name = "Clothes and shoes",
+        ParentId = 7
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 9,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-pill",
+        Name = "Drug-store, chemist",
+        ParentId = 7
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 10,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-laptop",
+        Name = "Electronics, accessories",
+        ParentId = 7
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 11,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-emoticon",
+        Name = "Free time",
+        ParentId = 7
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 12,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-gift",
+        Name = "Gifts, joy",
+        ParentId = 7
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 13,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-bottle-tonic-plus",
+        Name = "Health and beauty",
+        ParentId = 7
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 14,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-home",
+        Name = "Home, garden",
+        ParentId = 7
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 15,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-diamond-stone",
+        Name = "Jewels, accessories",
+        ParentId = 7
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 16,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-baby-carriage",
+        Name = "Kids",
+        ParentId = 7
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 17,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-paw",
+        Name = "Pets, animals",
+        ParentId = 7
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 18,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-paw",
+        Name = "Pets, animals",
+        ParentId = 7
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 19,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-hammer-screwdriver",
+        Name = "Stationery, tools",
+        ParentId = 7
       });
 
       OnModelCreatingPartial(modelBuilder);
