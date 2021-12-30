@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using fin_app_backend;
 
 namespace fin_app_backend.Migrations
 {
     [DbContext(typeof(finappContext))]
-    partial class finappContextModelSnapshot : ModelSnapshot
+    [Migration("20211230213345_NewCategoriesFix")]
+    partial class NewCategoriesFix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1002,6 +1004,16 @@ namespace fin_app_backend.Migrations
                         },
                         new
                         {
+                            Id = 77L,
+                            Color = "#ffffff",
+                            Icon = "mdi-ticket-percent",
+                            Name = "Interests, dividends",
+                            ParentId = 72L,
+                            System = 0ul,
+                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                        },
+                        new
+                        {
                             Id = 78L,
                             Color = "#ffffff",
                             Icon = "mdi-ticket-percent",
@@ -1014,7 +1026,7 @@ namespace fin_app_backend.Migrations
                         {
                             Id = 79L,
                             Color = "#ffffff",
-                            Icon = "mdi-currency-usd",
+                            Icon = "mdi-hand-back-left",
                             Name = "Lending, renting",
                             ParentId = 72L,
                             System = 0ul,

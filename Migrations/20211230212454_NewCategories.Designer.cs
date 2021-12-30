@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using fin_app_backend;
 
 namespace fin_app_backend.Migrations
 {
     [DbContext(typeof(finappContext))]
-    partial class finappContextModelSnapshot : ModelSnapshot
+    [Migration("20211230212454_NewCategories")]
+    partial class NewCategories
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -311,6 +313,16 @@ namespace fin_app_backend.Migrations
                         },
                         new
                         {
+                            Id = 5L,
+                            Color = "#ffffff",
+                            Icon = "mdi-glass-cocktail",
+                            Name = "Bar, cafe",
+                            ParentId = 2L,
+                            System = 0ul,
+                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                        },
+                        new
+                        {
                             Id = 6L,
                             Color = "#ffffff",
                             Icon = "mdi-cart",
@@ -579,7 +591,7 @@ namespace fin_app_backend.Migrations
                         {
                             Id = 33L,
                             Color = "#ffffff",
-                            Icon = "mdi-car",
+                            Icon = "mdi-hand-coin",
                             Name = "Leasing",
                             ParentId = 31L,
                             System = 0ul,
@@ -648,7 +660,7 @@ namespace fin_app_backend.Migrations
                         {
                             Id = 40L,
                             Color = "#ffffff",
-                            Icon = "mdi-cup",
+                            Icon = "mdi-liquor",
                             Name = "Alcohol, tobacco",
                             ParentId = 38L,
                             System = 0ul,
@@ -678,7 +690,7 @@ namespace fin_app_backend.Migrations
                         {
                             Id = 44L,
                             Color = "#ffffff",
-                            Icon = "mdi-drama-masks",
+                            Icon = "mdi-hand-clap",
                             Name = "Culture, sports events",
                             ParentId = 38L,
                             System = 0ul,
@@ -876,7 +888,7 @@ namespace fin_app_backend.Migrations
                         {
                             Id = 64L,
                             Color = "#ffffff",
-                            Icon = "mdi-cards",
+                            Icon = "mdi-card-multiple",
                             Name = "Loan, interests",
                             ParentId = 58L,
                             System = 0ul,
@@ -905,7 +917,7 @@ namespace fin_app_backend.Migrations
                         {
                             Id = 67L,
                             Color = "#ffffff",
-                            Icon = "mdi-image",
+                            Icon = "mdi-view-gallery",
                             Name = "Collections",
                             ParentId = 66L,
                             System = 0ul,
@@ -964,7 +976,7 @@ namespace fin_app_backend.Migrations
                         {
                             Id = 73L,
                             Color = "#ffffff",
-                            Icon = "mdi-newspaper",
+                            Icon = "mdi-newspaper-check",
                             Name = "Checks, coupons",
                             ParentId = 72L,
                             System = 0ul,
@@ -1002,6 +1014,16 @@ namespace fin_app_backend.Migrations
                         },
                         new
                         {
+                            Id = 77L,
+                            Color = "#ffffff",
+                            Icon = "mdi-ticket-percent",
+                            Name = "Interests, dividends",
+                            ParentId = 72L,
+                            System = 0ul,
+                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                        },
+                        new
+                        {
                             Id = 78L,
                             Color = "#ffffff",
                             Icon = "mdi-ticket-percent",
@@ -1014,7 +1036,7 @@ namespace fin_app_backend.Migrations
                         {
                             Id = 79L,
                             Color = "#ffffff",
-                            Icon = "mdi-currency-usd",
+                            Icon = "mdi-hand-extended",
                             Name = "Lending, renting",
                             ParentId = 72L,
                             System = 0ul,
@@ -1044,7 +1066,7 @@ namespace fin_app_backend.Migrations
                         {
                             Id = 82L,
                             Color = "#ffffff",
-                            Icon = "mdi-home",
+                            Icon = "mdi-house",
                             Name = "Rental income",
                             ParentId = 72L,
                             System = 0ul,
@@ -1064,7 +1086,7 @@ namespace fin_app_backend.Migrations
                         {
                             Id = 84L,
                             Color = "#ffffff",
-                            Icon = "mdi-currency-usd",
+                            Icon = "mdi-hand-coin",
                             Name = "Wage, invoices",
                             ParentId = 72L,
                             System = 0ul,

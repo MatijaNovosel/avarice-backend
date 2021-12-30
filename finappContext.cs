@@ -340,16 +340,6 @@ namespace fin_app_backend
 
       modelBuilder.Entity<Category>().HasData(new Category()
       {
-        Id = 5,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
-        Color = "#ffffff",
-        Icon = "mdi-glass-cocktail",
-        Name = "Bar, cafe",
-        ParentId = 2
-      });
-
-      modelBuilder.Entity<Category>().HasData(new Category()
-      {
         Id = 6,
         UserId = "ee103364-7617-4474-889e-320838e5f3a5",
         Color = "#ffffff",
@@ -477,6 +467,675 @@ namespace fin_app_backend
         Icon = "mdi-hammer-screwdriver",
         Name = "Stationery, tools",
         ParentId = 7
+      });
+
+      // Housing 
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 19,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-home",
+        Name = "Housing"
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 20,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-lightbulb",
+        Name = "Energy, utilities",
+        ParentId = 20
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 21,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-hammer",
+        Name = "Maintenance, repairs",
+        ParentId = 20
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 22,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-bank-plus",
+        Name = "Mortgage",
+        ParentId = 20
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 23,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-shield-home",
+        Name = "Property insurance",
+        ParentId = 20
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 24,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-key-variant",
+        Name = "Rent",
+        ParentId = 20
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 25,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-home-circle-outline",
+        Name = "Services",
+        ParentId = 20
+      });
+
+      // Transportation
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 26,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-bus",
+        Name = "Transportation"
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 27,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-bag-suitcase",
+        Name = "Business trips",
+        ParentId = 26
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 28,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-airplane",
+        Name = "Long distance",
+        ParentId = 26
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 29,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-tram",
+        Name = "Public transport",
+        ParentId = 26
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 30,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-taxi",
+        Name = "Taxi",
+        ParentId = 26
+      });
+
+      // Vehicle
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 31,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-car",
+        Name = "Vehicle"
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 32,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-fuel",
+        Name = "Fuel",
+        ParentId = 31
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 33,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-car",
+        Name = "Leasing",
+        ParentId = 31
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 34,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-parking",
+        Name = "Parking",
+        ParentId = 31
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 35,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-key",
+        Name = "Rentals",
+        ParentId = 31
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 36,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-shield-car",
+        Name = "Vehicle insurance",
+        ParentId = 31
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 37,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-tools",
+        Name = "Vehicle maintenance",
+        ParentId = 31
+      });
+
+      // Life & Entertainment
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 38,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-account",
+        Name = "Life & Entertainment"
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 39,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-dumbbell",
+        Name = "Active sport, fitness",
+        ParentId = 38
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 40,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-cup",
+        Name = "Alcohol, tobacco",
+        ParentId = 38
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 41,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-book-open-variant",
+        Name = "Books, audio, subscriptions",
+        ParentId = 38
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 43,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-gift",
+        Name = "Charity, gifts",
+        ParentId = 38
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 44,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-drama-masks",
+        Name = "Culture, sports events",
+        ParentId = 38
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 45,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-school",
+        Name = "Education, development",
+        ParentId = 38
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 46,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-doctor",
+        Name = "Health care, doctor",
+        ParentId = 38
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 47,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-heart",
+        Name = "Hobbies",
+        ParentId = 38
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 48,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-palm-tree",
+        Name = "Holiday, trips, hotels",
+        ParentId = 38
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 49,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-cake",
+        Name = "Life events",
+        ParentId = 38
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 50,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-dice-5",
+        Name = "Lottery, gambling",
+        ParentId = 38
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 51,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-television-classic",
+        Name = "TV, Streaming",
+        ParentId = 38
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 52,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-flower",
+        Name = "Wellness, beauty",
+        ParentId = 38
+      });
+
+      // Communication, PC
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 53,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-laptop",
+        Name = "Communication, PC"
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 54,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-wifi",
+        Name = "Internet",
+        ParentId = 53
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 55,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-phone",
+        Name = "Phone, cell phone",
+        ParentId = 53
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 56,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-email",
+        Name = "Postal services",
+        ParentId = 53
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 57,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-controller-classic",
+        Name = "Software, apps, games",
+        ParentId = 53
+      });
+
+      // Financial expenses
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 58,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-currency-usd",
+        Name = "Financial expenses"
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 59,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-account-alert",
+        Name = "Advisory",
+        ParentId = 58
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 60,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-comment-remove",
+        Name = "Charges, Fees",
+        ParentId = 58
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 61,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-account-child",
+        Name = "Child Support",
+        ParentId = 58
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 62,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-alert-circle",
+        Name = "Fines",
+        ParentId = 58
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 63,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-card-bulleted",
+        Name = "Insurances",
+        ParentId = 58
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 64,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-cards",
+        Name = "Loan, interests",
+        ParentId = 58
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 65,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-content-cut",
+        Name = "Taxes",
+        ParentId = 58
+      });
+
+      // Investments
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 66,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-chart-line",
+        Name = "Investments"
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 67,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-image",
+        Name = "Collections",
+        ParentId = 66
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 68,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-chart-multiple",
+        Name = "Financial investments",
+        ParentId = 66
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 69,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-domain",
+        Name = "Realty",
+        ParentId = 66
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 70,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-account-cash",
+        Name = "Savings",
+        ParentId = 66
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 71,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-car",
+        Name = "Vehicles, chattels",
+        ParentId = 66
+      });
+
+      // Income
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 72,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-currency-usd",
+        Name = "Income"
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 73,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-newspaper",
+        Name = "Checks, coupons",
+        ParentId = 72
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 74,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-account-child",
+        Name = "Child Support",
+        ParentId = 72
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 75,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-check-decagram",
+        Name = "Dues & grants",
+        ParentId = 72
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 76,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-gift",
+        Name = "Gifts",
+        ParentId = 72
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 78,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-ticket-percent",
+        Name = "Interests, dividends",
+        ParentId = 72
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 79,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-currency-usd",
+        Name = "Lending, renting",
+        ParentId = 72
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 80,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-dice-5",
+        Name = "Lottery, gambling",
+        ParentId = 72
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 81,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-undo",
+        Name = "Refunds (tax, purchase)",
+        ParentId = 72
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 82,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-home",
+        Name = "Rental income",
+        ParentId = 72
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 83,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-sale",
+        Name = "Sale",
+        ParentId = 72
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 84,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-currency-usd",
+        Name = "Wage, invoices",
+        ParentId = 72
+      });
+
+      // Others
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 85,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-account-question",
+        Name = "Others"
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 86,
+        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Color = "#ffffff",
+        Icon = "mdi-help-circle",
+        Name = "Missing",
+        ParentId = 85
       });
 
       OnModelCreatingPartial(modelBuilder);
