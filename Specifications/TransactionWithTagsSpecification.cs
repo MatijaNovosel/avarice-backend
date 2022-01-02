@@ -9,7 +9,7 @@ namespace fin_app_backend.Specifications
   public sealed class TransactionWithTagsSpecification : BaseSpecification<Transaction>
   {
     public TransactionWithTagsSpecification(string userId, int? skip, int? take, string description) : base(
-      b => b.UserId == userId
+      b => b.UserId == userId && b.Description.ToLower().Contains(description.ToLower())
     )
     {
       AddInclude(b => b.Account);

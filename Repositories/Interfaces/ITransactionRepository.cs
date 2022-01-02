@@ -9,5 +9,6 @@ namespace fin_app_backend.Repositories.Interfaces
   public interface ITransactionRepository : IRepository<Transaction>
   {
     Task<IEnumerable<Transaction>> GetTransactionsPaginated(string userId, int? skip, int? take, string description);
+    Task<long> GetTransactionsCount(string userId, string description);
   }
 }

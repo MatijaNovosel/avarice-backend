@@ -24,5 +24,12 @@ namespace fin_app_backend.Repositories
       var transactions = await GetAsync(spec);
       return transactions;
     }
+
+    public async Task<long> GetTransactionsCount(string userId, string description)
+    {
+      var spec = new TransactionCountSpecification(userId, description ?? "");
+      var transactions = await GetAsync(spec);
+      return transactions.Count;
+    }
   }
 }

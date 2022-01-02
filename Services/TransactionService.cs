@@ -94,8 +94,8 @@ namespace fin_app_backend.Services
 
     public async Task<long> GetCount(string userId, string description)
     {
-      var transactions = await _transactionRepository.GetAsync(x => x.UserId == userId);
-      return transactions.Count;
+      var count = await _transactionRepository.GetTransactionsCount(userId, description);
+      return count;
     }
 
     public async Task DeleteTransaction(string userId, long tId)
