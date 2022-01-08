@@ -50,7 +50,9 @@ namespace fin_app_backend.Services
         CategoryId = payload.CategoryId,
         Description = payload.Description,
         UserId = userId,
-        Id = payload.CreatedAt != null ? long.Parse(payload.CreatedAt.Value.ToString("yyyyMMddHHmmss")) : long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss"))
+        Id = payload.CreatedAt != null ?
+          long.Parse(payload.CreatedAt.Value.ToString("yyyyMMddHHmmss")) :
+          long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss"))
       });
     }
 
@@ -81,20 +83,28 @@ namespace fin_app_backend.Services
         Description = $"Transfer ({accountFrom.Name} => {accountTo.Name})",
         TransferAccountId = accountTo.Id,
         UserId = userId,
-        Id = transfer.CreatedAt != null ? long.Parse(transfer.CreatedAt.Value.ToString("yyyyMMddHHmmss")) : long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss"))
+        Id = transfer.CreatedAt != null ?
+          long.Parse(transfer.CreatedAt.Value.ToString("yyyyMMddHHmmss")) :
+          long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss"))
       });
     }
 
-    public async Task<IEnumerable<TransactionModel>> GetAll(string userId, int? skip, int? take, string description)
+    public async Task<IEnumerable<TransactionModel>> GetAll(string userId, int? skip, int? take, string description, string transactionType)
     {
-      var transactions = await _transactionRepository.GetTransactionsPaginated(userId, skip, take, description);
+      var transactions = await _transactionRepository.GetTransactionsPaginated(
+        userId,
+        skip,
+        take,
+        description,
+        transactionType
+      );
       var mapped = ObjectMapper.Mapper.Map<IEnumerable<TransactionModel>>(transactions);
       return mapped;
     }
 
-    public async Task<long> GetCount(string userId, string description)
+    public async Task<long> GetCount(string userId, string description, string transactionType)
     {
-      var count = await _transactionRepository.GetTransactionsCount(userId, description);
+      var count = await _transactionRepository.GetTransactionsCount(userId, description, transactionType);
       return count;
     }
 

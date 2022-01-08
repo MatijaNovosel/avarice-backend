@@ -16,18 +16,39 @@ namespace fin_app_backend.Repositories
   {
     public TransactionRepository(finappContext dbContext) : base(dbContext)
     {
+      //
     }
 
-    public async Task<IEnumerable<Transaction>> GetTransactionsPaginated(string userId, int? skip, int? take, string description)
+    public async Task<IEnumerable<Transaction>> GetTransactionsPaginated(
+      string userId,
+      int? skip,
+      int? take,
+      string description,
+      string transactionType
+    )
     {
-      var spec = new TransactionWithTagsSpecification(userId, skip, take, description ?? "");
+      var spec = new TransactionWithTagsSpecification(
+        userId,
+        skip,
+        take,
+        description ?? "",
+        transactionType ?? ""
+      );
       var transactions = await GetAsync(spec);
       return transactions;
     }
 
-    public async Task<long> GetTransactionsCount(string userId, string description)
+    public async Task<long> GetTransactionsCount(
+      string userId,
+      string description,
+      string transactionType
+    )
     {
-      var spec = new TransactionCountSpecification(userId, description ?? "");
+      var spec = new TransactionCountSpecification(
+        userId,
+        description ?? "",
+        transactionType ?? ""
+      );
       var transactions = await GetAsync(spec);
       return transactions.Count;
     }

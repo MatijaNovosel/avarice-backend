@@ -45,10 +45,26 @@ namespace fin_app_backend.Controllers
     }
 
     [HttpGet]
-    public async Task<PageableCollection<TransactionModel>> Get(int skip, int take, string description)
+    public async Task<PageableCollection<TransactionModel>> Get(
+      int skip,
+      int take,
+      string description,
+      string transactionType
+    )
     {
-      var data = await _transactionService.GetAll(((ClaimsIdentity)User.Identity).FindFirst("Id").Value, skip, take, description);
-      var count = await _transactionService.GetCount(((ClaimsIdentity)User.Identity).FindFirst("Id").Value, description);
+      var data = await _transactionService.GetAll(
+        ((ClaimsIdentity)User.Identity).FindFirst("Id").Value,
+        skip,
+        take,
+        description,
+        transactionType
+      );
+
+      var count = await _transactionService.GetCount(
+        ((ClaimsIdentity)User.Identity).FindFirst("Id").Value,
+        description,
+        transactionType
+      );
 
       return new PageableCollection<TransactionModel>()
       {

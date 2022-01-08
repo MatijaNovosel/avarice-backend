@@ -8,10 +8,17 @@ namespace fin_app_backend.Specifications
 {
   public sealed class TransactionCountSpecification : BaseSpecification<Transaction>
   {
-    public TransactionCountSpecification(string userId, string description) : base(
-      b => b.UserId == userId && b.Description.ToLower().Contains(description.ToLower())
+    public TransactionCountSpecification(
+      string userId,
+      string description,
+      string transactionType
+    ) : base(
+      b => b.UserId == userId &&
+      b.Description.ToLower().Contains(description.ToLower()) &&
+      b.TransactionType.Contains(transactionType)
     )
     {
+      //
     }
   }
 }
