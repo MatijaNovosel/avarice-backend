@@ -7,11 +7,7 @@ namespace fin_app_backend.Specifications.Base
   // Specification Pattern from : https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-implemenation-entity-framework-core
   public abstract class BaseSpecification<T> : ISpecification<T>
   {
-    protected BaseSpecification(Expression<Func<T, bool>> criteria)
-    {
-      Criteria = criteria;
-    }
-    public Expression<Func<T, bool>> Criteria { get; }
+    public Expression<Func<T, bool>> Criteria { get; set; }
     public List<Expression<Func<T, object>>> Includes { get; } = new List<Expression<Func<T, object>>>();
     public List<string> IncludeStrings { get; } = new List<string>();
     public Expression<Func<T, object>> OrderBy { get; private set; }
@@ -20,6 +16,11 @@ namespace fin_app_backend.Specifications.Base
     public int Take { get; private set; }
     public int Skip { get; private set; }
     public bool isPagingEnabled { get; private set; } = false;
+
+    protected virtual void AddExpression(Expression<Func<T, bool>> expression)
+    {
+      Criteria = expression;
+    }
 
     protected virtual void AddInclude(Expression<Func<T, object>> includeExpression)
     {

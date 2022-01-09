@@ -13,12 +13,14 @@ namespace fin_app_backend.Repositories.Interfaces
       int? skip,
       int? take,
       string description,
-      string transactionType
+      string transactionType,
+      int? categoryType
     );
     Task<long> GetTransactionsCount(
       string userId,
       string description,
-      string transactionType
+      string transactionType,
+      int? categoryType
     );
   }
 }

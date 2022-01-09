@@ -15,9 +15,15 @@ namespace fin_app_backend.Services.Interfaces
       int? skip,
       int? take,
       string description,
-      string transactionType
+      string transactionType,
+      int? categoryType
     );
     Task<IEnumerable<TransactionActivityHeatmapModel>> GetTransactionActivityHeatmap(string userId);
-    Task<long> GetCount(string userId, string description, string transactionType);
+    Task<long> GetCount(
+      string userId,
+      string description,
+      string transactionType,
+      int? categoryType
+    );
   }
 }

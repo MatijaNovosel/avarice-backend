@@ -3,6 +3,8 @@ using fin_app_backend.Specifications.Base;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq.Expressions;
+using fin_app_backend.Extensions;
 
 namespace fin_app_backend.Specifications
 {
@@ -11,14 +13,22 @@ namespace fin_app_backend.Specifications
     public TransactionCountSpecification(
       string userId,
       string description,
-      string transactionType
-    ) : base(
-      b => b.UserId == userId &&
-      b.Description.ToLower().Contains(description.ToLower()) &&
-      b.TransactionType.Contains(transactionType)
+      string transactionType,
+      int? categoryType
     )
     {
-      //
+      Expression<Func<Transaction, bool>> filterExpression = (transaction) =>
+        transaction.UserId == userId &&
+        transaction.Description.ToLower().Contains(description.ToLower()) &&
+        transaction.TransactionType.Contains(transactionType);
+
+      if (categoryType != null)
+      {
+        Expression<Func<Transaction, bool>> expressionAddition = (t) => t.CategoryId == categoryType;
+        filterExpression = filterExpression.And(filterExpression, expressionAddition);
+      }
+
+      AddExpression(filterExpression);
     }
   }
 }

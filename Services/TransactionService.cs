@@ -89,22 +89,40 @@ namespace fin_app_backend.Services
       });
     }
 
-    public async Task<IEnumerable<TransactionModel>> GetAll(string userId, int? skip, int? take, string description, string transactionType)
+    public async Task<IEnumerable<TransactionModel>> GetAll(
+      string userId,
+      int? skip,
+      int? take,
+      string description,
+      string transactionType,
+      int? categoryType
+    )
     {
       var transactions = await _transactionRepository.GetTransactionsPaginated(
         userId,
         skip,
         take,
         description,
-        transactionType
+        transactionType,
+        categoryType
       );
       var mapped = ObjectMapper.Mapper.Map<IEnumerable<TransactionModel>>(transactions);
       return mapped;
     }
 
-    public async Task<long> GetCount(string userId, string description, string transactionType)
+    public async Task<long> GetCount(
+      string userId,
+      string description,
+      string transactionType,
+      int? categoryType
+    )
     {
-      var count = await _transactionRepository.GetTransactionsCount(userId, description, transactionType);
+      var count = await _transactionRepository.GetTransactionsCount(
+        userId,
+        description,
+        transactionType,
+        categoryType
+      );
       return count;
     }
 

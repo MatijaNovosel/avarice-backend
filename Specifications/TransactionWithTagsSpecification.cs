@@ -1,8 +1,6 @@
-using fin_app_backend.Entities;
 using fin_app_backend.Specifications.Base;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Linq.Expressions;
 
 namespace fin_app_backend.Specifications
 {
@@ -13,13 +11,17 @@ namespace fin_app_backend.Specifications
       int? skip,
       int? take,
       string description,
-      string transactionType
-    ) : base(
-      b => b.UserId == userId &&
-      b.Description.ToLower().Contains(description.ToLower()) &&
-      b.TransactionType.Contains(transactionType)
+      string transactionType,
+      int? categoryType
     )
     {
+      Expression<Func<Transaction, bool>> expression = (transaction) =>
+        transaction.UserId == userId &&
+        transaction.Description.ToLower().Contains(description.ToLower()) &&
+        transaction.TransactionType.Contains(transactionType);
+
+      AddExpression(expression);
+
       AddInclude(b => b.Account);
       AddInclude(b => b.Category);
       AddInclude(b => b.Category.Parent);

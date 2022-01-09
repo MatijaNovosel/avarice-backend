@@ -49,7 +49,8 @@ namespace fin_app_backend.Controllers
       int skip,
       int take,
       string description,
-      string transactionType
+      string transactionType,
+      int? categoryType
     )
     {
       var data = await _transactionService.GetAll(
@@ -57,13 +58,15 @@ namespace fin_app_backend.Controllers
         skip,
         take,
         description,
-        transactionType
+        transactionType,
+        categoryType
       );
 
       var count = await _transactionService.GetCount(
         ((ClaimsIdentity)User.Identity).FindFirst("Id").Value,
         description,
-        transactionType
+        transactionType,
+        categoryType
       );
 
       return new PageableCollection<TransactionModel>()

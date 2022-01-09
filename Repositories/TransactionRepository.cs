@@ -24,7 +24,8 @@ namespace fin_app_backend.Repositories
       int? skip,
       int? take,
       string description,
-      string transactionType
+      string transactionType,
+      int? categoryType
     )
     {
       var spec = new TransactionWithTagsSpecification(
@@ -32,7 +33,8 @@ namespace fin_app_backend.Repositories
         skip,
         take,
         description ?? "",
-        transactionType ?? ""
+        transactionType ?? "",
+        categoryType
       );
       var transactions = await GetAsync(spec);
       return transactions;
@@ -41,13 +43,15 @@ namespace fin_app_backend.Repositories
     public async Task<long> GetTransactionsCount(
       string userId,
       string description,
-      string transactionType
+      string transactionType,
+      int? categoryType
     )
     {
       var spec = new TransactionCountSpecification(
         userId,
         description ?? "",
-        transactionType ?? ""
+        transactionType ?? "",
+        categoryType
       );
       var transactions = await GetAsync(spec);
       return transactions.Count;
