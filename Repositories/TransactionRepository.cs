@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace fin_app_backend.Repositories
 {
-  public class TransactionRepository : Repository<Transaction>, ITransactionRepository
+  public class TransactionRepository : Repository<Transaction, long>, ITransactionRepository
   {
     public TransactionRepository(finappContext dbContext) : base(dbContext)
     {

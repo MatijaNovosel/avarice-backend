@@ -22,7 +22,7 @@ namespace fin_app_backend.Extensions
   public static class PredicateBuilder
   {
 
-    public static Expression<Func<T, bool>> And<T>(this Expression<Func<T, bool>> a, Expression<Func<T, bool>> b)
+    public static Expression<Func<T, bool>> AndAlso<T>(this Expression<Func<T, bool>> a, Expression<Func<T, bool>> b)
     {
 
       ParameterExpression p = a.Parameters[0];
@@ -34,7 +34,7 @@ namespace fin_app_backend.Extensions
       return Expression.Lambda<Func<T, bool>>(body, p);
     }
 
-    public static Expression<Func<T, bool>> Or<T>(this Expression<Func<T, bool>> a, Expression<Func<T, bool>> b)
+    public static Expression<Func<T, bool>> OrAlso<T>(this Expression<Func<T, bool>> a, Expression<Func<T, bool>> b)
     {
 
       ParameterExpression p = a.Parameters[0];

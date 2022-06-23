@@ -6,7 +6,7 @@ using fin_app_backend.Entities.Base;
 
 namespace fin_app_backend
 {
-  public partial class Template : Entity
+  public partial class Template : EntityBase<long>
   {
     public Template()
     {

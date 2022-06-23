@@ -6,9 +6,9 @@ using System.Linq;
 
 namespace fin_app_backend.Repositories.Base
 {
-  public class SpecificationEvaluator<T> where T : Entity
+  public class SpecificationEvaluator<EntityType, EntityBaseType> where EntityType : EntityBase<EntityBaseType>
   {
-    public static IQueryable<T> GetQuery(IQueryable<T> inputQuery, ISpecification<T> specification)
+    public static IQueryable<EntityType> GetQuery(IQueryable<EntityType> inputQuery, ISpecification<EntityType> specification)
     {
       var query = inputQuery;
 

@@ -13,7 +13,7 @@ using fin_app_backend.Models;
 
 namespace fin_app_backend.Repositories
 {
-  public class AccountRepository : Repository<Account>, IAccountRepository
+  public class AccountRepository : Repository<Account, long>, IAccountRepository
   {
 
     public AccountRepository(finappContext dbContext) : base(dbContext)

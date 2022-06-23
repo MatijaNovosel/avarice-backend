@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace fin_app_backend.Repositories.Base
 {
-  public class Repository<T> : IRepository<T> where T : Entity
+  public class Repository<EntityType, EntityBaseType> : IRepository<EntityType> where EntityType : EntityBase<EntityBaseType>
   {
     protected readonly finappContext _dbContext;
 
@@ -19,34 +19,40 @@ namespace fin_app_backend.Repositories.Base
       _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
     }
 
-    public async Task<IReadOnlyList<T>> GetAllAsync()
+    public async Task<IReadOnlyList<EntityType>> GetAllAsync()
     {
-      return await _dbContext.Set<T>().ToListAsync();
+      return await _dbContext.Set<EntityType>().ToListAsync();
     }
 
-    public async Task<IReadOnlyList<T>> GetAsync(ISpecification<T> spec)
+    public async Task<IReadOnlyList<EntityType>> GetAsync(ISpecification<EntityType> spec)
     {
       return await ApplySpecification(spec).ToListAsync();
     }
 
-    public async Task<int> CountAsync(ISpecification<T> spec)
+    public async Task<int> CountAsync(ISpecification<EntityType> spec)
     {
       return await ApplySpecification(spec).CountAsync();
     }
 
-    private IQueryable<T> ApplySpecification(ISpecification<T> spec)
+    private IQueryable<EntityType> ApplySpecification(ISpecification<EntityType> spec)
     {
-      return SpecificationEvaluator<T>.GetQuery(_dbContext.Set<T>().AsQueryable(), spec);
+      return SpecificationEvaluator<EntityType, EntityBaseType>.GetQuery(_dbContext.Set<EntityType>().AsQueryable(), spec);
     }
 
-    public async Task<IReadOnlyList<T>> GetAsync(Expression<Func<T, bool>> predicate)
+    public async Task<IReadOnlyList<EntityType>> GetAsync(Expression<Func<EntityType, bool>> predicate)
     {
-      return await _dbContext.Set<T>().Where(predicate).ToListAsync();
+      return await _dbContext.Set<EntityType>().Where(predicate).ToListAsync();
     }
 
-    public async Task<IReadOnlyList<T>> GetAsync(Expression<Func<T, bool>> predicate = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeString = null, bool disableTracking = true)
+    public async Task<IReadOnlyList<EntityType>> GetAsync
+    (
+      Expression<Func<EntityType, bool>> predicate = null,
+      Func<IQueryable<EntityType>, IOrderedQueryable<EntityType>> orderBy = null,
+      string includeString = null,
+      bool disableTracking = true
+    )
     {
-      IQueryable<T> query = _dbContext.Set<T>();
+      IQueryable<EntityType> query = _dbContext.Set<EntityType>();
       if (disableTracking) query = query.AsNoTracking();
 
       if (!string.IsNullOrWhiteSpace(includeString)) query = query.Include(includeString);
@@ -58,9 +64,16 @@ namespace fin_app_backend.Repositories.Base
       return await query.ToListAsync();
     }
 
-    public async Task<IReadOnlyList<T>> GetAsync(Expression<Func<T, bool>> predicate = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, List<Expression<Func<T, object>>> includes = null, bool disableTracking = true)
+    public async Task<IReadOnlyList<EntityType>> GetAsync
+    (
+      Expression<Func<EntityType, bool>> predicate = null,
+      Func<IQueryable<EntityType>,
+      IOrderedQueryable<EntityType>> orderBy = null,
+      List<Expression<Func<EntityType, object>>> includes = null,
+      bool disableTracking = true
+    )
     {
-      IQueryable<T> query = _dbContext.Set<T>();
+      IQueryable<EntityType> query = _dbContext.Set<EntityType>();
       if (disableTracking) query = query.AsNoTracking();
 
       if (includes != null) query = includes.Aggregate(query, (current, include) => current.Include(include));
@@ -69,30 +82,31 @@ namespace fin_app_backend.Repositories.Base
 
       if (orderBy != null)
         return await orderBy(query).ToListAsync();
+
       return await query.ToListAsync();
     }
 
-    public virtual async Task<T> GetByIdAsync(long id)
+    public virtual async Task<EntityType> GetByIdAsync(long id)
     {
-      return await _dbContext.Set<T>().FindAsync(id);
+      return await _dbContext.Set<EntityType>().FindAsync(id);
     }
 
-    public async Task<T> AddAsync(T entity)
+    public async Task<EntityType> AddAsync(EntityType entity)
     {
-      _dbContext.Set<T>().Add(entity);
+      _dbContext.Set<EntityType>().Add(entity);
       await _dbContext.SaveChangesAsync();
       return entity;
     }
 
-    public async Task UpdateAsync(T entity)
+    public async Task UpdateAsync(EntityType entity)
     {
       _dbContext.Entry(entity).State = EntityState.Modified;
       await _dbContext.SaveChangesAsync();
     }
 
-    public async Task DeleteAsync(T entity)
+    public async Task DeleteAsync(EntityType entity)
     {
-      _dbContext.Set<T>().Remove(entity);
+      _dbContext.Set<EntityType>().Remove(entity);
       await _dbContext.SaveChangesAsync();
     }
   }

@@ -25,7 +25,7 @@ namespace fin_app_backend.Specifications
       if (categoryType != null)
       {
         Expression<Func<Transaction, bool>> expressionAddition = (t) => t.CategoryId == categoryType;
-        filterExpression = filterExpression.And(filterExpression, expressionAddition);
+        filterExpression = PredicateBuilder.AndAlso(filterExpression, expressionAddition);
       }
 
       AddExpression(filterExpression);

@@ -6,7 +6,7 @@ using fin_app_backend.Entities.Base;
 
 namespace fin_app_backend
 {
-  public partial class Transaction : Entity
+  public partial class Transaction : EntityBase<long>
   {
     public Transaction()
     {

@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace fin_app_backend.Repositories
 {
-  public class CategoryRepository : Repository<Category>, ICategoryRepository
+  public class CategoryRepository : Repository<Category, long>, ICategoryRepository
   {
     public CategoryRepository(finappContext dbContext) : base(dbContext)
     {

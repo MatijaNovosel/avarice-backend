@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace fin_app_backend.Repositories
 {
-  public class TemplateRepository : Repository<Template>, ITemplateRepository
+  public class TemplateRepository : Repository<Template, long>, ITemplateRepository
   {
     public TemplateRepository(finappContext dbContext) : base(dbContext)
     {

@@ -78,6 +78,8 @@ namespace fin_app_backend
 
       modelBuilder.Entity<Transaction>(entity =>
       {
+        entity.HasKey(entity => entity.Id);
+
         entity.ToTable("transaction");
 
         entity.HasCharSet("latin1")
