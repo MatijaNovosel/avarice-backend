@@ -19,6 +19,7 @@ namespace fin_app_backend
     public long? TransferAccountId { get; set; }
     public long CategoryId { get; set; }
     public string UserId { get; set; }
+    public DateTime CreatedAt { get; set; }
 
     public virtual Account Account { get; set; }
     public virtual Account TransferAccount { get; set; }

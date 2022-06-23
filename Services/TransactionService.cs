@@ -35,13 +35,6 @@ namespace fin_app_backend.Services
       account.Balance = account.Balance + payload.Amount;
       await _accountRepository.UpdateAsync(account);
 
-      /*
-
-        Transaction Id -> 2021-08-12-14-56-45
-        YEAR - MONTH - DAY - HOURS - MINUTES - SECONDS
-
-      */
-
       await _transactionRepository.AddAsync(new Transaction()
       {
         AccountId = account.Id,
@@ -50,9 +43,7 @@ namespace fin_app_backend.Services
         CategoryId = payload.CategoryId,
         Description = payload.Description,
         UserId = userId,
-        Id = payload.CreatedAt != null ?
-          long.Parse(payload.CreatedAt.Value.ToString("yyyyMMddHHmmss")) :
-          long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss"))
+        CreatedAt = payload.CreatedAt ?? DateTime.Now
       });
     }
 
@@ -67,13 +58,6 @@ namespace fin_app_backend.Services
       await _accountRepository.UpdateAsync(accountFrom);
       await _accountRepository.UpdateAsync(accountTo);
 
-      /*
-
-        Transaction Id -> 2021-08-12-14-56-45
-        YEAR - MONTH - DAY - HOURS - MINUTES - SECONDS
-
-      */
-
       await _transactionRepository.AddAsync(new Transaction()
       {
         AccountId = accountFrom.Id,
@@ -83,9 +67,7 @@ namespace fin_app_backend.Services
         Description = $"Transfer ({accountFrom.Name} => {accountTo.Name})",
         TransferAccountId = accountTo.Id,
         UserId = userId,
-        Id = transfer.CreatedAt != null ?
-          long.Parse(transfer.CreatedAt.Value.ToString("yyyyMMddHHmmss")) :
-          long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss"))
+        CreatedAt = transfer.CreatedAt ?? DateTime.Now
       });
     }
 
@@ -155,22 +137,16 @@ namespace fin_app_backend.Services
       DateTime startOfWeek = DateTime.Now.AddWeeks(-4).StartOfWeek(DayOfWeek.Monday);
       int dayDifference = DateTime.Now.DifferenceInDays(startOfWeek);
 
-      var toRange = long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss"));
-      var fromRange = long.Parse(startOfWeek.ToString("yyyyMMddHHmmss"));
-
       var transactions = await _transactionRepository.GetAsync(t =>
         t.UserId == userId &&
-        t.Id >= fromRange &&
-        t.Id <= toRange
+        t.CreatedAt >= startOfWeek &&
+        t.CreatedAt <= DateTime.Now
       );
 
       for (int n = 0; n < dayDifference; n++)
       {
         var date = startOfWeek.AddDays(n);
-        var id = long.Parse(date.ToString("yyyyMMddHHmmss"));
-        var transactionAtDate = transactions.Where(t => long.Parse(
-          t.Id.ToString().Substring(0, 8)) == long.Parse(id.ToString().Substring(0, 8))
-        );
+        var transactionAtDate = transactions.Where(t => t.CreatedAt == date);
 
         res.Add(new TransactionActivityHeatmapModel
         {

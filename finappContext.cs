@@ -78,8 +78,6 @@ namespace fin_app_backend
 
       modelBuilder.Entity<Transaction>(entity =>
       {
-        entity.HasKey(entity => entity.Id);
-
         entity.ToTable("transaction");
 
         entity.HasCharSet("latin1")
@@ -93,7 +91,8 @@ namespace fin_app_backend
 
         entity.Property(e => e.Id)
           .HasColumnType("bigint")
-          .HasColumnName("id");
+          .HasColumnName("id")
+          .ValueGeneratedOnAdd();
 
         entity.Property(e => e.AccountId)
           .HasColumnType("bigint")
