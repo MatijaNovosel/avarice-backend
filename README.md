@@ -6,4 +6,4 @@
 ## 🔨 Built With
 
 - [MySQL](https://www.mysql.com/)
-- [.NET Core 5](https://dotnet.microsoft.com/en-us/)
+- [.NET Core](https://dotnet.microsoft.com/en-us/)
