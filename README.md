@@ -1,6 +1,6 @@
-<h1 align=center>FinApp backend</h1>
+<h1 align=center>Avarice backend</h1>
 <p align=center>
-  Backend for the <a href="https://github.com/MatijaNovosel/fin-app">FinApp</a> application.
+  Backend for the <a href="https://github.com/MatijaNovosel/avarice">Avarice</a> application.
 </p>
 
 ## 🔨 Built With
