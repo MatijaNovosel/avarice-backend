@@ -1,6 +1,6 @@
-using fin_app_backend.Entities.Base;
-using fin_app_backend.Repositories;
-using fin_app_backend.Specifications.Base;
+using avarice_backend.Entities.Base;
+using avarice_backend.Repositories;
+using avarice_backend.Specifications.Base;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,13 +8,13 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace fin_app_backend.Repositories.Base
+namespace avarice_backend.Repositories.Base
 {
   public class Repository<EntityType, EntityBaseType> : IRepository<EntityType> where EntityType : EntityBase<EntityBaseType>
   {
-    protected readonly finappContext _dbContext;
+    protected readonly avariceContext _dbContext;
 
-    public Repository(finappContext dbContext)
+    public Repository(avariceContext dbContext)
     {
       _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
     }

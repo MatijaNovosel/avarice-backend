@@ -4,532 +4,532 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using fin_app_backend;
+using avarice_backend;
 
-namespace fin_app_backend.Migrations
+namespace avarice_backend.Migrations
 {
-    [DbContext(typeof(finappContext))]
-    [Migration("20210824133354_Fixes")]
-    partial class Fixes
+  [DbContext(typeof(avariceContext))]
+  [Migration("20210824133354_Fixes")]
+  partial class Fixes
+  {
+    protected override void BuildTargetModel(ModelBuilder modelBuilder)
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
-        {
 #pragma warning disable 612, 618
-            modelBuilder
-                .HasCharSet("latin1")
-                .HasAnnotation("Relational:MaxIdentifierLength", 64)
-                .HasAnnotation("ProductVersion", "5.0.5");
+      modelBuilder
+          .HasCharSet("latin1")
+          .HasAnnotation("Relational:MaxIdentifierLength", 64)
+          .HasAnnotation("ProductVersion", "5.0.5");
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("varchar(255)");
+      modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+          {
+            b.Property<string>("Id")
+                      .HasColumnType("varchar(255)");
 
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("longtext");
+            b.Property<string>("ConcurrencyStamp")
+                      .IsConcurrencyToken()
+                      .HasColumnType("longtext");
 
-                    b.Property<string>("Name")
-                        .HasMaxLength(256)
-                        .HasColumnType("varchar(256)");
+            b.Property<string>("Name")
+                      .HasMaxLength(256)
+                      .HasColumnType("varchar(256)");
 
-                    b.Property<string>("NormalizedName")
-                        .HasMaxLength(256)
-                        .HasColumnType("varchar(256)");
+            b.Property<string>("NormalizedName")
+                      .HasMaxLength(256)
+                      .HasColumnType("varchar(256)");
 
-                    b.HasKey("Id");
+            b.HasKey("Id");
 
-                    b.HasIndex("NormalizedName")
-                        .IsUnique()
-                        .HasDatabaseName("RoleNameIndex");
+            b.HasIndex("NormalizedName")
+                      .IsUnique()
+                      .HasDatabaseName("RoleNameIndex");
 
-                    b.ToTable("AspNetRoles");
-                });
+            b.ToTable("AspNetRoles");
+          });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+      modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+          {
+            b.Property<int>("Id")
+                      .ValueGeneratedOnAdd()
+                      .HasColumnType("int");
 
-                    b.Property<string>("ClaimType")
-                        .HasColumnType("longtext");
+            b.Property<string>("ClaimType")
+                      .HasColumnType("longtext");
 
-                    b.Property<string>("ClaimValue")
-                        .HasColumnType("longtext");
+            b.Property<string>("ClaimValue")
+                      .HasColumnType("longtext");
 
-                    b.Property<string>("RoleId")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
+            b.Property<string>("RoleId")
+                      .IsRequired()
+                      .HasColumnType("varchar(255)");
 
-                    b.HasKey("Id");
+            b.HasKey("Id");
 
-                    b.HasIndex("RoleId");
+            b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetRoleClaims");
-                });
+            b.ToTable("AspNetRoleClaims");
+          });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+      modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+          {
+            b.Property<int>("Id")
+                      .ValueGeneratedOnAdd()
+                      .HasColumnType("int");
 
-                    b.Property<string>("ClaimType")
-                        .HasColumnType("longtext");
+            b.Property<string>("ClaimType")
+                      .HasColumnType("longtext");
 
-                    b.Property<string>("ClaimValue")
-                        .HasColumnType("longtext");
+            b.Property<string>("ClaimValue")
+                      .HasColumnType("longtext");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
+            b.Property<string>("UserId")
+                      .IsRequired()
+                      .HasColumnType("varchar(255)");
 
-                    b.HasKey("Id");
+            b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+            b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserClaims");
-                });
+            b.ToTable("AspNetUserClaims");
+          });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
-                {
-                    b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("varchar(128)");
+      modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+          {
+            b.Property<string>("LoginProvider")
+                      .HasMaxLength(128)
+                      .HasColumnType("varchar(128)");
 
-                    b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
-                        .HasColumnType("varchar(128)");
+            b.Property<string>("ProviderKey")
+                      .HasMaxLength(128)
+                      .HasColumnType("varchar(128)");
 
-                    b.Property<string>("ProviderDisplayName")
-                        .HasColumnType("longtext");
+            b.Property<string>("ProviderDisplayName")
+                      .HasColumnType("longtext");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
+            b.Property<string>("UserId")
+                      .IsRequired()
+                      .HasColumnType("varchar(255)");
 
-                    b.HasKey("LoginProvider", "ProviderKey");
+            b.HasKey("LoginProvider", "ProviderKey");
 
-                    b.HasIndex("UserId");
+            b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserLogins");
-                });
+            b.ToTable("AspNetUserLogins");
+          });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<string>("RoleId")
-                        .HasColumnType("varchar(255)");
-
-                    b.HasKey("UserId", "RoleId");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("AspNetUserRoles");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("varchar(128)");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("varchar(128)");
-
-                    b.Property<string>("Value")
-                        .HasColumnType("longtext");
-
-                    b.HasKey("UserId", "LoginProvider", "Name");
-
-                    b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("fin_app_backend.Account", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int(11)")
-                        .HasColumnName("id");
-
-                    b.Property<double>("Balance")
-                        .HasColumnType("double")
-                        .HasColumnName("balance");
-
-                    b.Property<string>("Currency")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(32)
-                        .HasColumnType("varchar(32)")
-                        .HasColumnName("currency")
-                        .HasDefaultValueSql("'HRK'");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(64)
-                        .HasColumnType("varchar(64)")
-                        .HasColumnName("name");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("varchar(255)")
-                        .HasColumnName("userId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex(new[] { "UserId" }, "userId");
-
-                    b.ToTable("account");
-
-                    b
-                        .HasCharSet("latin1")
-                        .UseCollation("latin1_swedish_ci");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Balance = 14000.0,
-                            Currency = "HRK",
-                            Name = "Gyro",
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Balance = 200.0,
-                            Currency = "EUR",
-                            Name = "Euros",
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        });
-                });
-
-            modelBuilder.Entity("fin_app_backend.Category", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int(11)")
-                        .HasColumnName("id");
-
-                    b.Property<string>("Color")
-                        .HasMaxLength(32)
-                        .HasColumnType("varchar(32)")
-                        .HasColumnName("color");
-
-                    b.Property<string>("Icon")
-                        .HasMaxLength(32)
-                        .HasColumnType("varchar(32)")
-                        .HasColumnName("icon");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(32)
-                        .HasColumnType("varchar(32)")
-                        .HasColumnName("name");
-
-                    b.Property<ulong>("System")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(0ul)
-                        .HasColumnName("system");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("varchar(255)")
-                        .HasColumnName("userId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("category");
-
-                    b
-                        .HasCharSet("latin1")
-                        .UseCollation("latin1_swedish_ci");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Color = "grey",
-                            Icon = "mdi-swap-horizontal",
-                            Name = "Transfer",
-                            System = 0ul
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Color = "red",
-                            Icon = "mdi-account",
-                            Name = "Testing category",
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        });
-                });
-
-            modelBuilder.Entity("fin_app_backend.Transaction", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnName("id");
-
-                    b.Property<int?>("AccountId")
-                        .HasColumnType("int(11)")
-                        .HasColumnName("accountId");
-
-                    b.Property<double?>("Amount")
-                        .HasColumnType("double")
-                        .HasColumnName("amount");
-
-                    b.Property<int?>("CategoryId")
-                        .HasColumnType("int(11)")
-                        .HasColumnName("categoryId");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)")
-                        .HasColumnName("description");
-
-                    b.Property<string>("TransactionType")
-                        .HasMaxLength(3)
-                        .HasColumnType("varchar(3)")
-                        .HasColumnName("transactionType");
-
-                    b.Property<int?>("TransferAccountId")
-                        .HasColumnType("int(11)")
-                        .HasColumnName("transferAccountId");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("varchar(255)")
-                        .HasColumnName("userId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TransferAccountId");
-
-                    b.HasIndex(new[] { "AccountId" }, "accountId");
-
-                    b.HasIndex(new[] { "CategoryId" }, "categoryId");
-
-                    b.HasIndex(new[] { "UserId" }, "userId")
-                        .HasDatabaseName("userId1");
-
-                    b.ToTable("transaction");
-
-                    b
-                        .HasCharSet("latin1")
-                        .UseCollation("latin1_swedish_ci");
-                });
-
-            modelBuilder.Entity("fin_app_backend.User", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("varchar(256)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("varchar(256)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("varchar(256)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("longtext");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("longtext");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("varchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex");
-
-                    b.ToTable("AspNetUsers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "ee103364-7617-4474-889e-320838e5f3a5",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "89704630-4abf-4488-9cbd-4f9ec29fcb8b",
-                            Email = "mnovosel5@gmail.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "MNOVOSEL5@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEM0Wt1TEKVt7yHabPEkIPjgI1nmxtwcdhGuteBZVD1DSoSRSPans/Q+LChfIteJucw==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "KQLSA5W3M75PPLZ34LBVUTTSVTMJ7ANN",
-                            TwoFactorEnabled = false,
-                            UserName = "Novosel"
-                        });
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
-                {
-                    b.HasOne("fin_app_backend.User", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
-                {
-                    b.HasOne("fin_app_backend.User", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("fin_app_backend.User", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
-                {
-                    b.HasOne("fin_app_backend.User", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("fin_app_backend.Account", b =>
-                {
-                    b.HasOne("fin_app_backend.User", "User")
-                        .WithMany("Accounts")
-                        .HasForeignKey("UserId")
-                        .HasConstraintName("account_ibfk_1");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("fin_app_backend.Category", b =>
-                {
-                    b.HasOne("fin_app_backend.User", "User")
-                        .WithMany("Categories")
-                        .HasForeignKey("UserId")
-                        .HasConstraintName("category_ibfk_1");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("fin_app_backend.Transaction", b =>
-                {
-                    b.HasOne("fin_app_backend.Account", "Account")
-                        .WithMany("Transactions")
-                        .HasForeignKey("AccountId")
-                        .HasConstraintName("transaction_ibfk_1");
-
-                    b.HasOne("fin_app_backend.Category", "Category")
-                        .WithMany("Transactions")
-                        .HasForeignKey("CategoryId")
-                        .HasConstraintName("transaction_ibfk_4");
-
-                    b.HasOne("fin_app_backend.Account", "TransferAccount")
-                        .WithMany("TransferTransactions")
-                        .HasForeignKey("TransferAccountId")
-                        .HasConstraintName("transaction_ibfk_2");
-
-                    b.HasOne("fin_app_backend.User", "User")
-                        .WithMany("Transactions")
-                        .HasForeignKey("UserId")
-                        .HasConstraintName("transaction_ibfk_3");
-
-                    b.Navigation("Account");
-
-                    b.Navigation("Category");
-
-                    b.Navigation("TransferAccount");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("fin_app_backend.Account", b =>
-                {
-                    b.Navigation("Transactions");
-
-                    b.Navigation("TransferTransactions");
-                });
-
-            modelBuilder.Entity("fin_app_backend.Category", b =>
-                {
-                    b.Navigation("Transactions");
-                });
-
-            modelBuilder.Entity("fin_app_backend.User", b =>
-                {
-                    b.Navigation("Accounts");
-
-                    b.Navigation("Categories");
-
-                    b.Navigation("Transactions");
-                });
+      modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+          {
+            b.Property<string>("UserId")
+                      .HasColumnType("varchar(255)");
+
+            b.Property<string>("RoleId")
+                      .HasColumnType("varchar(255)");
+
+            b.HasKey("UserId", "RoleId");
+
+            b.HasIndex("RoleId");
+
+            b.ToTable("AspNetUserRoles");
+          });
+
+      modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+          {
+            b.Property<string>("UserId")
+                      .HasColumnType("varchar(255)");
+
+            b.Property<string>("LoginProvider")
+                      .HasMaxLength(128)
+                      .HasColumnType("varchar(128)");
+
+            b.Property<string>("Name")
+                      .HasMaxLength(128)
+                      .HasColumnType("varchar(128)");
+
+            b.Property<string>("Value")
+                      .HasColumnType("longtext");
+
+            b.HasKey("UserId", "LoginProvider", "Name");
+
+            b.ToTable("AspNetUserTokens");
+          });
+
+      modelBuilder.Entity("avarice_backend.Account", b =>
+          {
+            b.Property<int>("Id")
+                      .ValueGeneratedOnAdd()
+                      .HasColumnType("int(11)")
+                      .HasColumnName("id");
+
+            b.Property<double>("Balance")
+                      .HasColumnType("double")
+                      .HasColumnName("balance");
+
+            b.Property<string>("Currency")
+                      .IsRequired()
+                      .ValueGeneratedOnAdd()
+                      .HasMaxLength(32)
+                      .HasColumnType("varchar(32)")
+                      .HasColumnName("currency")
+                      .HasDefaultValueSql("'HRK'");
+
+            b.Property<string>("Name")
+                      .HasMaxLength(64)
+                      .HasColumnType("varchar(64)")
+                      .HasColumnName("name");
+
+            b.Property<string>("UserId")
+                      .HasColumnType("varchar(255)")
+                      .HasColumnName("userId");
+
+            b.HasKey("Id");
+
+            b.HasIndex(new[] { "UserId" }, "userId");
+
+            b.ToTable("account");
+
+            b
+                      .HasCharSet("latin1")
+                      .UseCollation("latin1_swedish_ci");
+
+            b.HasData(
+                      new
+                      {
+                        Id = 1,
+                        Balance = 14000.0,
+                        Currency = "HRK",
+                        Name = "Gyro",
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 2,
+                        Balance = 200.0,
+                        Currency = "EUR",
+                        Name = "Euros",
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      });
+          });
+
+      modelBuilder.Entity("avarice_backend.Category", b =>
+          {
+            b.Property<int>("Id")
+                      .ValueGeneratedOnAdd()
+                      .HasColumnType("int(11)")
+                      .HasColumnName("id");
+
+            b.Property<string>("Color")
+                      .HasMaxLength(32)
+                      .HasColumnType("varchar(32)")
+                      .HasColumnName("color");
+
+            b.Property<string>("Icon")
+                      .HasMaxLength(32)
+                      .HasColumnType("varchar(32)")
+                      .HasColumnName("icon");
+
+            b.Property<string>("Name")
+                      .HasMaxLength(32)
+                      .HasColumnType("varchar(32)")
+                      .HasColumnName("name");
+
+            b.Property<ulong>("System")
+                      .ValueGeneratedOnAdd()
+                      .HasColumnType("bit")
+                      .HasDefaultValue(0ul)
+                      .HasColumnName("system");
+
+            b.Property<string>("UserId")
+                      .HasColumnType("varchar(255)")
+                      .HasColumnName("userId");
+
+            b.HasKey("Id");
+
+            b.HasIndex("UserId");
+
+            b.ToTable("category");
+
+            b
+                      .HasCharSet("latin1")
+                      .UseCollation("latin1_swedish_ci");
+
+            b.HasData(
+                      new
+                      {
+                        Id = 1,
+                        Color = "grey",
+                        Icon = "mdi-swap-horizontal",
+                        Name = "Transfer",
+                        System = 0ul
+                      },
+                      new
+                      {
+                        Id = 2,
+                        Color = "red",
+                        Icon = "mdi-account",
+                        Name = "Testing category",
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      });
+          });
+
+      modelBuilder.Entity("avarice_backend.Transaction", b =>
+          {
+            b.Property<long>("Id")
+                      .ValueGeneratedOnAdd()
+                      .HasColumnType("bigint")
+                      .HasColumnName("id");
+
+            b.Property<int?>("AccountId")
+                      .HasColumnType("int(11)")
+                      .HasColumnName("accountId");
+
+            b.Property<double?>("Amount")
+                      .HasColumnType("double")
+                      .HasColumnName("amount");
+
+            b.Property<int?>("CategoryId")
+                      .HasColumnType("int(11)")
+                      .HasColumnName("categoryId");
+
+            b.Property<string>("Description")
+                      .HasMaxLength(255)
+                      .HasColumnType("varchar(255)")
+                      .HasColumnName("description");
+
+            b.Property<string>("TransactionType")
+                      .HasMaxLength(3)
+                      .HasColumnType("varchar(3)")
+                      .HasColumnName("transactionType");
+
+            b.Property<int?>("TransferAccountId")
+                      .HasColumnType("int(11)")
+                      .HasColumnName("transferAccountId");
+
+            b.Property<string>("UserId")
+                      .HasColumnType("varchar(255)")
+                      .HasColumnName("userId");
+
+            b.HasKey("Id");
+
+            b.HasIndex("TransferAccountId");
+
+            b.HasIndex(new[] { "AccountId" }, "accountId");
+
+            b.HasIndex(new[] { "CategoryId" }, "categoryId");
+
+            b.HasIndex(new[] { "UserId" }, "userId")
+                      .HasDatabaseName("userId1");
+
+            b.ToTable("transaction");
+
+            b
+                      .HasCharSet("latin1")
+                      .UseCollation("latin1_swedish_ci");
+          });
+
+      modelBuilder.Entity("avarice_backend.User", b =>
+          {
+            b.Property<string>("Id")
+                      .HasColumnType("varchar(255)");
+
+            b.Property<int>("AccessFailedCount")
+                      .HasColumnType("int");
+
+            b.Property<string>("ConcurrencyStamp")
+                      .IsConcurrencyToken()
+                      .HasColumnType("longtext");
+
+            b.Property<string>("Email")
+                      .HasMaxLength(256)
+                      .HasColumnType("varchar(256)");
+
+            b.Property<bool>("EmailConfirmed")
+                      .HasColumnType("tinyint(1)");
+
+            b.Property<bool>("LockoutEnabled")
+                      .HasColumnType("tinyint(1)");
+
+            b.Property<DateTimeOffset?>("LockoutEnd")
+                      .HasColumnType("datetime(6)");
+
+            b.Property<string>("NormalizedEmail")
+                      .HasMaxLength(256)
+                      .HasColumnType("varchar(256)");
+
+            b.Property<string>("NormalizedUserName")
+                      .HasMaxLength(256)
+                      .HasColumnType("varchar(256)");
+
+            b.Property<string>("PasswordHash")
+                      .HasColumnType("longtext");
+
+            b.Property<string>("PhoneNumber")
+                      .HasColumnType("longtext");
+
+            b.Property<bool>("PhoneNumberConfirmed")
+                      .HasColumnType("tinyint(1)");
+
+            b.Property<string>("SecurityStamp")
+                      .HasColumnType("longtext");
+
+            b.Property<bool>("TwoFactorEnabled")
+                      .HasColumnType("tinyint(1)");
+
+            b.Property<string>("UserName")
+                      .HasMaxLength(256)
+                      .HasColumnType("varchar(256)");
+
+            b.HasKey("Id");
+
+            b.HasIndex("NormalizedEmail")
+                      .HasDatabaseName("EmailIndex");
+
+            b.HasIndex("NormalizedUserName")
+                      .IsUnique()
+                      .HasDatabaseName("UserNameIndex");
+
+            b.ToTable("AspNetUsers");
+
+            b.HasData(
+                      new
+                      {
+                        Id = "ee103364-7617-4474-889e-320838e5f3a5",
+                        AccessFailedCount = 0,
+                        ConcurrencyStamp = "89704630-4abf-4488-9cbd-4f9ec29fcb8b",
+                        Email = "mnovosel5@gmail.com",
+                        EmailConfirmed = false,
+                        LockoutEnabled = false,
+                        NormalizedEmail = "MNOVOSEL5@GMAIL.COM",
+                        PasswordHash = "AQAAAAEAACcQAAAAEM0Wt1TEKVt7yHabPEkIPjgI1nmxtwcdhGuteBZVD1DSoSRSPans/Q+LChfIteJucw==",
+                        PhoneNumberConfirmed = false,
+                        SecurityStamp = "KQLSA5W3M75PPLZ34LBVUTTSVTMJ7ANN",
+                        TwoFactorEnabled = false,
+                        UserName = "Novosel"
+                      });
+          });
+
+      modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+          {
+            b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                      .WithMany()
+                      .HasForeignKey("RoleId")
+                      .OnDelete(DeleteBehavior.Cascade)
+                      .IsRequired();
+          });
+
+      modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+          {
+            b.HasOne("avarice_backend.User", null)
+                      .WithMany()
+                      .HasForeignKey("UserId")
+                      .OnDelete(DeleteBehavior.Cascade)
+                      .IsRequired();
+          });
+
+      modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+          {
+            b.HasOne("avarice_backend.User", null)
+                      .WithMany()
+                      .HasForeignKey("UserId")
+                      .OnDelete(DeleteBehavior.Cascade)
+                      .IsRequired();
+          });
+
+      modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+          {
+            b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                      .WithMany()
+                      .HasForeignKey("RoleId")
+                      .OnDelete(DeleteBehavior.Cascade)
+                      .IsRequired();
+
+            b.HasOne("avarice_backend.User", null)
+                      .WithMany()
+                      .HasForeignKey("UserId")
+                      .OnDelete(DeleteBehavior.Cascade)
+                      .IsRequired();
+          });
+
+      modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+          {
+            b.HasOne("avarice_backend.User", null)
+                      .WithMany()
+                      .HasForeignKey("UserId")
+                      .OnDelete(DeleteBehavior.Cascade)
+                      .IsRequired();
+          });
+
+      modelBuilder.Entity("avarice_backend.Account", b =>
+          {
+            b.HasOne("avarice_backend.User", "User")
+                      .WithMany("Accounts")
+                      .HasForeignKey("UserId")
+                      .HasConstraintName("account_ibfk_1");
+
+            b.Navigation("User");
+          });
+
+      modelBuilder.Entity("avarice_backend.Category", b =>
+          {
+            b.HasOne("avarice_backend.User", "User")
+                      .WithMany("Categories")
+                      .HasForeignKey("UserId")
+                      .HasConstraintName("category_ibfk_1");
+
+            b.Navigation("User");
+          });
+
+      modelBuilder.Entity("avarice_backend.Transaction", b =>
+          {
+            b.HasOne("avarice_backend.Account", "Account")
+                      .WithMany("Transactions")
+                      .HasForeignKey("AccountId")
+                      .HasConstraintName("transaction_ibfk_1");
+
+            b.HasOne("avarice_backend.Category", "Category")
+                      .WithMany("Transactions")
+                      .HasForeignKey("CategoryId")
+                      .HasConstraintName("transaction_ibfk_4");
+
+            b.HasOne("avarice_backend.Account", "TransferAccount")
+                      .WithMany("TransferTransactions")
+                      .HasForeignKey("TransferAccountId")
+                      .HasConstraintName("transaction_ibfk_2");
+
+            b.HasOne("avarice_backend.User", "User")
+                      .WithMany("Transactions")
+                      .HasForeignKey("UserId")
+                      .HasConstraintName("transaction_ibfk_3");
+
+            b.Navigation("Account");
+
+            b.Navigation("Category");
+
+            b.Navigation("TransferAccount");
+
+            b.Navigation("User");
+          });
+
+      modelBuilder.Entity("avarice_backend.Account", b =>
+          {
+            b.Navigation("Transactions");
+
+            b.Navigation("TransferTransactions");
+          });
+
+      modelBuilder.Entity("avarice_backend.Category", b =>
+          {
+            b.Navigation("Transactions");
+          });
+
+      modelBuilder.Entity("avarice_backend.User", b =>
+          {
+            b.Navigation("Accounts");
+
+            b.Navigation("Categories");
+
+            b.Navigation("Transactions");
+          });
 #pragma warning restore 612, 618
-        }
     }
+  }
 }

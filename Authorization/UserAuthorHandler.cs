@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using System;
 using Microsoft.AspNetCore.Http;
 
-namespace fin_app_backend.Authorization
+namespace avarice_backend.Authorization
 {
   public class UserAuthorHandler : AuthorizationHandler<UserMustBeAuthorRequirement>
   {

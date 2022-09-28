@@ -4,1487 +4,1487 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using fin_app_backend;
+using avarice_backend;
 
-namespace fin_app_backend.Migrations
+namespace avarice_backend.Migrations
 {
-    [DbContext(typeof(finappContext))]
-    [Migration("20211230212454_NewCategories")]
-    partial class NewCategories
+  [DbContext(typeof(avariceContext))]
+  [Migration("20211230212454_NewCategories")]
+  partial class NewCategories
+  {
+    protected override void BuildTargetModel(ModelBuilder modelBuilder)
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
-        {
 #pragma warning disable 612, 618
-            modelBuilder
-                .HasCharSet("latin1")
-                .HasAnnotation("Relational:MaxIdentifierLength", 64)
-                .HasAnnotation("ProductVersion", "5.0.5");
+      modelBuilder
+          .HasCharSet("latin1")
+          .HasAnnotation("Relational:MaxIdentifierLength", 64)
+          .HasAnnotation("ProductVersion", "5.0.5");
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("varchar(255)");
+      modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+          {
+            b.Property<string>("Id")
+                      .HasColumnType("varchar(255)");
 
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("longtext");
+            b.Property<string>("ConcurrencyStamp")
+                      .IsConcurrencyToken()
+                      .HasColumnType("longtext");
 
-                    b.Property<string>("Name")
-                        .HasMaxLength(256)
-                        .HasColumnType("varchar(256)");
+            b.Property<string>("Name")
+                      .HasMaxLength(256)
+                      .HasColumnType("varchar(256)");
 
-                    b.Property<string>("NormalizedName")
-                        .HasMaxLength(256)
-                        .HasColumnType("varchar(256)");
+            b.Property<string>("NormalizedName")
+                      .HasMaxLength(256)
+                      .HasColumnType("varchar(256)");
 
-                    b.HasKey("Id");
+            b.HasKey("Id");
 
-                    b.HasIndex("NormalizedName")
-                        .IsUnique()
-                        .HasDatabaseName("RoleNameIndex");
+            b.HasIndex("NormalizedName")
+                      .IsUnique()
+                      .HasDatabaseName("RoleNameIndex");
 
-                    b.ToTable("AspNetRoles");
-                });
+            b.ToTable("AspNetRoles");
+          });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+      modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+          {
+            b.Property<int>("Id")
+                      .ValueGeneratedOnAdd()
+                      .HasColumnType("int");
 
-                    b.Property<string>("ClaimType")
-                        .HasColumnType("longtext");
+            b.Property<string>("ClaimType")
+                      .HasColumnType("longtext");
 
-                    b.Property<string>("ClaimValue")
-                        .HasColumnType("longtext");
+            b.Property<string>("ClaimValue")
+                      .HasColumnType("longtext");
 
-                    b.Property<string>("RoleId")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
+            b.Property<string>("RoleId")
+                      .IsRequired()
+                      .HasColumnType("varchar(255)");
 
-                    b.HasKey("Id");
+            b.HasKey("Id");
 
-                    b.HasIndex("RoleId");
+            b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetRoleClaims");
-                });
+            b.ToTable("AspNetRoleClaims");
+          });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+      modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+          {
+            b.Property<int>("Id")
+                      .ValueGeneratedOnAdd()
+                      .HasColumnType("int");
 
-                    b.Property<string>("ClaimType")
-                        .HasColumnType("longtext");
+            b.Property<string>("ClaimType")
+                      .HasColumnType("longtext");
 
-                    b.Property<string>("ClaimValue")
-                        .HasColumnType("longtext");
+            b.Property<string>("ClaimValue")
+                      .HasColumnType("longtext");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
+            b.Property<string>("UserId")
+                      .IsRequired()
+                      .HasColumnType("varchar(255)");
 
-                    b.HasKey("Id");
+            b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+            b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserClaims");
-                });
+            b.ToTable("AspNetUserClaims");
+          });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
-                {
-                    b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("varchar(128)");
+      modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+          {
+            b.Property<string>("LoginProvider")
+                      .HasMaxLength(128)
+                      .HasColumnType("varchar(128)");
 
-                    b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
-                        .HasColumnType("varchar(128)");
+            b.Property<string>("ProviderKey")
+                      .HasMaxLength(128)
+                      .HasColumnType("varchar(128)");
 
-                    b.Property<string>("ProviderDisplayName")
-                        .HasColumnType("longtext");
+            b.Property<string>("ProviderDisplayName")
+                      .HasColumnType("longtext");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
+            b.Property<string>("UserId")
+                      .IsRequired()
+                      .HasColumnType("varchar(255)");
 
-                    b.HasKey("LoginProvider", "ProviderKey");
+            b.HasKey("LoginProvider", "ProviderKey");
 
-                    b.HasIndex("UserId");
-
-                    b.ToTable("AspNetUserLogins");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<string>("RoleId")
-                        .HasColumnType("varchar(255)");
-
-                    b.HasKey("UserId", "RoleId");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("AspNetUserRoles");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("varchar(128)");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("varchar(128)");
-
-                    b.Property<string>("Value")
-                        .HasColumnType("longtext");
-
-                    b.HasKey("UserId", "LoginProvider", "Name");
-
-                    b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("fin_app_backend.Account", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnName("id");
-
-                    b.Property<double>("Balance")
-                        .HasColumnType("double")
-                        .HasColumnName("balance");
-
-                    b.Property<string>("Currency")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(32)
-                        .HasColumnType("varchar(32)")
-                        .HasColumnName("currency")
-                        .HasDefaultValueSql("'HRK'");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(64)
-                        .HasColumnType("varchar(64)")
-                        .HasColumnName("name");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("varchar(255)")
-                        .HasColumnName("userId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex(new[] { "UserId" }, "userId");
-
-                    b.ToTable("account");
-
-                    b
-                        .HasCharSet("latin1")
-                        .UseCollation("latin1_swedish_ci");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            Balance = 14000.0,
-                            Currency = "HRK",
-                            Name = "Gyro",
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            Balance = 200.0,
-                            Currency = "EUR",
-                            Name = "Euros",
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 3L,
-                            Balance = 0.0,
-                            Currency = "HRK",
-                            Name = "Checking",
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 4L,
-                            Balance = 800.0,
-                            Currency = "HRK",
-                            Name = "Pocket",
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        });
-                });
-
-            modelBuilder.Entity("fin_app_backend.Category", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnName("id");
-
-                    b.Property<string>("Color")
-                        .HasMaxLength(32)
-                        .HasColumnType("varchar(32)")
-                        .HasColumnName("color");
-
-                    b.Property<string>("Icon")
-                        .HasMaxLength(32)
-                        .HasColumnType("varchar(32)")
-                        .HasColumnName("icon");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(32)
-                        .HasColumnType("varchar(32)")
-                        .HasColumnName("name");
-
-                    b.Property<long?>("ParentId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("parentId");
-
-                    b.Property<ulong>("System")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(0ul)
-                        .HasColumnName("system");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("varchar(255)")
-                        .HasColumnName("userId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ParentId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("category");
-
-                    b
-                        .HasCharSet("latin1")
-                        .UseCollation("latin1_swedish_ci");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            Color = "grey",
-                            Icon = "mdi-swap-horizontal",
-                            Name = "Transfer",
-                            System = 1ul
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            Color = "#ffffff",
-                            Icon = "mdi-food-fork-drink",
-                            Name = "Food & Drinks",
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 3L,
-                            Color = "#ffffff",
-                            Icon = "mdi-food",
-                            Name = "Restaurant, fast-food",
-                            ParentId = 2L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 4L,
-                            Color = "#ffffff",
-                            Icon = "mdi-glass-cocktail",
-                            Name = "Bar, cafe",
-                            ParentId = 2L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 5L,
-                            Color = "#ffffff",
-                            Icon = "mdi-glass-cocktail",
-                            Name = "Bar, cafe",
-                            ParentId = 2L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 6L,
-                            Color = "#ffffff",
-                            Icon = "mdi-cart",
-                            Name = "Groceries",
-                            ParentId = 2L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 7L,
-                            Color = "#ffffff",
-                            Icon = "mdi-basket",
-                            Name = "Shopping",
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 8L,
-                            Color = "#ffffff",
-                            Icon = "mdi-tshirt-crew",
-                            Name = "Clothes and shoes",
-                            ParentId = 7L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 9L,
-                            Color = "#ffffff",
-                            Icon = "mdi-pill",
-                            Name = "Drug-store, chemist",
-                            ParentId = 7L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 10L,
-                            Color = "#ffffff",
-                            Icon = "mdi-laptop",
-                            Name = "Electronics, accessories",
-                            ParentId = 7L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 11L,
-                            Color = "#ffffff",
-                            Icon = "mdi-emoticon",
-                            Name = "Free time",
-                            ParentId = 7L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 12L,
-                            Color = "#ffffff",
-                            Icon = "mdi-gift",
-                            Name = "Gifts, joy",
-                            ParentId = 7L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 13L,
-                            Color = "#ffffff",
-                            Icon = "mdi-bottle-tonic-plus",
-                            Name = "Health and beauty",
-                            ParentId = 7L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 14L,
-                            Color = "#ffffff",
-                            Icon = "mdi-home",
-                            Name = "Home, garden",
-                            ParentId = 7L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 15L,
-                            Color = "#ffffff",
-                            Icon = "mdi-diamond-stone",
-                            Name = "Jewels, accessories",
-                            ParentId = 7L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 16L,
-                            Color = "#ffffff",
-                            Icon = "mdi-baby-carriage",
-                            Name = "Kids",
-                            ParentId = 7L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 17L,
-                            Color = "#ffffff",
-                            Icon = "mdi-paw",
-                            Name = "Pets, animals",
-                            ParentId = 7L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 18L,
-                            Color = "#ffffff",
-                            Icon = "mdi-hammer-screwdriver",
-                            Name = "Stationery, tools",
-                            ParentId = 7L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 19L,
-                            Color = "#ffffff",
-                            Icon = "mdi-home",
-                            Name = "Housing",
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 20L,
-                            Color = "#ffffff",
-                            Icon = "mdi-lightbulb",
-                            Name = "Energy, utilities",
-                            ParentId = 20L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 21L,
-                            Color = "#ffffff",
-                            Icon = "mdi-hammer",
-                            Name = "Maintenance, repairs",
-                            ParentId = 20L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 22L,
-                            Color = "#ffffff",
-                            Icon = "mdi-bank-plus",
-                            Name = "Mortgage",
-                            ParentId = 20L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 23L,
-                            Color = "#ffffff",
-                            Icon = "mdi-shield-home",
-                            Name = "Property insurance",
-                            ParentId = 20L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 24L,
-                            Color = "#ffffff",
-                            Icon = "mdi-key-variant",
-                            Name = "Rent",
-                            ParentId = 20L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 25L,
-                            Color = "#ffffff",
-                            Icon = "mdi-home-circle-outline",
-                            Name = "Services",
-                            ParentId = 20L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 26L,
-                            Color = "#ffffff",
-                            Icon = "mdi-bus",
-                            Name = "Transportation",
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 27L,
-                            Color = "#ffffff",
-                            Icon = "mdi-bag-suitcase",
-                            Name = "Business trips",
-                            ParentId = 26L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 28L,
-                            Color = "#ffffff",
-                            Icon = "mdi-airplane",
-                            Name = "Long distance",
-                            ParentId = 26L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 29L,
-                            Color = "#ffffff",
-                            Icon = "mdi-tram",
-                            Name = "Public transport",
-                            ParentId = 26L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 30L,
-                            Color = "#ffffff",
-                            Icon = "mdi-taxi",
-                            Name = "Taxi",
-                            ParentId = 26L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 31L,
-                            Color = "#ffffff",
-                            Icon = "mdi-car",
-                            Name = "Vehicle",
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 32L,
-                            Color = "#ffffff",
-                            Icon = "mdi-fuel",
-                            Name = "Fuel",
-                            ParentId = 31L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 33L,
-                            Color = "#ffffff",
-                            Icon = "mdi-hand-coin",
-                            Name = "Leasing",
-                            ParentId = 31L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 34L,
-                            Color = "#ffffff",
-                            Icon = "mdi-parking",
-                            Name = "Parking",
-                            ParentId = 31L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 35L,
-                            Color = "#ffffff",
-                            Icon = "mdi-key",
-                            Name = "Rentals",
-                            ParentId = 31L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 36L,
-                            Color = "#ffffff",
-                            Icon = "mdi-shield-car",
-                            Name = "Vehicle insurance",
-                            ParentId = 31L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 37L,
-                            Color = "#ffffff",
-                            Icon = "mdi-tools",
-                            Name = "Vehicle maintenance",
-                            ParentId = 31L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 38L,
-                            Color = "#ffffff",
-                            Icon = "mdi-account",
-                            Name = "Life & Entertainment",
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 39L,
-                            Color = "#ffffff",
-                            Icon = "mdi-dumbbell",
-                            Name = "Active sport, fitness",
-                            ParentId = 38L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 40L,
-                            Color = "#ffffff",
-                            Icon = "mdi-liquor",
-                            Name = "Alcohol, tobacco",
-                            ParentId = 38L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 41L,
-                            Color = "#ffffff",
-                            Icon = "mdi-book-open-variant",
-                            Name = "Books, audio, subscriptions",
-                            ParentId = 38L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 43L,
-                            Color = "#ffffff",
-                            Icon = "mdi-gift",
-                            Name = "Charity, gifts",
-                            ParentId = 38L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 44L,
-                            Color = "#ffffff",
-                            Icon = "mdi-hand-clap",
-                            Name = "Culture, sports events",
-                            ParentId = 38L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 45L,
-                            Color = "#ffffff",
-                            Icon = "mdi-school",
-                            Name = "Education, development",
-                            ParentId = 38L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 46L,
-                            Color = "#ffffff",
-                            Icon = "mdi-doctor",
-                            Name = "Health care, doctor",
-                            ParentId = 38L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 47L,
-                            Color = "#ffffff",
-                            Icon = "mdi-heart",
-                            Name = "Hobbies",
-                            ParentId = 38L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 48L,
-                            Color = "#ffffff",
-                            Icon = "mdi-palm-tree",
-                            Name = "Holiday, trips, hotels",
-                            ParentId = 38L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 49L,
-                            Color = "#ffffff",
-                            Icon = "mdi-cake",
-                            Name = "Life events",
-                            ParentId = 38L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 50L,
-                            Color = "#ffffff",
-                            Icon = "mdi-dice-5",
-                            Name = "Lottery, gambling",
-                            ParentId = 38L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 51L,
-                            Color = "#ffffff",
-                            Icon = "mdi-television-classic",
-                            Name = "TV, Streaming",
-                            ParentId = 38L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 52L,
-                            Color = "#ffffff",
-                            Icon = "mdi-flower",
-                            Name = "Wellness, beauty",
-                            ParentId = 38L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 53L,
-                            Color = "#ffffff",
-                            Icon = "mdi-laptop",
-                            Name = "Communication, PC",
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 54L,
-                            Color = "#ffffff",
-                            Icon = "mdi-wifi",
-                            Name = "Internet",
-                            ParentId = 53L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 55L,
-                            Color = "#ffffff",
-                            Icon = "mdi-phone",
-                            Name = "Phone, cell phone",
-                            ParentId = 53L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 56L,
-                            Color = "#ffffff",
-                            Icon = "mdi-email",
-                            Name = "Postal services",
-                            ParentId = 53L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 57L,
-                            Color = "#ffffff",
-                            Icon = "mdi-controller-classic",
-                            Name = "Software, apps, games",
-                            ParentId = 53L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 58L,
-                            Color = "#ffffff",
-                            Icon = "mdi-currency-usd",
-                            Name = "Financial expenses",
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 59L,
-                            Color = "#ffffff",
-                            Icon = "mdi-account-alert",
-                            Name = "Advisory",
-                            ParentId = 58L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 60L,
-                            Color = "#ffffff",
-                            Icon = "mdi-comment-remove",
-                            Name = "Charges, Fees",
-                            ParentId = 58L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 61L,
-                            Color = "#ffffff",
-                            Icon = "mdi-account-child",
-                            Name = "Child Support",
-                            ParentId = 58L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 62L,
-                            Color = "#ffffff",
-                            Icon = "mdi-alert-circle",
-                            Name = "Fines",
-                            ParentId = 58L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 63L,
-                            Color = "#ffffff",
-                            Icon = "mdi-card-bulleted",
-                            Name = "Insurances",
-                            ParentId = 58L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 64L,
-                            Color = "#ffffff",
-                            Icon = "mdi-card-multiple",
-                            Name = "Loan, interests",
-                            ParentId = 58L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 65L,
-                            Color = "#ffffff",
-                            Icon = "mdi-content-cut",
-                            Name = "Taxes",
-                            ParentId = 58L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 66L,
-                            Color = "#ffffff",
-                            Icon = "mdi-chart-line",
-                            Name = "Investments",
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 67L,
-                            Color = "#ffffff",
-                            Icon = "mdi-view-gallery",
-                            Name = "Collections",
-                            ParentId = 66L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 68L,
-                            Color = "#ffffff",
-                            Icon = "mdi-chart-multiple",
-                            Name = "Financial investments",
-                            ParentId = 66L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 69L,
-                            Color = "#ffffff",
-                            Icon = "mdi-domain",
-                            Name = "Realty",
-                            ParentId = 66L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 70L,
-                            Color = "#ffffff",
-                            Icon = "mdi-account-cash",
-                            Name = "Savings",
-                            ParentId = 66L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 71L,
-                            Color = "#ffffff",
-                            Icon = "mdi-car",
-                            Name = "Vehicles, chattels",
-                            ParentId = 66L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 72L,
-                            Color = "#ffffff",
-                            Icon = "mdi-currency-usd",
-                            Name = "Income",
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 73L,
-                            Color = "#ffffff",
-                            Icon = "mdi-newspaper-check",
-                            Name = "Checks, coupons",
-                            ParentId = 72L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 74L,
-                            Color = "#ffffff",
-                            Icon = "mdi-account-child",
-                            Name = "Child Support",
-                            ParentId = 72L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 75L,
-                            Color = "#ffffff",
-                            Icon = "mdi-check-decagram",
-                            Name = "Dues & grants",
-                            ParentId = 72L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 76L,
-                            Color = "#ffffff",
-                            Icon = "mdi-gift",
-                            Name = "Gifts",
-                            ParentId = 72L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 77L,
-                            Color = "#ffffff",
-                            Icon = "mdi-ticket-percent",
-                            Name = "Interests, dividends",
-                            ParentId = 72L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 78L,
-                            Color = "#ffffff",
-                            Icon = "mdi-ticket-percent",
-                            Name = "Interests, dividends",
-                            ParentId = 72L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 79L,
-                            Color = "#ffffff",
-                            Icon = "mdi-hand-extended",
-                            Name = "Lending, renting",
-                            ParentId = 72L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 80L,
-                            Color = "#ffffff",
-                            Icon = "mdi-dice-5",
-                            Name = "Lottery, gambling",
-                            ParentId = 72L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 81L,
-                            Color = "#ffffff",
-                            Icon = "mdi-undo",
-                            Name = "Refunds (tax, purchase)",
-                            ParentId = 72L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 82L,
-                            Color = "#ffffff",
-                            Icon = "mdi-house",
-                            Name = "Rental income",
-                            ParentId = 72L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 83L,
-                            Color = "#ffffff",
-                            Icon = "mdi-sale",
-                            Name = "Sale",
-                            ParentId = 72L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 84L,
-                            Color = "#ffffff",
-                            Icon = "mdi-hand-coin",
-                            Name = "Wage, invoices",
-                            ParentId = 72L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 85L,
-                            Color = "#ffffff",
-                            Icon = "mdi-account-question",
-                            Name = "Others",
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        },
-                        new
-                        {
-                            Id = 86L,
-                            Color = "#ffffff",
-                            Icon = "mdi-help-circle",
-                            Name = "Missing",
-                            ParentId = 85L,
-                            System = 0ul,
-                            UserId = "ee103364-7617-4474-889e-320838e5f3a5"
-                        });
-                });
-
-            modelBuilder.Entity("fin_app_backend.Template", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnName("id");
-
-                    b.Property<long>("AccountId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("accountId");
-
-                    b.Property<double?>("Amount")
-                        .HasColumnType("double")
-                        .HasColumnName("amount");
-
-                    b.Property<long>("CategoryId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("categoryId");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)")
-                        .HasColumnName("description");
-
-                    b.Property<string>("TransactionType")
-                        .HasMaxLength(3)
-                        .HasColumnType("varchar(3)")
-                        .HasColumnName("transactionType");
-
-                    b.Property<long?>("TransferAccountId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("transferAccountId");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("varchar(255)")
-                        .HasColumnName("userId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TransferAccountId");
-
-                    b.HasIndex(new[] { "AccountId" }, "accountId");
-
-                    b.HasIndex(new[] { "CategoryId" }, "categoryId");
-
-                    b.HasIndex(new[] { "UserId" }, "userId")
-                        .HasDatabaseName("userId1");
-
-                    b.ToTable("template");
-
-                    b
-                        .HasCharSet("latin1")
-                        .UseCollation("latin1_swedish_ci");
-                });
-
-            modelBuilder.Entity("fin_app_backend.Transaction", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnName("id");
-
-                    b.Property<long>("AccountId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("accountId");
-
-                    b.Property<double?>("Amount")
-                        .HasColumnType("double")
-                        .HasColumnName("amount");
-
-                    b.Property<long>("CategoryId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("categoryId");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)")
-                        .HasColumnName("description");
-
-                    b.Property<string>("TransactionType")
-                        .HasMaxLength(3)
-                        .HasColumnType("varchar(3)")
-                        .HasColumnName("transactionType");
-
-                    b.Property<long?>("TransferAccountId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("transferAccountId");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("varchar(255)")
-                        .HasColumnName("userId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TransferAccountId");
-
-                    b.HasIndex(new[] { "AccountId" }, "accountId")
-                        .HasDatabaseName("accountId1");
-
-                    b.HasIndex(new[] { "CategoryId" }, "categoryId")
-                        .HasDatabaseName("categoryId1");
-
-                    b.HasIndex(new[] { "UserId" }, "userId")
-                        .HasDatabaseName("userId2");
-
-                    b.ToTable("transaction");
-
-                    b
-                        .HasCharSet("latin1")
-                        .UseCollation("latin1_swedish_ci");
-                });
-
-            modelBuilder.Entity("fin_app_backend.User", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("varchar(256)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("varchar(256)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("varchar(256)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("longtext");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("longtext");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("varchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex");
-
-                    b.ToTable("AspNetUsers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "ee103364-7617-4474-889e-320838e5f3a5",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "89704630-4abf-4488-9cbd-4f9ec29fcb8b",
-                            Email = "mnovosel5@gmail.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "MNOVOSEL5@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEM0Wt1TEKVt7yHabPEkIPjgI1nmxtwcdhGuteBZVD1DSoSRSPans/Q+LChfIteJucw==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "KQLSA5W3M75PPLZ34LBVUTTSVTMJ7ANN",
-                            TwoFactorEnabled = false,
-                            UserName = "Novosel"
-                        });
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
-                {
-                    b.HasOne("fin_app_backend.User", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
-                {
-                    b.HasOne("fin_app_backend.User", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("fin_app_backend.User", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
-                {
-                    b.HasOne("fin_app_backend.User", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("fin_app_backend.Account", b =>
-                {
-                    b.HasOne("fin_app_backend.User", "User")
-                        .WithMany("Accounts")
-                        .HasForeignKey("UserId")
-                        .HasConstraintName("account_ibfk_1");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("fin_app_backend.Category", b =>
-                {
-                    b.HasOne("fin_app_backend.Category", "Parent")
-                        .WithMany("SubCategories")
-                        .HasForeignKey("ParentId")
-                        .HasConstraintName("category_ibfk_2");
-
-                    b.HasOne("fin_app_backend.User", "User")
-                        .WithMany("Categories")
-                        .HasForeignKey("UserId")
-                        .HasConstraintName("category_ibfk_1");
-
-                    b.Navigation("Parent");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("fin_app_backend.Template", b =>
-                {
-                    b.HasOne("fin_app_backend.Account", "Account")
-                        .WithMany("Templates")
-                        .HasForeignKey("AccountId")
-                        .HasConstraintName("template_ibfk_1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("fin_app_backend.Category", "Category")
-                        .WithMany("Templates")
-                        .HasForeignKey("CategoryId")
-                        .HasConstraintName("template_ibfk_4")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("fin_app_backend.Account", "TransferAccount")
-                        .WithMany("TransferTemplates")
-                        .HasForeignKey("TransferAccountId")
-                        .HasConstraintName("template_ibfk_2");
-
-                    b.HasOne("fin_app_backend.User", "User")
-                        .WithMany("Templates")
-                        .HasForeignKey("UserId")
-                        .HasConstraintName("template_ibfk_3");
-
-                    b.Navigation("Account");
-
-                    b.Navigation("Category");
-
-                    b.Navigation("TransferAccount");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("fin_app_backend.Transaction", b =>
-                {
-                    b.HasOne("fin_app_backend.Account", "Account")
-                        .WithMany("Transactions")
-                        .HasForeignKey("AccountId")
-                        .HasConstraintName("transaction_ibfk_1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("fin_app_backend.Category", "Category")
-                        .WithMany("Transactions")
-                        .HasForeignKey("CategoryId")
-                        .HasConstraintName("transaction_ibfk_4")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("fin_app_backend.Account", "TransferAccount")
-                        .WithMany("TransferTransactions")
-                        .HasForeignKey("TransferAccountId")
-                        .HasConstraintName("transaction_ibfk_2");
-
-                    b.HasOne("fin_app_backend.User", "User")
-                        .WithMany("Transactions")
-                        .HasForeignKey("UserId")
-                        .HasConstraintName("transaction_ibfk_3");
-
-                    b.Navigation("Account");
-
-                    b.Navigation("Category");
-
-                    b.Navigation("TransferAccount");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("fin_app_backend.Account", b =>
-                {
-                    b.Navigation("Templates");
-
-                    b.Navigation("Transactions");
-
-                    b.Navigation("TransferTemplates");
-
-                    b.Navigation("TransferTransactions");
-                });
-
-            modelBuilder.Entity("fin_app_backend.Category", b =>
-                {
-                    b.Navigation("SubCategories");
-
-                    b.Navigation("Templates");
-
-                    b.Navigation("Transactions");
-                });
-
-            modelBuilder.Entity("fin_app_backend.User", b =>
-                {
-                    b.Navigation("Accounts");
-
-                    b.Navigation("Categories");
-
-                    b.Navigation("Templates");
-
-                    b.Navigation("Transactions");
-                });
+            b.HasIndex("UserId");
+
+            b.ToTable("AspNetUserLogins");
+          });
+
+      modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+          {
+            b.Property<string>("UserId")
+                      .HasColumnType("varchar(255)");
+
+            b.Property<string>("RoleId")
+                      .HasColumnType("varchar(255)");
+
+            b.HasKey("UserId", "RoleId");
+
+            b.HasIndex("RoleId");
+
+            b.ToTable("AspNetUserRoles");
+          });
+
+      modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+          {
+            b.Property<string>("UserId")
+                      .HasColumnType("varchar(255)");
+
+            b.Property<string>("LoginProvider")
+                      .HasMaxLength(128)
+                      .HasColumnType("varchar(128)");
+
+            b.Property<string>("Name")
+                      .HasMaxLength(128)
+                      .HasColumnType("varchar(128)");
+
+            b.Property<string>("Value")
+                      .HasColumnType("longtext");
+
+            b.HasKey("UserId", "LoginProvider", "Name");
+
+            b.ToTable("AspNetUserTokens");
+          });
+
+      modelBuilder.Entity("avarice_backend.Account", b =>
+          {
+            b.Property<long>("Id")
+                      .ValueGeneratedOnAdd()
+                      .HasColumnType("bigint")
+                      .HasColumnName("id");
+
+            b.Property<double>("Balance")
+                      .HasColumnType("double")
+                      .HasColumnName("balance");
+
+            b.Property<string>("Currency")
+                      .IsRequired()
+                      .ValueGeneratedOnAdd()
+                      .HasMaxLength(32)
+                      .HasColumnType("varchar(32)")
+                      .HasColumnName("currency")
+                      .HasDefaultValueSql("'HRK'");
+
+            b.Property<string>("Name")
+                      .HasMaxLength(64)
+                      .HasColumnType("varchar(64)")
+                      .HasColumnName("name");
+
+            b.Property<string>("UserId")
+                      .HasColumnType("varchar(255)")
+                      .HasColumnName("userId");
+
+            b.HasKey("Id");
+
+            b.HasIndex(new[] { "UserId" }, "userId");
+
+            b.ToTable("account");
+
+            b
+                      .HasCharSet("latin1")
+                      .UseCollation("latin1_swedish_ci");
+
+            b.HasData(
+                      new
+                      {
+                        Id = 1L,
+                        Balance = 14000.0,
+                        Currency = "HRK",
+                        Name = "Gyro",
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 2L,
+                        Balance = 200.0,
+                        Currency = "EUR",
+                        Name = "Euros",
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 3L,
+                        Balance = 0.0,
+                        Currency = "HRK",
+                        Name = "Checking",
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 4L,
+                        Balance = 800.0,
+                        Currency = "HRK",
+                        Name = "Pocket",
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      });
+          });
+
+      modelBuilder.Entity("avarice_backend.Category", b =>
+          {
+            b.Property<long>("Id")
+                      .ValueGeneratedOnAdd()
+                      .HasColumnType("bigint")
+                      .HasColumnName("id");
+
+            b.Property<string>("Color")
+                      .HasMaxLength(32)
+                      .HasColumnType("varchar(32)")
+                      .HasColumnName("color");
+
+            b.Property<string>("Icon")
+                      .HasMaxLength(32)
+                      .HasColumnType("varchar(32)")
+                      .HasColumnName("icon");
+
+            b.Property<string>("Name")
+                      .HasMaxLength(32)
+                      .HasColumnType("varchar(32)")
+                      .HasColumnName("name");
+
+            b.Property<long?>("ParentId")
+                      .HasColumnType("bigint")
+                      .HasColumnName("parentId");
+
+            b.Property<ulong>("System")
+                      .ValueGeneratedOnAdd()
+                      .HasColumnType("bit")
+                      .HasDefaultValue(0ul)
+                      .HasColumnName("system");
+
+            b.Property<string>("UserId")
+                      .HasColumnType("varchar(255)")
+                      .HasColumnName("userId");
+
+            b.HasKey("Id");
+
+            b.HasIndex("ParentId");
+
+            b.HasIndex("UserId");
+
+            b.ToTable("category");
+
+            b
+                      .HasCharSet("latin1")
+                      .UseCollation("latin1_swedish_ci");
+
+            b.HasData(
+                      new
+                      {
+                        Id = 1L,
+                        Color = "grey",
+                        Icon = "mdi-swap-horizontal",
+                        Name = "Transfer",
+                        System = 1ul
+                      },
+                      new
+                      {
+                        Id = 2L,
+                        Color = "#ffffff",
+                        Icon = "mdi-food-fork-drink",
+                        Name = "Food & Drinks",
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 3L,
+                        Color = "#ffffff",
+                        Icon = "mdi-food",
+                        Name = "Restaurant, fast-food",
+                        ParentId = 2L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 4L,
+                        Color = "#ffffff",
+                        Icon = "mdi-glass-cocktail",
+                        Name = "Bar, cafe",
+                        ParentId = 2L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 5L,
+                        Color = "#ffffff",
+                        Icon = "mdi-glass-cocktail",
+                        Name = "Bar, cafe",
+                        ParentId = 2L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 6L,
+                        Color = "#ffffff",
+                        Icon = "mdi-cart",
+                        Name = "Groceries",
+                        ParentId = 2L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 7L,
+                        Color = "#ffffff",
+                        Icon = "mdi-basket",
+                        Name = "Shopping",
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 8L,
+                        Color = "#ffffff",
+                        Icon = "mdi-tshirt-crew",
+                        Name = "Clothes and shoes",
+                        ParentId = 7L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 9L,
+                        Color = "#ffffff",
+                        Icon = "mdi-pill",
+                        Name = "Drug-store, chemist",
+                        ParentId = 7L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 10L,
+                        Color = "#ffffff",
+                        Icon = "mdi-laptop",
+                        Name = "Electronics, accessories",
+                        ParentId = 7L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 11L,
+                        Color = "#ffffff",
+                        Icon = "mdi-emoticon",
+                        Name = "Free time",
+                        ParentId = 7L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 12L,
+                        Color = "#ffffff",
+                        Icon = "mdi-gift",
+                        Name = "Gifts, joy",
+                        ParentId = 7L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 13L,
+                        Color = "#ffffff",
+                        Icon = "mdi-bottle-tonic-plus",
+                        Name = "Health and beauty",
+                        ParentId = 7L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 14L,
+                        Color = "#ffffff",
+                        Icon = "mdi-home",
+                        Name = "Home, garden",
+                        ParentId = 7L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 15L,
+                        Color = "#ffffff",
+                        Icon = "mdi-diamond-stone",
+                        Name = "Jewels, accessories",
+                        ParentId = 7L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 16L,
+                        Color = "#ffffff",
+                        Icon = "mdi-baby-carriage",
+                        Name = "Kids",
+                        ParentId = 7L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 17L,
+                        Color = "#ffffff",
+                        Icon = "mdi-paw",
+                        Name = "Pets, animals",
+                        ParentId = 7L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 18L,
+                        Color = "#ffffff",
+                        Icon = "mdi-hammer-screwdriver",
+                        Name = "Stationery, tools",
+                        ParentId = 7L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 19L,
+                        Color = "#ffffff",
+                        Icon = "mdi-home",
+                        Name = "Housing",
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 20L,
+                        Color = "#ffffff",
+                        Icon = "mdi-lightbulb",
+                        Name = "Energy, utilities",
+                        ParentId = 20L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 21L,
+                        Color = "#ffffff",
+                        Icon = "mdi-hammer",
+                        Name = "Maintenance, repairs",
+                        ParentId = 20L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 22L,
+                        Color = "#ffffff",
+                        Icon = "mdi-bank-plus",
+                        Name = "Mortgage",
+                        ParentId = 20L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 23L,
+                        Color = "#ffffff",
+                        Icon = "mdi-shield-home",
+                        Name = "Property insurance",
+                        ParentId = 20L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 24L,
+                        Color = "#ffffff",
+                        Icon = "mdi-key-variant",
+                        Name = "Rent",
+                        ParentId = 20L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 25L,
+                        Color = "#ffffff",
+                        Icon = "mdi-home-circle-outline",
+                        Name = "Services",
+                        ParentId = 20L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 26L,
+                        Color = "#ffffff",
+                        Icon = "mdi-bus",
+                        Name = "Transportation",
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 27L,
+                        Color = "#ffffff",
+                        Icon = "mdi-bag-suitcase",
+                        Name = "Business trips",
+                        ParentId = 26L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 28L,
+                        Color = "#ffffff",
+                        Icon = "mdi-airplane",
+                        Name = "Long distance",
+                        ParentId = 26L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 29L,
+                        Color = "#ffffff",
+                        Icon = "mdi-tram",
+                        Name = "Public transport",
+                        ParentId = 26L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 30L,
+                        Color = "#ffffff",
+                        Icon = "mdi-taxi",
+                        Name = "Taxi",
+                        ParentId = 26L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 31L,
+                        Color = "#ffffff",
+                        Icon = "mdi-car",
+                        Name = "Vehicle",
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 32L,
+                        Color = "#ffffff",
+                        Icon = "mdi-fuel",
+                        Name = "Fuel",
+                        ParentId = 31L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 33L,
+                        Color = "#ffffff",
+                        Icon = "mdi-hand-coin",
+                        Name = "Leasing",
+                        ParentId = 31L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 34L,
+                        Color = "#ffffff",
+                        Icon = "mdi-parking",
+                        Name = "Parking",
+                        ParentId = 31L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 35L,
+                        Color = "#ffffff",
+                        Icon = "mdi-key",
+                        Name = "Rentals",
+                        ParentId = 31L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 36L,
+                        Color = "#ffffff",
+                        Icon = "mdi-shield-car",
+                        Name = "Vehicle insurance",
+                        ParentId = 31L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 37L,
+                        Color = "#ffffff",
+                        Icon = "mdi-tools",
+                        Name = "Vehicle maintenance",
+                        ParentId = 31L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 38L,
+                        Color = "#ffffff",
+                        Icon = "mdi-account",
+                        Name = "Life & Entertainment",
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 39L,
+                        Color = "#ffffff",
+                        Icon = "mdi-dumbbell",
+                        Name = "Active sport, fitness",
+                        ParentId = 38L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 40L,
+                        Color = "#ffffff",
+                        Icon = "mdi-liquor",
+                        Name = "Alcohol, tobacco",
+                        ParentId = 38L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 41L,
+                        Color = "#ffffff",
+                        Icon = "mdi-book-open-variant",
+                        Name = "Books, audio, subscriptions",
+                        ParentId = 38L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 43L,
+                        Color = "#ffffff",
+                        Icon = "mdi-gift",
+                        Name = "Charity, gifts",
+                        ParentId = 38L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 44L,
+                        Color = "#ffffff",
+                        Icon = "mdi-hand-clap",
+                        Name = "Culture, sports events",
+                        ParentId = 38L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 45L,
+                        Color = "#ffffff",
+                        Icon = "mdi-school",
+                        Name = "Education, development",
+                        ParentId = 38L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 46L,
+                        Color = "#ffffff",
+                        Icon = "mdi-doctor",
+                        Name = "Health care, doctor",
+                        ParentId = 38L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 47L,
+                        Color = "#ffffff",
+                        Icon = "mdi-heart",
+                        Name = "Hobbies",
+                        ParentId = 38L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 48L,
+                        Color = "#ffffff",
+                        Icon = "mdi-palm-tree",
+                        Name = "Holiday, trips, hotels",
+                        ParentId = 38L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 49L,
+                        Color = "#ffffff",
+                        Icon = "mdi-cake",
+                        Name = "Life events",
+                        ParentId = 38L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 50L,
+                        Color = "#ffffff",
+                        Icon = "mdi-dice-5",
+                        Name = "Lottery, gambling",
+                        ParentId = 38L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 51L,
+                        Color = "#ffffff",
+                        Icon = "mdi-television-classic",
+                        Name = "TV, Streaming",
+                        ParentId = 38L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 52L,
+                        Color = "#ffffff",
+                        Icon = "mdi-flower",
+                        Name = "Wellness, beauty",
+                        ParentId = 38L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 53L,
+                        Color = "#ffffff",
+                        Icon = "mdi-laptop",
+                        Name = "Communication, PC",
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 54L,
+                        Color = "#ffffff",
+                        Icon = "mdi-wifi",
+                        Name = "Internet",
+                        ParentId = 53L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 55L,
+                        Color = "#ffffff",
+                        Icon = "mdi-phone",
+                        Name = "Phone, cell phone",
+                        ParentId = 53L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 56L,
+                        Color = "#ffffff",
+                        Icon = "mdi-email",
+                        Name = "Postal services",
+                        ParentId = 53L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 57L,
+                        Color = "#ffffff",
+                        Icon = "mdi-controller-classic",
+                        Name = "Software, apps, games",
+                        ParentId = 53L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 58L,
+                        Color = "#ffffff",
+                        Icon = "mdi-currency-usd",
+                        Name = "Financial expenses",
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 59L,
+                        Color = "#ffffff",
+                        Icon = "mdi-account-alert",
+                        Name = "Advisory",
+                        ParentId = 58L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 60L,
+                        Color = "#ffffff",
+                        Icon = "mdi-comment-remove",
+                        Name = "Charges, Fees",
+                        ParentId = 58L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 61L,
+                        Color = "#ffffff",
+                        Icon = "mdi-account-child",
+                        Name = "Child Support",
+                        ParentId = 58L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 62L,
+                        Color = "#ffffff",
+                        Icon = "mdi-alert-circle",
+                        Name = "Fines",
+                        ParentId = 58L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 63L,
+                        Color = "#ffffff",
+                        Icon = "mdi-card-bulleted",
+                        Name = "Insurances",
+                        ParentId = 58L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 64L,
+                        Color = "#ffffff",
+                        Icon = "mdi-card-multiple",
+                        Name = "Loan, interests",
+                        ParentId = 58L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 65L,
+                        Color = "#ffffff",
+                        Icon = "mdi-content-cut",
+                        Name = "Taxes",
+                        ParentId = 58L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 66L,
+                        Color = "#ffffff",
+                        Icon = "mdi-chart-line",
+                        Name = "Investments",
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 67L,
+                        Color = "#ffffff",
+                        Icon = "mdi-view-gallery",
+                        Name = "Collections",
+                        ParentId = 66L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 68L,
+                        Color = "#ffffff",
+                        Icon = "mdi-chart-multiple",
+                        Name = "Financial investments",
+                        ParentId = 66L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 69L,
+                        Color = "#ffffff",
+                        Icon = "mdi-domain",
+                        Name = "Realty",
+                        ParentId = 66L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 70L,
+                        Color = "#ffffff",
+                        Icon = "mdi-account-cash",
+                        Name = "Savings",
+                        ParentId = 66L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 71L,
+                        Color = "#ffffff",
+                        Icon = "mdi-car",
+                        Name = "Vehicles, chattels",
+                        ParentId = 66L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 72L,
+                        Color = "#ffffff",
+                        Icon = "mdi-currency-usd",
+                        Name = "Income",
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 73L,
+                        Color = "#ffffff",
+                        Icon = "mdi-newspaper-check",
+                        Name = "Checks, coupons",
+                        ParentId = 72L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 74L,
+                        Color = "#ffffff",
+                        Icon = "mdi-account-child",
+                        Name = "Child Support",
+                        ParentId = 72L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 75L,
+                        Color = "#ffffff",
+                        Icon = "mdi-check-decagram",
+                        Name = "Dues & grants",
+                        ParentId = 72L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 76L,
+                        Color = "#ffffff",
+                        Icon = "mdi-gift",
+                        Name = "Gifts",
+                        ParentId = 72L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 77L,
+                        Color = "#ffffff",
+                        Icon = "mdi-ticket-percent",
+                        Name = "Interests, dividends",
+                        ParentId = 72L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 78L,
+                        Color = "#ffffff",
+                        Icon = "mdi-ticket-percent",
+                        Name = "Interests, dividends",
+                        ParentId = 72L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 79L,
+                        Color = "#ffffff",
+                        Icon = "mdi-hand-extended",
+                        Name = "Lending, renting",
+                        ParentId = 72L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 80L,
+                        Color = "#ffffff",
+                        Icon = "mdi-dice-5",
+                        Name = "Lottery, gambling",
+                        ParentId = 72L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 81L,
+                        Color = "#ffffff",
+                        Icon = "mdi-undo",
+                        Name = "Refunds (tax, purchase)",
+                        ParentId = 72L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 82L,
+                        Color = "#ffffff",
+                        Icon = "mdi-house",
+                        Name = "Rental income",
+                        ParentId = 72L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 83L,
+                        Color = "#ffffff",
+                        Icon = "mdi-sale",
+                        Name = "Sale",
+                        ParentId = 72L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 84L,
+                        Color = "#ffffff",
+                        Icon = "mdi-hand-coin",
+                        Name = "Wage, invoices",
+                        ParentId = 72L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 85L,
+                        Color = "#ffffff",
+                        Icon = "mdi-account-question",
+                        Name = "Others",
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      },
+                      new
+                      {
+                        Id = 86L,
+                        Color = "#ffffff",
+                        Icon = "mdi-help-circle",
+                        Name = "Missing",
+                        ParentId = 85L,
+                        System = 0ul,
+                        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+                      });
+          });
+
+      modelBuilder.Entity("avarice_backend.Template", b =>
+          {
+            b.Property<long>("Id")
+                      .ValueGeneratedOnAdd()
+                      .HasColumnType("bigint")
+                      .HasColumnName("id");
+
+            b.Property<long>("AccountId")
+                      .HasColumnType("bigint")
+                      .HasColumnName("accountId");
+
+            b.Property<double?>("Amount")
+                      .HasColumnType("double")
+                      .HasColumnName("amount");
+
+            b.Property<long>("CategoryId")
+                      .HasColumnType("bigint")
+                      .HasColumnName("categoryId");
+
+            b.Property<string>("Description")
+                      .HasMaxLength(255)
+                      .HasColumnType("varchar(255)")
+                      .HasColumnName("description");
+
+            b.Property<string>("TransactionType")
+                      .HasMaxLength(3)
+                      .HasColumnType("varchar(3)")
+                      .HasColumnName("transactionType");
+
+            b.Property<long?>("TransferAccountId")
+                      .HasColumnType("bigint")
+                      .HasColumnName("transferAccountId");
+
+            b.Property<string>("UserId")
+                      .HasColumnType("varchar(255)")
+                      .HasColumnName("userId");
+
+            b.HasKey("Id");
+
+            b.HasIndex("TransferAccountId");
+
+            b.HasIndex(new[] { "AccountId" }, "accountId");
+
+            b.HasIndex(new[] { "CategoryId" }, "categoryId");
+
+            b.HasIndex(new[] { "UserId" }, "userId")
+                      .HasDatabaseName("userId1");
+
+            b.ToTable("template");
+
+            b
+                      .HasCharSet("latin1")
+                      .UseCollation("latin1_swedish_ci");
+          });
+
+      modelBuilder.Entity("avarice_backend.Transaction", b =>
+          {
+            b.Property<long>("Id")
+                      .ValueGeneratedOnAdd()
+                      .HasColumnType("bigint")
+                      .HasColumnName("id");
+
+            b.Property<long>("AccountId")
+                      .HasColumnType("bigint")
+                      .HasColumnName("accountId");
+
+            b.Property<double?>("Amount")
+                      .HasColumnType("double")
+                      .HasColumnName("amount");
+
+            b.Property<long>("CategoryId")
+                      .HasColumnType("bigint")
+                      .HasColumnName("categoryId");
+
+            b.Property<string>("Description")
+                      .HasMaxLength(255)
+                      .HasColumnType("varchar(255)")
+                      .HasColumnName("description");
+
+            b.Property<string>("TransactionType")
+                      .HasMaxLength(3)
+                      .HasColumnType("varchar(3)")
+                      .HasColumnName("transactionType");
+
+            b.Property<long?>("TransferAccountId")
+                      .HasColumnType("bigint")
+                      .HasColumnName("transferAccountId");
+
+            b.Property<string>("UserId")
+                      .HasColumnType("varchar(255)")
+                      .HasColumnName("userId");
+
+            b.HasKey("Id");
+
+            b.HasIndex("TransferAccountId");
+
+            b.HasIndex(new[] { "AccountId" }, "accountId")
+                      .HasDatabaseName("accountId1");
+
+            b.HasIndex(new[] { "CategoryId" }, "categoryId")
+                      .HasDatabaseName("categoryId1");
+
+            b.HasIndex(new[] { "UserId" }, "userId")
+                      .HasDatabaseName("userId2");
+
+            b.ToTable("transaction");
+
+            b
+                      .HasCharSet("latin1")
+                      .UseCollation("latin1_swedish_ci");
+          });
+
+      modelBuilder.Entity("avarice_backend.User", b =>
+          {
+            b.Property<string>("Id")
+                      .HasColumnType("varchar(255)");
+
+            b.Property<int>("AccessFailedCount")
+                      .HasColumnType("int");
+
+            b.Property<string>("ConcurrencyStamp")
+                      .IsConcurrencyToken()
+                      .HasColumnType("longtext");
+
+            b.Property<string>("Email")
+                      .HasMaxLength(256)
+                      .HasColumnType("varchar(256)");
+
+            b.Property<bool>("EmailConfirmed")
+                      .HasColumnType("tinyint(1)");
+
+            b.Property<bool>("LockoutEnabled")
+                      .HasColumnType("tinyint(1)");
+
+            b.Property<DateTimeOffset?>("LockoutEnd")
+                      .HasColumnType("datetime(6)");
+
+            b.Property<string>("NormalizedEmail")
+                      .HasMaxLength(256)
+                      .HasColumnType("varchar(256)");
+
+            b.Property<string>("NormalizedUserName")
+                      .HasMaxLength(256)
+                      .HasColumnType("varchar(256)");
+
+            b.Property<string>("PasswordHash")
+                      .HasColumnType("longtext");
+
+            b.Property<string>("PhoneNumber")
+                      .HasColumnType("longtext");
+
+            b.Property<bool>("PhoneNumberConfirmed")
+                      .HasColumnType("tinyint(1)");
+
+            b.Property<string>("SecurityStamp")
+                      .HasColumnType("longtext");
+
+            b.Property<bool>("TwoFactorEnabled")
+                      .HasColumnType("tinyint(1)");
+
+            b.Property<string>("UserName")
+                      .HasMaxLength(256)
+                      .HasColumnType("varchar(256)");
+
+            b.HasKey("Id");
+
+            b.HasIndex("NormalizedEmail")
+                      .HasDatabaseName("EmailIndex");
+
+            b.HasIndex("NormalizedUserName")
+                      .IsUnique()
+                      .HasDatabaseName("UserNameIndex");
+
+            b.ToTable("AspNetUsers");
+
+            b.HasData(
+                      new
+                      {
+                        Id = "ee103364-7617-4474-889e-320838e5f3a5",
+                        AccessFailedCount = 0,
+                        ConcurrencyStamp = "89704630-4abf-4488-9cbd-4f9ec29fcb8b",
+                        Email = "mnovosel5@gmail.com",
+                        EmailConfirmed = false,
+                        LockoutEnabled = false,
+                        NormalizedEmail = "MNOVOSEL5@GMAIL.COM",
+                        PasswordHash = "AQAAAAEAACcQAAAAEM0Wt1TEKVt7yHabPEkIPjgI1nmxtwcdhGuteBZVD1DSoSRSPans/Q+LChfIteJucw==",
+                        PhoneNumberConfirmed = false,
+                        SecurityStamp = "KQLSA5W3M75PPLZ34LBVUTTSVTMJ7ANN",
+                        TwoFactorEnabled = false,
+                        UserName = "Novosel"
+                      });
+          });
+
+      modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+          {
+            b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                      .WithMany()
+                      .HasForeignKey("RoleId")
+                      .OnDelete(DeleteBehavior.Cascade)
+                      .IsRequired();
+          });
+
+      modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+          {
+            b.HasOne("avarice_backend.User", null)
+                      .WithMany()
+                      .HasForeignKey("UserId")
+                      .OnDelete(DeleteBehavior.Cascade)
+                      .IsRequired();
+          });
+
+      modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+          {
+            b.HasOne("avarice_backend.User", null)
+                      .WithMany()
+                      .HasForeignKey("UserId")
+                      .OnDelete(DeleteBehavior.Cascade)
+                      .IsRequired();
+          });
+
+      modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+          {
+            b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                      .WithMany()
+                      .HasForeignKey("RoleId")
+                      .OnDelete(DeleteBehavior.Cascade)
+                      .IsRequired();
+
+            b.HasOne("avarice_backend.User", null)
+                      .WithMany()
+                      .HasForeignKey("UserId")
+                      .OnDelete(DeleteBehavior.Cascade)
+                      .IsRequired();
+          });
+
+      modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+          {
+            b.HasOne("avarice_backend.User", null)
+                      .WithMany()
+                      .HasForeignKey("UserId")
+                      .OnDelete(DeleteBehavior.Cascade)
+                      .IsRequired();
+          });
+
+      modelBuilder.Entity("avarice_backend.Account", b =>
+          {
+            b.HasOne("avarice_backend.User", "User")
+                      .WithMany("Accounts")
+                      .HasForeignKey("UserId")
+                      .HasConstraintName("account_ibfk_1");
+
+            b.Navigation("User");
+          });
+
+      modelBuilder.Entity("avarice_backend.Category", b =>
+          {
+            b.HasOne("avarice_backend.Category", "Parent")
+                      .WithMany("SubCategories")
+                      .HasForeignKey("ParentId")
+                      .HasConstraintName("category_ibfk_2");
+
+            b.HasOne("avarice_backend.User", "User")
+                      .WithMany("Categories")
+                      .HasForeignKey("UserId")
+                      .HasConstraintName("category_ibfk_1");
+
+            b.Navigation("Parent");
+
+            b.Navigation("User");
+          });
+
+      modelBuilder.Entity("avarice_backend.Template", b =>
+          {
+            b.HasOne("avarice_backend.Account", "Account")
+                      .WithMany("Templates")
+                      .HasForeignKey("AccountId")
+                      .HasConstraintName("template_ibfk_1")
+                      .OnDelete(DeleteBehavior.Cascade)
+                      .IsRequired();
+
+            b.HasOne("avarice_backend.Category", "Category")
+                      .WithMany("Templates")
+                      .HasForeignKey("CategoryId")
+                      .HasConstraintName("template_ibfk_4")
+                      .OnDelete(DeleteBehavior.Cascade)
+                      .IsRequired();
+
+            b.HasOne("avarice_backend.Account", "TransferAccount")
+                      .WithMany("TransferTemplates")
+                      .HasForeignKey("TransferAccountId")
+                      .HasConstraintName("template_ibfk_2");
+
+            b.HasOne("avarice_backend.User", "User")
+                      .WithMany("Templates")
+                      .HasForeignKey("UserId")
+                      .HasConstraintName("template_ibfk_3");
+
+            b.Navigation("Account");
+
+            b.Navigation("Category");
+
+            b.Navigation("TransferAccount");
+
+            b.Navigation("User");
+          });
+
+      modelBuilder.Entity("avarice_backend.Transaction", b =>
+          {
+            b.HasOne("avarice_backend.Account", "Account")
+                      .WithMany("Transactions")
+                      .HasForeignKey("AccountId")
+                      .HasConstraintName("transaction_ibfk_1")
+                      .OnDelete(DeleteBehavior.Cascade)
+                      .IsRequired();
+
+            b.HasOne("avarice_backend.Category", "Category")
+                      .WithMany("Transactions")
+                      .HasForeignKey("CategoryId")
+                      .HasConstraintName("transaction_ibfk_4")
+                      .OnDelete(DeleteBehavior.Cascade)
+                      .IsRequired();
+
+            b.HasOne("avarice_backend.Account", "TransferAccount")
+                      .WithMany("TransferTransactions")
+                      .HasForeignKey("TransferAccountId")
+                      .HasConstraintName("transaction_ibfk_2");
+
+            b.HasOne("avarice_backend.User", "User")
+                      .WithMany("Transactions")
+                      .HasForeignKey("UserId")
+                      .HasConstraintName("transaction_ibfk_3");
+
+            b.Navigation("Account");
+
+            b.Navigation("Category");
+
+            b.Navigation("TransferAccount");
+
+            b.Navigation("User");
+          });
+
+      modelBuilder.Entity("avarice_backend.Account", b =>
+          {
+            b.Navigation("Templates");
+
+            b.Navigation("Transactions");
+
+            b.Navigation("TransferTemplates");
+
+            b.Navigation("TransferTransactions");
+          });
+
+      modelBuilder.Entity("avarice_backend.Category", b =>
+          {
+            b.Navigation("SubCategories");
+
+            b.Navigation("Templates");
+
+            b.Navigation("Transactions");
+          });
+
+      modelBuilder.Entity("avarice_backend.User", b =>
+          {
+            b.Navigation("Accounts");
+
+            b.Navigation("Categories");
+
+            b.Navigation("Templates");
+
+            b.Navigation("Transactions");
+          });
 #pragma warning restore 612, 618
-        }
     }
+  }
 }

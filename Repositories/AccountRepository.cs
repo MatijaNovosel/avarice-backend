@@ -1,22 +1,22 @@
-using fin_app_backend.Entities;
-using fin_app_backend.Repositories;
-using fin_app_backend.Specifications;
-using fin_app_backend.Repositories.Base;
-using fin_app_backend.Repositories.Interfaces;
+using avarice_backend.Entities;
+using avarice_backend.Repositories;
+using avarice_backend.Specifications;
+using avarice_backend.Repositories.Base;
+using avarice_backend.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using fin_app_backend.Models;
+using avarice_backend.Models;
 
-namespace fin_app_backend.Repositories
+namespace avarice_backend.Repositories
 {
   public class AccountRepository : Repository<Account, long>, IAccountRepository
   {
 
-    public AccountRepository(finappContext dbContext) : base(dbContext)
+    public AccountRepository(avariceContext dbContext) : base(dbContext)
     {
     }
   }

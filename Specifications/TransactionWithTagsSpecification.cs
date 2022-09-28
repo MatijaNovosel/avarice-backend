@@ -1,8 +1,8 @@
-using fin_app_backend.Specifications.Base;
+using avarice_backend.Specifications.Base;
 using System;
 using System.Linq.Expressions;
 
-namespace fin_app_backend.Specifications
+namespace avarice_backend.Specifications
 {
   public sealed class TransactionWithTagsSpecification : BaseSpecification<Transaction>
   {

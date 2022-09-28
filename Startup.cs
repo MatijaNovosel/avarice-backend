@@ -12,12 +12,12 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
-using fin_app_backend.Repositories.Base;
-using fin_app_backend.Repositories;
-using fin_app_backend.Repositories.Interfaces;
-using fin_app_backend.Services;
-using fin_app_backend.Services.Interfaces;
-using fin_app_backend.Authorization;
+using avarice_backend.Repositories.Base;
+using avarice_backend.Repositories;
+using avarice_backend.Repositories.Interfaces;
+using avarice_backend.Services;
+using avarice_backend.Services.Interfaces;
+using avarice_backend.Authorization;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
@@ -26,7 +26,7 @@ using NSwag.Generation.Processors.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 
-namespace fin_app_backend
+namespace avarice_backend
 {
   public class Startup
   {
@@ -62,14 +62,14 @@ namespace fin_app_backend
       });
 
       var serverVersion = new MySqlServerVersion(new Version(8, 0, 21));
-      services.AddDbContext<finappContext>(
+      services.AddDbContext<avariceContext>(
           dbContextOptions => dbContextOptions
               .UseMySql(_configuration["ConnectionString"], serverVersion)
               .EnableSensitiveDataLogging()
               .EnableDetailedErrors()
       );
 
-      services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<finappContext>();
+      services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<avariceContext>();
 
       services.AddCors(options =>
       {

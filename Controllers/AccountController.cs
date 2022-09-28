@@ -4,23 +4,23 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using fin_app_backend.Services.Interfaces;
-using fin_app_backend.Models;
+using avarice_backend.Services.Interfaces;
+using avarice_backend.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Security.Claims;
 
-namespace fin_app_backend.Controllers
+namespace avarice_backend.Controllers
 {
   [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
   [ApiController]
   [Route("api/account")]
   public class AccountController : ControllerBase
   {
-    private readonly finappContext _context;
+    private readonly avariceContext _context;
     private readonly IAccountService _accountService;
 
-    public AccountController(finappContext context, IAccountService accountService)
+    public AccountController(avariceContext context, IAccountService accountService)
     {
       _context = context;
       _accountService = accountService;

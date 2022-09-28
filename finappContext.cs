@@ -7,18 +7,18 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace fin_app_backend
+namespace avarice_backend
 {
-  public partial class finappContext : IdentityDbContext<User>
+  public partial class avariceContext : IdentityDbContext<User>
   {
     public IConfiguration Configuration { get; }
 
-    public finappContext(IConfiguration configuration)
+    public avariceContext(IConfiguration configuration)
     {
       Configuration = configuration;
     }
 
-    public finappContext(DbContextOptions<finappContext> options, IConfiguration configuration) : base(options)
+    public avariceContext(DbContextOptions<avariceContext> options, IConfiguration configuration) : base(options)
     {
       Configuration = configuration;
     }

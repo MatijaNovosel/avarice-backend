@@ -2,7 +2,7 @@ using System;
 using System.Linq.Expressions;
 using System.Collections.Generic;
 
-namespace fin_app_backend.Extensions
+namespace avarice_backend.Extensions
 {
   internal class SubstExpressionVisitor : System.Linq.Expressions.ExpressionVisitor
   {

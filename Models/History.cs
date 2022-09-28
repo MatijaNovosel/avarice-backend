@@ -1,8 +1,8 @@
 using System;
-using fin_app_backend.Models.Base;
+using avarice_backend.Models.Base;
 
 
-namespace fin_app_backend
+namespace avarice_backend
 {
   public class HistoryTotalModel
   {

@@ -11,7 +11,7 @@ using Microsoft.Azure.KeyVault;
 using Microsoft.Azure.Services.AppAuthentication;
 using Microsoft.Extensions.Configuration.AzureKeyVault;
 
-namespace fin_app_backend
+namespace avarice_backend
 {
   public class Program
   {

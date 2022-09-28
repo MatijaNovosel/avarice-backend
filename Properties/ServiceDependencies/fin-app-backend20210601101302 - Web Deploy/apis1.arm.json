@@ -36,12 +36,10 @@
     },
     {
       "type": "Microsoft.Resources/deployments",
-      "name": "[concat(parameters('resourceGroupName'), 'Deployment', uniqueString(concat('fin-app-backend', subscription().subscriptionId)))]",
+      "name": "[concat(parameters('resourceGroupName'), 'Deployment', uniqueString(concat('avarice-backend', subscription().subscriptionId)))]",
       "resourceGroup": "[parameters('resourceGroupName')]",
       "apiVersion": "2019-10-01",
-      "dependsOn": [
-        "[parameters('resourceGroupName')]"
-      ],
+      "dependsOn": ["[parameters('resourceGroupName')]"],
       "properties": {
         "mode": "Incremental",
         "template": {
@@ -49,7 +47,7 @@
           "contentVersion": "1.0.0.0",
           "resources": [
             {
-              "name": "fin-app-backendapi",
+              "name": "avarice-backendapi",
               "type": "Microsoft.ApiManagement/service",
               "location": "[parameters('resourceLocation')]",
               "properties": {
@@ -59,7 +57,7 @@
                 "hostnameConfigurations": [
                   {
                     "type": "Proxy",
-                    "hostName": "fin-app-backendapi.azure-api.net",
+                    "hostName": "avarice-backendapi.azure-api.net",
                     "encodedCertificate": null,
                     "keyVaultId": null,
                     "certificatePassword": null,
@@ -94,17 +92,15 @@
             },
             {
               "type": "Microsoft.ApiManagement/service/apis",
-              "name": "fin-app-backendapi/fin-app-backend",
+              "name": "avarice-backendapi/avarice-backend",
               "properties": {
-                "displayName": "fin-app-backend",
+                "displayName": "avarice-backend",
                 "apiRevision": "1",
                 "description": null,
                 "subscriptionRequired": true,
                 "serviceUrl": null,
                 "path": "",
-                "protocols": [
-                  "https"
-                ],
+                "protocols": ["https"],
                 "authenticationSettings": {
                   "oAuth2": null,
                   "openid": null
@@ -116,9 +112,7 @@
                 "isCurrent": true
               },
               "apiVersion": "2019-12-01",
-              "dependsOn": [
-                "fin-app-backendapi"
-              ]
+              "dependsOn": ["avarice-backendapi"]
             }
           ]
         }

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace fin_app_backend.Specifications.Base
+namespace avarice_backend.Specifications.Base
 {
   public interface ISpecification<T>
   {

@@ -1,7 +1,7 @@
-using fin_app_backend.Models.Base;
+using avarice_backend.Models.Base;
 using System;
 
-namespace fin_app_backend.Models
+namespace avarice_backend.Models
 {
   public class AccountExpenseAndIncomeModel
   {

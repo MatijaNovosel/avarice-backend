@@ -1,12 +1,12 @@
-using fin_app_backend.Entities.Base;
-using fin_app_backend.Specifications.Base;
+using avarice_backend.Entities.Base;
+using avarice_backend.Specifications.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace fin_app_backend.Repositories.Base
+namespace avarice_backend.Repositories.Base
 {
   public interface IRepository<T>
   {

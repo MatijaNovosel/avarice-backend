@@ -1,10 +1,10 @@
-using fin_app_backend.Entities;
-using fin_app_backend.Repositories.Base;
+using avarice_backend.Entities;
+using avarice_backend.Repositories.Base;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using fin_app_backend.Models;
+using avarice_backend.Models;
 
-namespace fin_app_backend.Repositories.Interfaces
+namespace avarice_backend.Repositories.Interfaces
 {
   public interface ICategoryRepository : IRepository<Category>
   {

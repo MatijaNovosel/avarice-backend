@@ -1,4 +1,4 @@
-namespace fin_app_backend.Models.Base
+namespace avarice_backend.Models.Base
 {
   public class BaseModel
   {

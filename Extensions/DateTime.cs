@@ -2,7 +2,7 @@
 using System;
 using System.Globalization;
 
-namespace fin_app_backend.Extensions
+namespace avarice_backend.Extensions
 {
   public static class DateTimeExtensions
   {

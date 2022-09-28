@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "fin_app_backend": {
+    "avarice_backend": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": true,

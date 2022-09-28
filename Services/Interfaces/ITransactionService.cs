@@ -1,9 +1,9 @@
 using System.Threading.Tasks;
-using fin_app_backend.Models;
+using avarice_backend.Models;
 using System.Collections.Generic;
-using fin_app_backend.Utils;
+using avarice_backend.Utils;
 
-namespace fin_app_backend.Services.Interfaces
+namespace avarice_backend.Services.Interfaces
 {
   public interface ITransactionService
   {

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using fin_app_backend.Entities.Base;
+using avarice_backend.Entities.Base;
 
 #nullable disable
 
-namespace fin_app_backend
+namespace avarice_backend
 {
   public partial class Template : EntityBase<long>
   {

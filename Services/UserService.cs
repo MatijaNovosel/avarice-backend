@@ -1,8 +1,8 @@
 using System;
 using System.Threading.Tasks;
-using fin_app_backend.Services.Interfaces;
-using fin_app_backend.Repositories.Interfaces;
-using fin_app_backend.Models;
+using avarice_backend.Services.Interfaces;
+using avarice_backend.Repositories.Interfaces;
+using avarice_backend.Models;
 using System.Text;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.Extensions.Configuration;
@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
 
-namespace fin_app_backend.Services
+namespace avarice_backend.Services
 {
   public class UserService : IUserService
   {

@@ -1,12 +1,12 @@
-using fin_app_backend.Models;
-using fin_app_backend.Entities;
+using avarice_backend.Models;
+using avarice_backend.Entities;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Globalization;
 
-namespace fin_app_backend.Mapper
+namespace avarice_backend.Mapper
 {
   public static class ObjectMapper
   {

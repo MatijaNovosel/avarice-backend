@@ -1,5 +1,5 @@
 
-namespace fin_app_backend.Utils
+namespace avarice_backend.Utils
 {
   public enum SystemCategoryEnum
   {

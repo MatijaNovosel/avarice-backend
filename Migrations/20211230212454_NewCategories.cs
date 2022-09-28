@@ -1,16 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace fin_app_backend.Migrations
+namespace avarice_backend.Migrations
 {
-    public partial class NewCategories : Migration
+  public partial class NewCategories : Migration
+  {
+    protected override void Up(MigrationBuilder migrationBuilder)
     {
-        protected override void Up(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.InsertData(
-                table: "category",
-                columns: new[] { "id", "color", "icon", "name", "parentId", "userId" },
-                values: new object[,]
-                {
+      migrationBuilder.InsertData(
+          table: "category",
+          columns: new[] { "id", "color", "icon", "name", "parentId", "userId" },
+          values: new object[,]
+          {
                     { 19L, "#ffffff", "mdi-home", "Housing", null, "ee103364-7617-4474-889e-320838e5f3a5" },
                     { 20L, "#ffffff", "mdi-lightbulb", "Energy, utilities", 20L, "ee103364-7617-4474-889e-320838e5f3a5" },
                     { 26L, "#ffffff", "mdi-bus", "Transportation", null, "ee103364-7617-4474-889e-320838e5f3a5" },
@@ -21,13 +21,13 @@ namespace fin_app_backend.Migrations
                     { 66L, "#ffffff", "mdi-chart-line", "Investments", null, "ee103364-7617-4474-889e-320838e5f3a5" },
                     { 72L, "#ffffff", "mdi-currency-usd", "Income", null, "ee103364-7617-4474-889e-320838e5f3a5" },
                     { 85L, "#ffffff", "mdi-account-question", "Others", null, "ee103364-7617-4474-889e-320838e5f3a5" }
-                });
+          });
 
-            migrationBuilder.InsertData(
-                table: "category",
-                columns: new[] { "id", "color", "icon", "name", "parentId", "userId" },
-                values: new object[,]
-                {
+      migrationBuilder.InsertData(
+          table: "category",
+          columns: new[] { "id", "color", "icon", "name", "parentId", "userId" },
+          values: new object[,]
+          {
                     { 21L, "#ffffff", "mdi-hammer", "Maintenance, repairs", 20L, "ee103364-7617-4474-889e-320838e5f3a5" },
                     { 56L, "#ffffff", "mdi-email", "Postal services", 53L, "ee103364-7617-4474-889e-320838e5f3a5" },
                     { 57L, "#ffffff", "mdi-controller-classic", "Software, apps, games", 53L, "ee103364-7617-4474-889e-320838e5f3a5" },
@@ -85,345 +85,345 @@ namespace fin_app_backend.Migrations
                     { 50L, "#ffffff", "mdi-dice-5", "Lottery, gambling", 38L, "ee103364-7617-4474-889e-320838e5f3a5" },
                     { 52L, "#ffffff", "mdi-flower", "Wellness, beauty", 38L, "ee103364-7617-4474-889e-320838e5f3a5" },
                     { 86L, "#ffffff", "mdi-help-circle", "Missing", 85L, "ee103364-7617-4474-889e-320838e5f3a5" }
-                });
-        }
-
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 19L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 21L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 22L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 23L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 24L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 25L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 27L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 28L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 29L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 30L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 32L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 33L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 34L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 35L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 36L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 37L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 39L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 40L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 41L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 43L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 44L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 45L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 46L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 47L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 48L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 49L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 50L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 51L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 52L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 54L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 55L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 56L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 57L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 59L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 60L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 61L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 62L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 63L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 64L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 65L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 67L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 68L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 69L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 70L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 71L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 73L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 74L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 75L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 76L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 77L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 78L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 79L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 80L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 81L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 82L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 83L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 84L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 86L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 20L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 26L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 31L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 38L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 53L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 58L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 66L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 72L);
-
-            migrationBuilder.DeleteData(
-                table: "category",
-                keyColumn: "id",
-                keyValue: 85L);
-        }
+          });
     }
+
+    protected override void Down(MigrationBuilder migrationBuilder)
+    {
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 19L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 21L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 22L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 23L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 24L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 25L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 27L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 28L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 29L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 30L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 32L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 33L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 34L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 35L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 36L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 37L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 39L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 40L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 41L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 43L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 44L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 45L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 46L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 47L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 48L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 49L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 50L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 51L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 52L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 54L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 55L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 56L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 57L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 59L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 60L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 61L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 62L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 63L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 64L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 65L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 67L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 68L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 69L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 70L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 71L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 73L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 74L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 75L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 76L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 77L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 78L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 79L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 80L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 81L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 82L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 83L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 84L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 86L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 20L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 26L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 31L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 38L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 53L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 58L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 66L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 72L);
+
+      migrationBuilder.DeleteData(
+          table: "category",
+          keyColumn: "id",
+          keyValue: 85L);
+    }
+  }
 }

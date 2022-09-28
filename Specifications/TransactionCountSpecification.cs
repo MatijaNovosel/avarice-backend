@@ -1,12 +1,12 @@
-using fin_app_backend.Entities;
-using fin_app_backend.Specifications.Base;
+using avarice_backend.Entities;
+using avarice_backend.Specifications.Base;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq.Expressions;
-using fin_app_backend.Extensions;
+using avarice_backend.Extensions;
 
-namespace fin_app_backend.Specifications
+namespace avarice_backend.Specifications
 {
   public sealed class TransactionCountSpecification : BaseSpecification<Transaction>
   {

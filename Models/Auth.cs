@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace fin_app_backend.Models
+namespace avarice_backend.Models
 {
   public class AuthResultModel
   {

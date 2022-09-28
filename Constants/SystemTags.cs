@@ -1,4 +1,4 @@
-namespace fin_app_backend.Constants
+namespace avarice_backend.Constants
 {
   enum SystemTags : int
   {

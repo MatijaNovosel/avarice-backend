@@ -1,16 +1,16 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using fin_app_backend.Services.Interfaces;
-using fin_app_backend.Repositories.Interfaces;
-using fin_app_backend.Constants;
-using fin_app_backend.Models;
-using fin_app_backend.Mapper;
-using fin_app_backend.Utils;
-using fin_app_backend.Extensions;
+using avarice_backend.Services.Interfaces;
+using avarice_backend.Repositories.Interfaces;
+using avarice_backend.Constants;
+using avarice_backend.Models;
+using avarice_backend.Mapper;
+using avarice_backend.Utils;
+using avarice_backend.Extensions;
 using System.Linq;
 
-namespace fin_app_backend.Services
+namespace avarice_backend.Services
 {
   public class TransactionService : ITransactionService
   {

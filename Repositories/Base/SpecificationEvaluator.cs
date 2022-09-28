@@ -1,10 +1,10 @@
-using fin_app_backend.Entities;
-using fin_app_backend.Entities.Base;
-using fin_app_backend.Specifications.Base;
+using avarice_backend.Entities;
+using avarice_backend.Entities.Base;
+using avarice_backend.Specifications.Base;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
-namespace fin_app_backend.Repositories.Base
+namespace avarice_backend.Repositories.Base
 {
   public class SpecificationEvaluator<EntityType, EntityBaseType> where EntityType : EntityBase<EntityBaseType>
   {

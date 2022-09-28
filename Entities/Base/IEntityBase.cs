@@ -1,4 +1,4 @@
-namespace fin_app_backend.Entities.Base
+namespace avarice_backend.Entities.Base
 {
   public interface IEntityBase<TId>
   {

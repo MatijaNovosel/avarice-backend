@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 
 #nullable disable
 
-namespace fin_app_backend
+namespace avarice_backend
 {
   public partial class User : IdentityUser
   {

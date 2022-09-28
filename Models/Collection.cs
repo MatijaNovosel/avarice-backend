@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace fin_app_backend.Models 
+namespace avarice_backend.Models
 {
   public class PageableCollection<TResult>
   {
