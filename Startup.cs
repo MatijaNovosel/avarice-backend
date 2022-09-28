@@ -62,14 +62,14 @@ namespace avarice_backend
       });
 
       var serverVersion = new MySqlServerVersion(new Version(8, 0, 21));
-      services.AddDbContext<avariceContext>(
+      services.AddDbContext<AvariceContext>(
           dbContextOptions => dbContextOptions
               .UseMySql(_configuration["ConnectionString"], serverVersion)
               .EnableSensitiveDataLogging()
               .EnableDetailedErrors()
       );
 
-      services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<avariceContext>();
+      services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<AvariceContext>();
 
       services.AddCors(options =>
       {
@@ -85,7 +85,7 @@ namespace avarice_backend
       });
 
       // Repositories
-      services.AddScoped(typeof(IRepository<>), typeof(Repository<,>));
+      // services.AddScoped(typeof(IRepository<>), typeof(Repository<,>));
       services.AddScoped<ITransactionRepository, TransactionRepository>();
       services.AddScoped<IAccountRepository, AccountRepository>();
       services.AddScoped<ICategoryRepository, CategoryRepository>();

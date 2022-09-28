@@ -7,7 +7,7 @@ using avarice_backend;
 
 namespace avarice_backend.Migrations
 {
-  [DbContext(typeof(avariceContext))]
+  [DbContext(typeof(AvariceContext))]
   partial class avariceContextModelSnapshot : ModelSnapshot
   {
     protected override void BuildModel(ModelBuilder modelBuilder)

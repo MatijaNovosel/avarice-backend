@@ -8,7 +8,7 @@ using avarice_backend;
 
 namespace avarice_backend.Migrations
 {
-  [DbContext(typeof(avariceContext))]
+  [DbContext(typeof(AvariceContext))]
   [Migration("20211230212454_NewCategories")]
   partial class NewCategories
   {

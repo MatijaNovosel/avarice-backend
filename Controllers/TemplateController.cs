@@ -17,10 +17,10 @@ namespace avarice_backend.Controllers
   [Route("api/template")]
   public class TemplateController : ControllerBase
   {
-    private readonly avariceContext _context;
+    private readonly AvariceContext _context;
     private readonly ITemplateService _templateService;
 
-    public TemplateController(avariceContext context, ITemplateService templateService)
+    public TemplateController(AvariceContext context, ITemplateService templateService)
     {
       _context = context;
       _templateService = templateService;

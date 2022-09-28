@@ -8,7 +8,7 @@ using avarice_backend;
 
 namespace avarice_backend.Migrations
 {
-  [DbContext(typeof(avariceContext))]
+  [DbContext(typeof(AvariceContext))]
   [Migration("20210816231144_BIGINT")]
   partial class BIGINT
   {

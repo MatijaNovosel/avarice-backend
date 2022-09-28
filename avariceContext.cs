@@ -9,16 +9,16 @@ using System.Collections.Generic;
 
 namespace avarice_backend
 {
-  public partial class avariceContext : IdentityDbContext<User>
+  public partial class AvariceContext : IdentityDbContext<User>
   {
     public IConfiguration Configuration { get; }
 
-    public avariceContext(IConfiguration configuration)
+    public AvariceContext(IConfiguration configuration)
     {
       Configuration = configuration;
     }
 
-    public avariceContext(DbContextOptions<avariceContext> options, IConfiguration configuration) : base(options)
+    public AvariceContext(DbContextOptions<AvariceContext> options, IConfiguration configuration) : base(options)
     {
       Configuration = configuration;
     }

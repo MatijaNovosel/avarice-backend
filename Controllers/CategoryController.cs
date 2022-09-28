@@ -17,10 +17,10 @@ namespace avarice_backend.Controllers
   [Route("api/category")]
   public class CategoryController : ControllerBase
   {
-    private readonly avariceContext _context;
+    private readonly AvariceContext _context;
     private readonly ICategoryService _categoryService;
 
-    public CategoryController(avariceContext context, ICategoryService categoryService)
+    public CategoryController(AvariceContext context, ICategoryService categoryService)
     {
       _context = context;
       _categoryService = categoryService;

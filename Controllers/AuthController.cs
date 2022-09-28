@@ -14,11 +14,11 @@ namespace avarice_backend.Controllers
   [Route("api/auth")]
   public class AuthController : ControllerBase
   {
-    private readonly avariceContext _context;
+    private readonly AvariceContext _context;
     private readonly IAuthService _authService;
     private readonly IConfiguration _configuration;
 
-    public AuthController(avariceContext context, IAuthService authService, IConfiguration configuration)
+    public AuthController(AvariceContext context, IAuthService authService, IConfiguration configuration)
     {
       _context = context;
       _authService = authService;

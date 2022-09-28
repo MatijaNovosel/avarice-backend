@@ -16,7 +16,7 @@ namespace avarice_backend.Repositories
   public class AccountRepository : Repository<Account, long>, IAccountRepository
   {
 
-    public AccountRepository(avariceContext dbContext) : base(dbContext)
+    public AccountRepository(AvariceContext dbContext) : base(dbContext)
     {
     }
   }

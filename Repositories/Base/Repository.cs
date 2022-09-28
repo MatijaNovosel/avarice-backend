@@ -12,9 +12,9 @@ namespace avarice_backend.Repositories.Base
 {
   public class Repository<EntityType, EntityBaseType> : IRepository<EntityType> where EntityType : EntityBase<EntityBaseType>
   {
-    protected readonly avariceContext _dbContext;
+    protected readonly AvariceContext _dbContext;
 
-    public Repository(avariceContext dbContext)
+    public Repository(AvariceContext dbContext)
     {
       _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
     }
