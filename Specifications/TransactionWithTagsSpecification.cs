@@ -25,7 +25,7 @@ namespace avarice_backend.Specifications
       AddInclude(b => b.Account);
       AddInclude(b => b.Category);
       AddInclude(b => b.Category.Parent);
-      ApplyOrderByDescending(b => b.Id);
+      ApplyOrderByDescending(b => b.CreatedAt);
 
       if (skip != null && take != null)
       {
