@@ -85,7 +85,6 @@ namespace avarice_backend
       });
 
       // Repositories
-      // services.AddScoped(typeof(IRepository<>), typeof(Repository<,>));
       services.AddScoped<ITransactionRepository, TransactionRepository>();
       services.AddScoped<IAccountRepository, AccountRepository>();
       services.AddScoped<ICategoryRepository, CategoryRepository>();
