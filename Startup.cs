@@ -117,7 +117,7 @@ namespace avarice_backend
       services.AddControllers();
       services.AddSwaggerDocument(settings =>
       {
-        settings.Title = "FinApp API";
+        settings.Title = "Avarice API";
         settings.AddSecurity("Bearer", new NSwag.OpenApiSecurityScheme
         {
           Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
