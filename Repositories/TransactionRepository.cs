@@ -24,7 +24,6 @@ namespace avarice_backend.Repositories
       int? skip,
       int? take,
       string description,
-      string transactionType,
       int? categoryType
     )
     {
@@ -42,7 +41,6 @@ namespace avarice_backend.Repositories
     public async Task<long> GetTransactionsCount(
       string userId,
       string description,
-      string transactionType,
       int? categoryType
     )
     {

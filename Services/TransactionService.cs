@@ -62,7 +62,6 @@ namespace avarice_backend.Services
       int? skip,
       int? take,
       string description,
-      string transactionType,
       int? categoryType
     )
     {
@@ -71,7 +70,6 @@ namespace avarice_backend.Services
         skip,
         take,
         description,
-        transactionType,
         categoryType
       );
       var mapped = ObjectMapper.Mapper.Map<IEnumerable<TransactionModel>>(transactions);
@@ -81,14 +79,12 @@ namespace avarice_backend.Services
     public async Task<long> GetCount(
       string userId,
       string description,
-      string transactionType,
       int? categoryType
     )
     {
       var count = await _transactionRepository.GetTransactionsCount(
         userId,
         description,
-        transactionType,
         categoryType
       );
       return count;

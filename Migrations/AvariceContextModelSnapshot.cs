@@ -1014,9 +1014,6 @@ namespace avarice_backend.Migrations
                     b.Property<double?>("Longitude")
                         .HasColumnType("double");
 
-                    b.Property<string>("TransactionType")
-                        .HasColumnType("longtext");
-
                     b.Property<long?>("TransferAccountId")
                         .HasColumnType("bigint")
                         .HasColumnName("transferAccountId");
@@ -1072,12 +1069,6 @@ namespace avarice_backend.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("varchar(255)")
                         .HasColumnName("description");
-
-                    b.Property<ulong>("IsTransaction")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(0ul)
-                        .HasColumnName("isTransaction");
 
                     b.Property<double?>("Latitude")
                         .HasColumnType("double")

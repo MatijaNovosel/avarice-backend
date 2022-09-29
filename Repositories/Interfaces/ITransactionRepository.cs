@@ -13,13 +13,11 @@ namespace avarice_backend.Repositories.Interfaces
       int? skip,
       int? take,
       string description,
-      string transactionType,
       int? categoryType
     );
     Task<long> GetTransactionsCount(
       string userId,
       string description,
-      string transactionType,
       int? categoryType
     );
   }

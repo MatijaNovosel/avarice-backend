@@ -19,7 +19,6 @@ namespace avarice_backend
     public long CategoryId { get; set; }
     public double? Longitude { get; set; }
     public double? Latitude { get; set; }
-    public bool IsTransaction { get; set; }
     public DateTime CreatedAt { get; set; }
 
     public virtual Account Account { get; set; }
