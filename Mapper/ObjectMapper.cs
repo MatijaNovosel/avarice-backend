@@ -37,7 +37,8 @@ namespace avarice_backend.Mapper
           Id = x.Parent.Id,
           Name = x.Parent.Name
         } : null));
-      CreateMap<Account, AccountModel>();
+      CreateMap<Account, AccountModel>()
+        .ForMember(dest => dest.Balance, m => m.MapFrom(x => x.InitialBalance));
       CreateMap<Template, TemplateModel>()
         .ForMember(dest => dest.Account, m => m.MapFrom(x => x.Account.Name))
         .ForMember(dest => dest.Currency, m => m.MapFrom(x => x.Account.Currency))

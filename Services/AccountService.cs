@@ -26,6 +26,14 @@ namespace avarice_backend.Services
     {
       var accounts = await _accountRepository.GetAsync(account => account.UserId == userId);
       var mapped = ObjectMapper.Mapper.Map<IEnumerable<AccountModel>>(accounts);
+
+      foreach (AccountModel account in mapped)
+      {
+        var transactions = await _transactionRepository.GetAsync(t => t.AccountId == account.Id);
+        var sum = transactions.Select(t => t.Amount).Sum();
+        account.Balance += sum;
+      }
+
       return mapped;
     }
 

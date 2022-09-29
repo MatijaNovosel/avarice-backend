@@ -49,10 +49,20 @@ namespace avarice_backend.Services
       await _transactionRepository.AddAsync(new Transaction()
       {
         AccountId = transfer.AccountFromId,
-        Amount = transfer.Amount,
+        Amount = transfer.Amount * -1,
         CategoryId = (long)SystemCategoryEnum.Transfer,
         Description = $"Transfer ({accountFrom.Name} => {accountTo.Name})",
         TransferAccountId = transfer.AccountToId,
+        CreatedAt = transfer.CreatedAt ?? DateTime.Now
+      });
+
+      await _transactionRepository.AddAsync(new Transaction()
+      {
+        AccountId = transfer.AccountToId,
+        Amount = transfer.Amount,
+        CategoryId = (long)SystemCategoryEnum.Transfer,
+        Description = $"Transfer ({accountFrom.Name} => {accountTo.Name})",
+        TransferAccountId = transfer.AccountFromId,
         CreatedAt = transfer.CreatedAt ?? DateTime.Now
       });
     }
