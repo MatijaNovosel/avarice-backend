@@ -49,6 +49,7 @@ namespace avarice_backend.Controllers
       int skip,
       int take,
       string description,
+      string transactionType,
       int? categoryType
     )
     {
@@ -57,12 +58,14 @@ namespace avarice_backend.Controllers
         skip,
         take,
         description,
+        transactionType,
         categoryType
       );
 
       var count = await _transactionService.GetCount(
         ((ClaimsIdentity)User.Identity).FindFirst("Id").Value,
         description,
+        transactionType,
         categoryType
       );
 

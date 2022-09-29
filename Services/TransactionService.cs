@@ -62,6 +62,7 @@ namespace avarice_backend.Services
       int? skip,
       int? take,
       string description,
+      string transactionType,
       int? categoryType
     )
     {
@@ -79,6 +80,7 @@ namespace avarice_backend.Services
     public async Task<long> GetCount(
       string userId,
       string description,
+      string transactionType,
       int? categoryType
     )
     {
