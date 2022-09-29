@@ -87,10 +87,7 @@ namespace avarice_backend.Services
           Date = DateTime.Now
         });
 
-        var nowId = long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss"));
-        var transactionNow = transactions.Where(x => long.Parse(
-          x.Id.ToString().Substring(0, 8)) == long.Parse(nowId.ToString().Substring(0, 8))
-        ).ToList();
+        var transactionNow = transactions.Where(x => x.CreatedAt == DateTime.Now).ToList();
 
         if (transactionNow.Count != 0)
         {
