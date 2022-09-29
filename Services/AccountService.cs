@@ -63,24 +63,24 @@ namespace avarice_backend.Services
     public async Task<IEnumerable<AccountHistoryModel>> GetAccountHistory(string userId, long accountId, TimePeriodEnum timePeriod)
     {
       var res = new List<AccountHistoryModel>();
-
       var accountBalance = (await _accountRepository.GetByIdAsync(accountId)).InitialBalance;
+      var accountTransactions = await _transactionRepository.GetAsync(t => t.AccountId == accountId);
+      var sum = accountTransactions.Select(t => t.Amount).Sum();
 
-      var toRange = DateTime.Now;
-      var fromRange = DateTime.Now.AddDays(-30);
+      accountBalance += sum;
 
-      var transactions = await _transactionRepository.GetAsync(t =>
-        t.Account.UserId == userId &&
-        t.AccountId == accountId &&
-        t.CreatedAt >= fromRange &&
-        t.CreatedAt <= toRange
-      );
+      var toRange = DateTime.Now.Date;
+      var fromRange = DateTime.Now.AddDays(-30).Date;
+
+      var transactions = accountTransactions.Where(t =>
+        t.CreatedAt.Date >= fromRange &&
+        t.CreatedAt.Date <= toRange
+      ).ToList();
 
       if (transactions.Count != 0)
       {
         var currentAmount = accountBalance;
 
-        // TODO: Fix this later
         res.Add(new AccountHistoryModel
         {
           Amount = currentAmount,
@@ -97,7 +97,7 @@ namespace avarice_backend.Services
             {
               currentAmount += (double)t.Amount * -1;
             }
-            else if (t.Amount > 0)
+            else
             {
               currentAmount -= (double)t.Amount;
             }
@@ -106,8 +106,8 @@ namespace avarice_backend.Services
 
         for (int i = 1; i <= 30; i++)
         {
-          var date = DateTime.Now.AddDays(i * -1);
-          var transactionAtDate = transactions.Where(t => t.CreatedAt == date).ToList();
+          var date = DateTime.Now.AddDays(i * -1).Date;
+          var transactionAtDate = transactions.Where(t => t.CreatedAt.Date == date).ToList();
 
           if (transactionAtDate.Count != 0)
           {
@@ -117,7 +117,7 @@ namespace avarice_backend.Services
               {
                 currentAmount += (double)t.Amount * -1;
               }
-              else if (t.Amount > 0)
+              else
               {
                 currentAmount -= (double)t.Amount;
               }
@@ -127,7 +127,7 @@ namespace avarice_backend.Services
           res.Add(new AccountHistoryModel
           {
             Amount = currentAmount,
-            Date = DateTime.Now.AddDays(i * -1)
+            Date = date
           });
         }
       }
