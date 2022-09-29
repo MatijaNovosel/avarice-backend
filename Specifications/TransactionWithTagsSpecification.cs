@@ -1,3 +1,4 @@
+using avarice_backend.Extensions;
 using avarice_backend.Specifications.Base;
 using System;
 using System.Linq.Expressions;
@@ -14,11 +15,17 @@ namespace avarice_backend.Specifications
       int? categoryType
     )
     {
-      Expression<Func<Transaction, bool>> expression = (transaction) =>
+      Expression<Func<Transaction, bool>> filterExpression = (transaction) =>
         transaction.Account.UserId == userId &&
         transaction.Description.ToLower().Contains(description.ToLower());
 
-      AddExpression(expression);
+      if (categoryType != null)
+      {
+        Expression<Func<Transaction, bool>> expressionAddition = (t) => t.CategoryId == categoryType;
+        filterExpression = PredicateBuilder.AndAlso(filterExpression, expressionAddition);
+      }
+
+      AddExpression(filterExpression);
 
       AddInclude(b => b.Account);
       AddInclude(b => b.Category);
