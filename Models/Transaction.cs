@@ -8,7 +8,6 @@ namespace avarice_backend.Models
   {
     public double Amount { get; set; }
     public string Description { get; set; }
-    public string TransactionType { get; set; }
     public long AccountId { get; set; }
     public long CategoryId { get; set; }
     public DateTime? CreatedAt { get; set; }
@@ -37,8 +36,8 @@ namespace avarice_backend.Models
     public DateTime CreatedAt { get; set; }
     public string Description { get; set; }
     public string Currency { get; set; }
-    public TransactionCategoryModel Category { get; set; }
     public string TransactionType { get; set; }
+    public TransactionCategoryModel Category { get; set; }
     public string Account { get; set; }
   }
 

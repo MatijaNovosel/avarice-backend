@@ -110,11 +110,6 @@ namespace avarice_backend
 
         entity.Property(e => e.Latitude).HasColumnName("latitude");
 
-        entity.Property(e => e.IsTransaction)
-          .HasColumnType("bit")
-          .HasColumnName("isTransaction")
-          .HasDefaultValue(false);
-
         entity.Property(e => e.Description)
           .HasMaxLength(255)
           .HasColumnName("description");

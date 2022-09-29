@@ -263,8 +263,6 @@ namespace avarice_backend.Migrations
                     amount = table.Column<double>(type: "double", nullable: false),
                     description = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true, collation: "latin1_swedish_ci")
                         .Annotation("MySql:CharSet", "latin1"),
-                    TransactionType = table.Column<string>(type: "longtext", nullable: true, collation: "latin1_swedish_ci")
-                        .Annotation("MySql:CharSet", "latin1"),
                     accountId = table.Column<long>(type: "bigint", nullable: false),
                     transferAccountId = table.Column<long>(type: "bigint", nullable: true),
                     categoryId = table.Column<long>(type: "bigint", nullable: false),
@@ -317,7 +315,6 @@ namespace avarice_backend.Migrations
                     categoryId = table.Column<long>(type: "bigint", nullable: false),
                     longitude = table.Column<double>(type: "double", nullable: true),
                     latitude = table.Column<double>(type: "double", nullable: true),
-                    isTransaction = table.Column<ulong>(type: "bit", nullable: false, defaultValue: 0ul),
                     createdAt = table.Column<DateTime>(type: "datetime", nullable: false),
                     UserId = table.Column<string>(type: "varchar(255)", nullable: true, collation: "latin1_swedish_ci")
                         .Annotation("MySql:CharSet", "latin1")

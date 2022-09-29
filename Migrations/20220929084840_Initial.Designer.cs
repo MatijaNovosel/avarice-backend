@@ -11,7 +11,7 @@ using avarice_backend;
 namespace avarice_backend.Migrations
 {
     [DbContext(typeof(AvariceContext))]
-    [Migration("20220929083125_Initial")]
+    [Migration("20220929084840_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1016,9 +1016,6 @@ namespace avarice_backend.Migrations
                     b.Property<double?>("Longitude")
                         .HasColumnType("double");
 
-                    b.Property<string>("TransactionType")
-                        .HasColumnType("longtext");
-
                     b.Property<long?>("TransferAccountId")
                         .HasColumnType("bigint")
                         .HasColumnName("transferAccountId");
@@ -1074,12 +1071,6 @@ namespace avarice_backend.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("varchar(255)")
                         .HasColumnName("description");
-
-                    b.Property<ulong>("IsTransaction")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(0ul)
-                        .HasColumnName("isTransaction");
 
                     b.Property<double?>("Latitude")
                         .HasColumnType("double")

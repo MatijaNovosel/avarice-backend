@@ -31,7 +31,6 @@ namespace avarice_backend.Services
       {
         AccountId = template.AccountId,
         Amount = template.Amount,
-        TransactionType = template.TransactionType,
         CategoryId = template.CategoryId,
         Description = template.Description,
         TransferAccountId = template.AccountToId,
