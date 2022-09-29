@@ -36,6 +36,7 @@ namespace avarice_backend.Models
     public DateTime CreatedAt { get; set; }
     public string Description { get; set; }
     public string Currency { get; set; }
+    public string TransactionType { get; set; }
     public TransactionCategoryModel Category { get; set; }
     public string Account { get; set; }
   }

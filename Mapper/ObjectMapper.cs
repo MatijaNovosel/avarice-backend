@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Globalization;
+using avarice_backend.Utils;
 
 namespace avarice_backend.Mapper
 {
@@ -50,6 +51,7 @@ namespace avarice_backend.Mapper
       CreateMap<Transaction, TransactionModel>()
         .ForMember(dest => dest.Account, m => m.MapFrom(x => x.Account.Name))
         .ForMember(dest => dest.Currency, m => m.MapFrom(x => x.Account.Currency))
+        .ForMember(dest => dest.TransactionType, m => m.MapFrom(x => x.CategoryId == (long)SystemCategoryEnum.Transfer ? TransactionType.Transfer : (x.Amount < 0 ? TransactionType.Expense : TransactionType.Income)))
         .ForMember(dest => dest.Category, m => m.MapFrom(x => new TransactionCategoryModel
         {
           Name = x.Category.Name,
