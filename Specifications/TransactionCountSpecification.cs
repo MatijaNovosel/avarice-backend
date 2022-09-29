@@ -18,7 +18,6 @@ namespace avarice_backend.Specifications
     {
       Expression<Func<Transaction, bool>> filterExpression = (transaction) =>
         transaction.Account.UserId == userId &&
-        transaction.CategoryId == categoryType &&
         transaction.Description.ToLower().Contains(description.ToLower());
 
       if (categoryType != null)
