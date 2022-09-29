@@ -13,14 +13,12 @@ namespace avarice_backend.Specifications
     public TransactionCountSpecification(
       string userId,
       string description,
-      string transactionType,
       int? categoryType
     )
     {
       Expression<Func<Transaction, bool>> filterExpression = (transaction) =>
-        transaction.UserId == userId &&
-        transaction.Description.ToLower().Contains(description.ToLower()) &&
-        transaction.TransactionType.Contains(transactionType);
+        transaction.Account.UserId == userId &&
+        transaction.Description.ToLower().Contains(description.ToLower());
 
       if (categoryType != null)
       {

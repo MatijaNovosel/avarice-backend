@@ -11,14 +11,12 @@ namespace avarice_backend.Specifications
       int? skip,
       int? take,
       string description,
-      string transactionType,
       int? categoryType
     )
     {
       Expression<Func<Transaction, bool>> expression = (transaction) =>
-        transaction.UserId == userId &&
-        transaction.Description.ToLower().Contains(description.ToLower()) &&
-        transaction.TransactionType.Contains(transactionType);
+        transaction.Account.UserId == userId &&
+        transaction.Description.ToLower().Contains(description.ToLower());
 
       AddExpression(expression);
 

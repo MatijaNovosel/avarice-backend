@@ -33,7 +33,6 @@ namespace avarice_backend.Repositories
         skip,
         take,
         description ?? "",
-        transactionType ?? "",
         categoryType
       );
       var transactions = await GetAsync(spec);
@@ -50,7 +49,6 @@ namespace avarice_backend.Repositories
       var spec = new TransactionCountSpecification(
         userId,
         description ?? "",
-        transactionType ?? "",
         categoryType
       );
       var transactions = await GetAsync(spec);

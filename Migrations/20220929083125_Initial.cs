@@ -98,11 +98,11 @@ namespace avarice_backend.Migrations
                 {
                     id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    currency = table.Column<string>(type: "varchar(32)", maxLength: 32, nullable: false, defaultValueSql: "'HRK'", collation: "latin1_swedish_ci")
+                    currency = table.Column<string>(type: "varchar(6)", maxLength: 6, nullable: false, defaultValueSql: "'HRK'", collation: "latin1_swedish_ci")
                         .Annotation("MySql:CharSet", "latin1"),
                     name = table.Column<string>(type: "varchar(64)", maxLength: 64, nullable: true, collation: "latin1_swedish_ci")
                         .Annotation("MySql:CharSet", "latin1"),
-                    balance = table.Column<double>(type: "double", nullable: false),
+                    initialBalance = table.Column<double>(type: "double", nullable: false),
                     userId = table.Column<string>(type: "varchar(255)", nullable: true, collation: "latin1_swedish_ci")
                         .Annotation("MySql:CharSet", "latin1")
                 },
@@ -260,16 +260,19 @@ namespace avarice_backend.Migrations
                 {
                     id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    amount = table.Column<double>(type: "double", nullable: true),
+                    amount = table.Column<double>(type: "double", nullable: false),
                     description = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true, collation: "latin1_swedish_ci")
                         .Annotation("MySql:CharSet", "latin1"),
-                    transactionType = table.Column<string>(type: "varchar(3)", maxLength: 3, nullable: true, collation: "latin1_swedish_ci")
+                    TransactionType = table.Column<string>(type: "longtext", nullable: true, collation: "latin1_swedish_ci")
                         .Annotation("MySql:CharSet", "latin1"),
                     accountId = table.Column<long>(type: "bigint", nullable: false),
                     transferAccountId = table.Column<long>(type: "bigint", nullable: true),
                     categoryId = table.Column<long>(type: "bigint", nullable: false),
-                    userId = table.Column<string>(type: "varchar(255)", nullable: true, collation: "latin1_swedish_ci")
-                        .Annotation("MySql:CharSet", "latin1")
+                    UserId = table.Column<string>(type: "varchar(255)", nullable: true, collation: "latin1_swedish_ci")
+                        .Annotation("MySql:CharSet", "latin1"),
+                    Longitude = table.Column<double>(type: "double", nullable: true),
+                    Latitude = table.Column<double>(type: "double", nullable: true),
+                    createdAt = table.Column<DateTime>(type: "datetime", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -287,7 +290,7 @@ namespace avarice_backend.Migrations
                         principalColumn: "id");
                     table.ForeignKey(
                         name: "template_ibfk_3",
-                        column: x => x.userId,
+                        column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
@@ -306,21 +309,27 @@ namespace avarice_backend.Migrations
                 {
                     id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    amount = table.Column<double>(type: "double", nullable: true),
+                    amount = table.Column<double>(type: "double", nullable: false),
                     description = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true, collation: "latin1_swedish_ci")
-                        .Annotation("MySql:CharSet", "latin1"),
-                    transactionType = table.Column<string>(type: "varchar(3)", maxLength: 3, nullable: true, collation: "latin1_swedish_ci")
                         .Annotation("MySql:CharSet", "latin1"),
                     accountId = table.Column<long>(type: "bigint", nullable: false),
                     transferAccountId = table.Column<long>(type: "bigint", nullable: true),
                     categoryId = table.Column<long>(type: "bigint", nullable: false),
-                    userId = table.Column<string>(type: "varchar(255)", nullable: true, collation: "latin1_swedish_ci")
-                        .Annotation("MySql:CharSet", "latin1"),
-                    createdAt = table.Column<DateTime>(type: "datetime", nullable: false)
+                    longitude = table.Column<double>(type: "double", nullable: true),
+                    latitude = table.Column<double>(type: "double", nullable: true),
+                    isTransaction = table.Column<ulong>(type: "bit", nullable: false, defaultValue: 0ul),
+                    createdAt = table.Column<DateTime>(type: "datetime", nullable: false),
+                    UserId = table.Column<string>(type: "varchar(255)", nullable: true, collation: "latin1_swedish_ci")
+                        .Annotation("MySql:CharSet", "latin1")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_transaction", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_transaction_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "transaction_ibfk_1",
                         column: x => x.accountId,
@@ -334,11 +343,6 @@ namespace avarice_backend.Migrations
                         principalColumn: "id");
                     table.ForeignKey(
                         name: "transaction_ibfk_3",
-                        column: x => x.userId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "transaction_ibfk_4",
                         column: x => x.categoryId,
                         principalTable: "category",
                         principalColumn: "id",
@@ -359,13 +363,13 @@ namespace avarice_backend.Migrations
 
             migrationBuilder.InsertData(
                 table: "account",
-                columns: new[] { "id", "balance", "currency", "name", "userId" },
+                columns: new[] { "id", "currency", "initialBalance", "name", "userId" },
                 values: new object[,]
                 {
-                    { 1L, 14000.0, "HRK", "Gyro", "b2beece6-28da-4c7f-b304-3a526d166f00" },
-                    { 2L, 200.0, "EUR", "Euros", "b2beece6-28da-4c7f-b304-3a526d166f00" },
-                    { 3L, 0.0, "HRK", "Checking", "b2beece6-28da-4c7f-b304-3a526d166f00" },
-                    { 4L, 800.0, "HRK", "Pocket", "b2beece6-28da-4c7f-b304-3a526d166f00" }
+                    { 1L, "HRK", 14000.0, "Gyro", "b2beece6-28da-4c7f-b304-3a526d166f00" },
+                    { 2L, "EUR", 200.0, "Euros", "b2beece6-28da-4c7f-b304-3a526d166f00" },
+                    { 3L, "HRK", 0.0, "Checking", "b2beece6-28da-4c7f-b304-3a526d166f00" },
+                    { 4L, "HRK", 800.0, "Pocket", "b2beece6-28da-4c7f-b304-3a526d166f00" }
                 });
 
             migrationBuilder.InsertData(
@@ -538,9 +542,19 @@ namespace avarice_backend.Migrations
                 column: "transferAccountId");
 
             migrationBuilder.CreateIndex(
+                name: "latitude",
+                table: "template",
+                column: "Latitude");
+
+            migrationBuilder.CreateIndex(
+                name: "longitude",
+                table: "template",
+                column: "Longitude");
+
+            migrationBuilder.CreateIndex(
                 name: "userId1",
                 table: "template",
-                column: "userId");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "accountId1",
@@ -558,9 +572,9 @@ namespace avarice_backend.Migrations
                 column: "transferAccountId");
 
             migrationBuilder.CreateIndex(
-                name: "userId2",
+                name: "IX_transaction_UserId",
                 table: "transaction",
-                column: "userId");
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

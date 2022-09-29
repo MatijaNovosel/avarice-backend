@@ -11,7 +11,7 @@ using avarice_backend;
 namespace avarice_backend.Migrations
 {
     [DbContext(typeof(AvariceContext))]
-    [Migration("20220928222654_Initial")]
+    [Migration("20220929083125_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,17 +30,17 @@ namespace avarice_backend.Migrations
                         .HasColumnType("bigint")
                         .HasColumnName("id");
 
-                    b.Property<double>("Balance")
-                        .HasColumnType("double")
-                        .HasColumnName("balance");
-
                     b.Property<string>("Currency")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
-                        .HasMaxLength(32)
-                        .HasColumnType("varchar(32)")
+                        .HasMaxLength(6)
+                        .HasColumnType("varchar(6)")
                         .HasColumnName("currency")
                         .HasDefaultValueSql("'HRK'");
+
+                    b.Property<double>("InitialBalance")
+                        .HasColumnType("double")
+                        .HasColumnName("initialBalance");
 
                     b.Property<string>("Name")
                         .HasMaxLength(64)
@@ -64,32 +64,32 @@ namespace avarice_backend.Migrations
                         new
                         {
                             Id = 1L,
-                            Balance = 14000.0,
                             Currency = "HRK",
+                            InitialBalance = 14000.0,
                             Name = "Gyro",
                             UserId = "b2beece6-28da-4c7f-b304-3a526d166f00"
                         },
                         new
                         {
                             Id = 2L,
-                            Balance = 200.0,
                             Currency = "EUR",
+                            InitialBalance = 200.0,
                             Name = "Euros",
                             UserId = "b2beece6-28da-4c7f-b304-3a526d166f00"
                         },
                         new
                         {
                             Id = 3L,
-                            Balance = 0.0,
                             Currency = "HRK",
+                            InitialBalance = 0.0,
                             Name = "Checking",
                             UserId = "b2beece6-28da-4c7f-b304-3a526d166f00"
                         },
                         new
                         {
                             Id = 4L,
-                            Balance = 800.0,
                             Currency = "HRK",
+                            InitialBalance = 800.0,
                             Name = "Pocket",
                             UserId = "b2beece6-28da-4c7f-b304-3a526d166f00"
                         });
@@ -993,7 +993,7 @@ namespace avarice_backend.Migrations
                         .HasColumnType("bigint")
                         .HasColumnName("accountId");
 
-                    b.Property<double?>("Amount")
+                    b.Property<double>("Amount")
                         .HasColumnType("double")
                         .HasColumnName("amount");
 
@@ -1001,23 +1001,30 @@ namespace avarice_backend.Migrations
                         .HasColumnType("bigint")
                         .HasColumnName("categoryId");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime")
+                        .HasColumnName("createdAt");
+
                     b.Property<string>("Description")
                         .HasMaxLength(255)
                         .HasColumnType("varchar(255)")
                         .HasColumnName("description");
 
+                    b.Property<double?>("Latitude")
+                        .HasColumnType("double");
+
+                    b.Property<double?>("Longitude")
+                        .HasColumnType("double");
+
                     b.Property<string>("TransactionType")
-                        .HasMaxLength(3)
-                        .HasColumnType("varchar(3)")
-                        .HasColumnName("transactionType");
+                        .HasColumnType("longtext");
 
                     b.Property<long?>("TransferAccountId")
                         .HasColumnType("bigint")
                         .HasColumnName("transferAccountId");
 
                     b.Property<string>("UserId")
-                        .HasColumnType("varchar(255)")
-                        .HasColumnName("userId");
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
 
@@ -1026,6 +1033,10 @@ namespace avarice_backend.Migrations
                     b.HasIndex(new[] { "AccountId" }, "accountId");
 
                     b.HasIndex(new[] { "CategoryId" }, "categoryId");
+
+                    b.HasIndex(new[] { "Latitude" }, "latitude");
+
+                    b.HasIndex(new[] { "Longitude" }, "longitude");
 
                     b.HasIndex(new[] { "UserId" }, "userId")
                         .HasDatabaseName("userId1");
@@ -1047,7 +1058,7 @@ namespace avarice_backend.Migrations
                         .HasColumnType("bigint")
                         .HasColumnName("accountId");
 
-                    b.Property<double?>("Amount")
+                    b.Property<double>("Amount")
                         .HasColumnType("double")
                         .HasColumnName("amount");
 
@@ -1064,31 +1075,38 @@ namespace avarice_backend.Migrations
                         .HasColumnType("varchar(255)")
                         .HasColumnName("description");
 
-                    b.Property<string>("TransactionType")
-                        .HasMaxLength(3)
-                        .HasColumnType("varchar(3)")
-                        .HasColumnName("transactionType");
+                    b.Property<ulong>("IsTransaction")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(0ul)
+                        .HasColumnName("isTransaction");
+
+                    b.Property<double?>("Latitude")
+                        .HasColumnType("double")
+                        .HasColumnName("latitude");
+
+                    b.Property<double?>("Longitude")
+                        .HasColumnType("double")
+                        .HasColumnName("longitude");
 
                     b.Property<long?>("TransferAccountId")
                         .HasColumnType("bigint")
                         .HasColumnName("transferAccountId");
 
                     b.Property<string>("UserId")
-                        .HasColumnType("varchar(255)")
-                        .HasColumnName("userId");
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("TransferAccountId");
+
+                    b.HasIndex("UserId");
 
                     b.HasIndex(new[] { "AccountId" }, "accountId")
                         .HasDatabaseName("accountId1");
 
                     b.HasIndex(new[] { "CategoryId" }, "categoryId")
                         .HasDatabaseName("categoryId1");
-
-                    b.HasIndex(new[] { "UserId" }, "userId")
-                        .HasDatabaseName("userId2");
 
                     b.ToTable("transaction", (string)null);
 
@@ -1385,25 +1403,22 @@ namespace avarice_backend.Migrations
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("transaction_ibfk_4");
+                        .HasConstraintName("transaction_ibfk_3");
 
                     b.HasOne("avarice_backend.Account", "TransferAccount")
                         .WithMany("TransferTransactions")
                         .HasForeignKey("TransferAccountId")
                         .HasConstraintName("transaction_ibfk_2");
 
-                    b.HasOne("avarice_backend.User", "User")
+                    b.HasOne("avarice_backend.User", null)
                         .WithMany("Transactions")
-                        .HasForeignKey("UserId")
-                        .HasConstraintName("transaction_ibfk_3");
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Account");
 
                     b.Navigation("Category");
 
                     b.Navigation("TransferAccount");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

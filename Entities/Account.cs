@@ -16,7 +16,7 @@ namespace avarice_backend
     }
     public string Currency { get; set; }
     public string Name { get; set; }
-    public double Balance { get; set; }
+    public double InitialBalance { get; set; }
     public string UserId { get; set; }
 
     public virtual User User { get; set; }

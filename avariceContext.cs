@@ -50,7 +50,7 @@ namespace avarice_backend
 
         entity.HasIndex(e => e.UserId, "userId");
 
-        entity.Property(e => e.Balance).HasColumnName("balance");
+        entity.Property(e => e.InitialBalance).HasColumnName("initialBalance");
 
         entity.Property(e => e.Id)
           .HasColumnType("bigint")
@@ -59,7 +59,7 @@ namespace avarice_backend
 
         entity.Property(e => e.Currency)
           .IsRequired()
-          .HasMaxLength(32)
+          .HasMaxLength(6)
           .HasColumnName("currency")
           .HasDefaultValueSql("'HRK'");
 
@@ -85,8 +85,6 @@ namespace avarice_backend
 
         entity.HasIndex(e => e.AccountId, "accountId");
 
-        entity.HasIndex(e => e.UserId, "userId");
-
         entity.HasIndex(e => e.CategoryId, "categoryId");
 
         entity.Property(e => e.Id)
@@ -108,16 +106,18 @@ namespace avarice_backend
 
         entity.Property(e => e.Amount).HasColumnName("amount");
 
+        entity.Property(e => e.Longitude).HasColumnName("longitude");
+
+        entity.Property(e => e.Latitude).HasColumnName("latitude");
+
+        entity.Property(e => e.IsTransaction)
+          .HasColumnType("bit")
+          .HasColumnName("isTransaction")
+          .HasDefaultValue(false);
+
         entity.Property(e => e.Description)
           .HasMaxLength(255)
           .HasColumnName("description");
-
-        entity.Property(e => e.TransactionType)
-          .HasMaxLength(3)
-          .HasColumnName("transactionType");
-
-        entity.Property(e => e.UserId)
-          .HasColumnName("userId");
 
         entity.Property(e => e.CreatedAt)
           .HasColumnType("datetime")
@@ -133,15 +133,10 @@ namespace avarice_backend
           .HasForeignKey(d => d.TransferAccountId)
           .HasConstraintName("transaction_ibfk_2");
 
-        entity.HasOne(d => d.User)
-          .WithMany(p => p.Transactions)
-          .HasForeignKey(d => d.UserId)
-          .HasConstraintName("transaction_ibfk_3");
-
         entity.HasOne(d => d.Category)
           .WithMany(p => p.Transactions)
           .HasForeignKey(d => d.CategoryId)
-          .HasConstraintName("transaction_ibfk_4");
+          .HasConstraintName("transaction_ibfk_3");
       });
 
       modelBuilder.Entity<Template>(entity =>
@@ -156,6 +151,14 @@ namespace avarice_backend
         entity.HasIndex(e => e.UserId, "userId");
 
         entity.HasIndex(e => e.CategoryId, "categoryId");
+
+        entity.HasIndex(e => e.Longitude, "longitude");
+
+        entity.HasIndex(e => e.Latitude, "latitude");
+
+        entity.Property(e => e.CreatedAt)
+          .HasColumnType("datetime")
+          .HasColumnName("createdAt");
 
         entity.Property(e => e.Id)
           .HasColumnType("bigint")
@@ -179,13 +182,6 @@ namespace avarice_backend
         entity.Property(e => e.Description)
           .HasMaxLength(255)
           .HasColumnName("description");
-
-        entity.Property(e => e.TransactionType)
-          .HasMaxLength(3)
-          .HasColumnName("transactionType");
-
-        entity.Property(e => e.UserId)
-          .HasColumnName("userId");
 
         entity.HasOne(d => d.Account)
           .WithMany(p => p.Templates)
@@ -270,7 +266,7 @@ namespace avarice_backend
       {
         Id = 1,
         Name = "Gyro",
-        Balance = 14000,
+        InitialBalance = 14000,
         Currency = "HRK",
         UserId = "b2beece6-28da-4c7f-b304-3a526d166f00"
       });
@@ -279,7 +275,7 @@ namespace avarice_backend
       {
         Id = 2,
         Name = "Euros",
-        Balance = 200,
+        InitialBalance = 200,
         Currency = "EUR",
         UserId = "b2beece6-28da-4c7f-b304-3a526d166f00"
       });
@@ -288,7 +284,7 @@ namespace avarice_backend
       {
         Id = 3,
         Name = "Checking",
-        Balance = 0,
+        InitialBalance = 0,
         Currency = "HRK",
         UserId = "b2beece6-28da-4c7f-b304-3a526d166f00"
       });
@@ -297,7 +293,7 @@ namespace avarice_backend
       {
         Id = 4,
         Name = "Pocket",
-        Balance = 800,
+        InitialBalance = 800,
         Currency = "HRK",
         UserId = "b2beece6-28da-4c7f-b304-3a526d166f00"
       });

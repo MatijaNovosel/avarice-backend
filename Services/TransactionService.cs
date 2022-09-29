@@ -31,18 +31,12 @@ namespace avarice_backend.Services
 
     public async Task AddTransaction(AddTransactionDto payload, string userId)
     {
-      var account = await _accountRepository.GetByIdAsync(payload.AccountId);
-      account.Balance = account.Balance + payload.Amount;
-      await _accountRepository.UpdateAsync(account);
-
       await _transactionRepository.AddAsync(new Transaction()
       {
-        AccountId = account.Id,
+        AccountId = payload.AccountId,
         Amount = payload.Amount,
-        TransactionType = payload.TransactionType,
         CategoryId = payload.CategoryId,
         Description = payload.Description,
-        UserId = userId,
         CreatedAt = payload.CreatedAt ?? DateTime.Now
       });
     }
@@ -52,21 +46,13 @@ namespace avarice_backend.Services
       var accountFrom = await _accountRepository.GetByIdAsync(transfer.AccountFromId);
       var accountTo = await _accountRepository.GetByIdAsync(transfer.AccountToId);
 
-      accountFrom.Balance = accountFrom.Balance - transfer.Amount;
-      accountTo.Balance = accountTo.Balance + transfer.Amount;
-
-      await _accountRepository.UpdateAsync(accountFrom);
-      await _accountRepository.UpdateAsync(accountTo);
-
       await _transactionRepository.AddAsync(new Transaction()
       {
-        AccountId = accountFrom.Id,
+        AccountId = transfer.AccountFromId,
         Amount = transfer.Amount,
-        TransactionType = TransactionType.Transfer,
         CategoryId = (long)SystemCategoryEnum.Transfer,
         Description = $"Transfer ({accountFrom.Name} => {accountTo.Name})",
-        TransferAccountId = accountTo.Id,
-        UserId = userId,
+        TransferAccountId = transfer.AccountToId,
         CreatedAt = transfer.CreatedAt ?? DateTime.Now
       });
     }
@@ -111,22 +97,6 @@ namespace avarice_backend.Services
     public async Task DeleteTransaction(string userId, long tId)
     {
       var transaction = await _transactionRepository.GetByIdAsync(tId);
-      var account = await _accountRepository.GetByIdAsync((long)transaction.AccountId);
-
-      if (transaction.TransactionType == TransactionType.Transfer)
-      {
-        var accountTo = await _accountRepository.GetByIdAsync((long)transaction.TransferAccountId);
-        accountTo.Balance = (double)(accountTo.Balance - transaction.Amount);
-        await _accountRepository.UpdateAsync(accountTo);
-      }
-      else
-      {
-        account.Balance = (double)(transaction.TransactionType == TransactionType.Expense ?
-          account.Balance + transaction.Amount :
-          account.Balance - transaction.Amount);
-      }
-
-      await _accountRepository.UpdateAsync(account);
       await _transactionRepository.DeleteAsync(transaction);
     }
 
@@ -138,7 +108,7 @@ namespace avarice_backend.Services
       int dayDifference = DateTime.Now.DifferenceInDays(startOfWeek);
 
       var transactions = await _transactionRepository.GetAsync(t =>
-        t.UserId == userId &&
+        t.Account.UserId == userId &&
         t.CreatedAt >= startOfWeek &&
         t.CreatedAt <= DateTime.Now
       );
