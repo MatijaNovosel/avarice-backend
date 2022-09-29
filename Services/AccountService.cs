@@ -39,14 +39,14 @@ namespace avarice_backend.Services
 
     public async Task<AccountExpenseAndIncomeModel> GetExpensesAndIncomeInTimePeriod(string userId, long accountId)
     {
-      var toRange = long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss"));
-      var fromRange = long.Parse(DateTime.Now.AddDays(-30).ToString("yyyyMMddHHmmss"));
+      var toRange = DateTime.Now;
+      var fromRange = DateTime.Now.AddDays(-30);
 
       var transactions = await _transactionRepository.GetAsync(t =>
         t.Account.UserId == userId &&
         t.AccountId == accountId &&
-        t.Id >= fromRange &&
-        t.Id <= toRange
+        t.CreatedAt >= fromRange &&
+        t.CreatedAt <= toRange
       );
 
       return new AccountExpenseAndIncomeModel
@@ -66,14 +66,14 @@ namespace avarice_backend.Services
 
       var accountBalance = (await _accountRepository.GetByIdAsync(accountId)).InitialBalance;
 
-      var toRange = long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss"));
-      var fromRange = long.Parse(DateTime.Now.AddDays(-30).ToString("yyyyMMddHHmmss"));
+      var toRange = DateTime.Now;
+      var fromRange = DateTime.Now.AddDays(-30);
 
       var transactions = await _transactionRepository.GetAsync(t =>
         t.Account.UserId == userId &&
         t.AccountId == accountId &&
-        t.Id >= fromRange &&
-        t.Id <= toRange
+        t.CreatedAt >= fromRange &&
+        t.CreatedAt <= toRange
       );
 
       if (transactions.Count != 0)
@@ -109,10 +109,8 @@ namespace avarice_backend.Services
 
         for (int i = 1; i <= 30; i++)
         {
-          var id = long.Parse(DateTime.Now.AddDays(i * -1).ToString("yyyyMMddHHmmss"));
-          var transactionAtDate = transactions.Where(x => long.Parse(
-            x.Id.ToString().Substring(0, 8)) == long.Parse(id.ToString().Substring(0, 8))
-          ).ToList();
+          var date = DateTime.Now.AddDays(i * -1);
+          var transactionAtDate = transactions.Where(t => t.CreatedAt == date).ToList();
 
           if (transactionAtDate.Count != 0)
           {
