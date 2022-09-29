@@ -17,10 +17,10 @@ namespace avarice_backend.Controllers
   [Route("api/account")]
   public class AccountController : ControllerBase
   {
-    private readonly avariceContext _context;
+    private readonly AvariceContext _context;
     private readonly IAccountService _accountService;
 
-    public AccountController(avariceContext context, IAccountService accountService)
+    public AccountController(AvariceContext context, IAccountService accountService)
     {
       _context = context;
       _accountService = accountService;

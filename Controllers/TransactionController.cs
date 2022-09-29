@@ -17,10 +17,10 @@ namespace avarice_backend.Controllers
   [Route("api/transaction")]
   public class TransactionController : ControllerBase
   {
-    private readonly avariceContext _context;
+    private readonly AvariceContext _context;
     private readonly ITransactionService _transactionService;
 
-    public TransactionController(avariceContext context, ITransactionService transactionService)
+    public TransactionController(AvariceContext context, ITransactionService transactionService)
     {
       _context = context;
       _transactionService = transactionService;

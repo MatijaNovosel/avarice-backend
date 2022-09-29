@@ -14,7 +14,7 @@ namespace avarice_backend.Repositories
 {
   public class TemplateRepository : Repository<Template, long>, ITemplateRepository
   {
-    public TemplateRepository(avariceContext dbContext) : base(dbContext)
+    public TemplateRepository(AvariceContext dbContext) : base(dbContext)
     {
     }
   }

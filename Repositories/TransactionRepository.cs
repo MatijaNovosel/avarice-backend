@@ -14,7 +14,7 @@ namespace avarice_backend.Repositories
 {
   public class TransactionRepository : Repository<Transaction, long>, ITransactionRepository
   {
-    public TransactionRepository(avariceContext dbContext) : base(dbContext)
+    public TransactionRepository(AvariceContext dbContext) : base(dbContext)
     {
       //
     }
@@ -33,7 +33,6 @@ namespace avarice_backend.Repositories
         skip,
         take,
         description ?? "",
-        transactionType ?? "",
         categoryType
       );
       var transactions = await GetAsync(spec);
@@ -50,7 +49,6 @@ namespace avarice_backend.Repositories
       var spec = new TransactionCountSpecification(
         userId,
         description ?? "",
-        transactionType ?? "",
         categoryType
       );
       var transactions = await GetAsync(spec);

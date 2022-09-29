@@ -14,7 +14,7 @@ namespace avarice_backend.Repositories
 {
   public class CategoryRepository : Repository<Category, long>, ICategoryRepository
   {
-    public CategoryRepository(avariceContext dbContext) : base(dbContext)
+    public CategoryRepository(AvariceContext dbContext) : base(dbContext)
     {
     }
   }

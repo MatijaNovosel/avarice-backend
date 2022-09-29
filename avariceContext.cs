@@ -9,16 +9,16 @@ using System.Collections.Generic;
 
 namespace avarice_backend
 {
-  public partial class avariceContext : IdentityDbContext<User>
+  public partial class AvariceContext : IdentityDbContext<User>
   {
     public IConfiguration Configuration { get; }
 
-    public avariceContext(IConfiguration configuration)
+    public AvariceContext(IConfiguration configuration)
     {
       Configuration = configuration;
     }
 
-    public avariceContext(DbContextOptions<avariceContext> options, IConfiguration configuration) : base(options)
+    public AvariceContext(DbContextOptions<AvariceContext> options, IConfiguration configuration) : base(options)
     {
       Configuration = configuration;
     }
@@ -50,7 +50,7 @@ namespace avarice_backend
 
         entity.HasIndex(e => e.UserId, "userId");
 
-        entity.Property(e => e.Balance).HasColumnName("balance");
+        entity.Property(e => e.InitialBalance).HasColumnName("initialBalance");
 
         entity.Property(e => e.Id)
           .HasColumnType("bigint")
@@ -59,7 +59,7 @@ namespace avarice_backend
 
         entity.Property(e => e.Currency)
           .IsRequired()
-          .HasMaxLength(32)
+          .HasMaxLength(6)
           .HasColumnName("currency")
           .HasDefaultValueSql("'HRK'");
 
@@ -85,8 +85,6 @@ namespace avarice_backend
 
         entity.HasIndex(e => e.AccountId, "accountId");
 
-        entity.HasIndex(e => e.UserId, "userId");
-
         entity.HasIndex(e => e.CategoryId, "categoryId");
 
         entity.Property(e => e.Id)
@@ -108,16 +106,22 @@ namespace avarice_backend
 
         entity.Property(e => e.Amount).HasColumnName("amount");
 
+        entity.Property(e => e.Longitude).HasColumnName("longitude");
+
+        entity.Property(e => e.Latitude).HasColumnName("latitude");
+
+        entity.Property(e => e.IsTransaction)
+          .HasColumnType("bit")
+          .HasColumnName("isTransaction")
+          .HasDefaultValue(false);
+
         entity.Property(e => e.Description)
           .HasMaxLength(255)
           .HasColumnName("description");
 
-        entity.Property(e => e.TransactionType)
-          .HasMaxLength(3)
-          .HasColumnName("transactionType");
-
-        entity.Property(e => e.UserId)
-          .HasColumnName("userId");
+        entity.Property(e => e.CreatedAt)
+          .HasColumnType("datetime")
+          .HasColumnName("createdAt");
 
         entity.HasOne(d => d.Account)
           .WithMany(p => p.Transactions)
@@ -129,15 +133,10 @@ namespace avarice_backend
           .HasForeignKey(d => d.TransferAccountId)
           .HasConstraintName("transaction_ibfk_2");
 
-        entity.HasOne(d => d.User)
-          .WithMany(p => p.Transactions)
-          .HasForeignKey(d => d.UserId)
-          .HasConstraintName("transaction_ibfk_3");
-
         entity.HasOne(d => d.Category)
           .WithMany(p => p.Transactions)
           .HasForeignKey(d => d.CategoryId)
-          .HasConstraintName("transaction_ibfk_4");
+          .HasConstraintName("transaction_ibfk_3");
       });
 
       modelBuilder.Entity<Template>(entity =>
@@ -153,6 +152,14 @@ namespace avarice_backend
 
         entity.HasIndex(e => e.CategoryId, "categoryId");
 
+        entity.HasIndex(e => e.Longitude, "longitude");
+
+        entity.HasIndex(e => e.Latitude, "latitude");
+
+        entity.Property(e => e.CreatedAt)
+          .HasColumnType("datetime")
+          .HasColumnName("createdAt");
+
         entity.Property(e => e.Id)
           .HasColumnType("bigint")
           .HasColumnName("id")
@@ -175,13 +182,6 @@ namespace avarice_backend
         entity.Property(e => e.Description)
           .HasMaxLength(255)
           .HasColumnName("description");
-
-        entity.Property(e => e.TransactionType)
-          .HasMaxLength(3)
-          .HasColumnName("transactionType");
-
-        entity.Property(e => e.UserId)
-          .HasColumnName("userId");
 
         entity.HasOne(d => d.Account)
           .WithMany(p => p.Templates)
@@ -252,50 +252,50 @@ namespace avarice_backend
 
       modelBuilder.Entity<User>().HasData(new User
       {
-        Id = "ee103364-7617-4474-889e-320838e5f3a5",
-        UserName = "Novosel",
+        Id = "b2beece6-28da-4c7f-b304-3a526d166f00",
+        UserName = "matija",
         Email = "mnovosel5@gmail.com",
         NormalizedEmail = "MNOVOSEL5@GMAIL.COM",
-        EmailConfirmed = false,
-        PasswordHash = "AQAAAAEAACcQAAAAEM0Wt1TEKVt7yHabPEkIPjgI1nmxtwcdhGuteBZVD1DSoSRSPans/Q+LChfIteJucw==",
-        SecurityStamp = "KQLSA5W3M75PPLZ34LBVUTTSVTMJ7ANN",
-        ConcurrencyStamp = "89704630-4abf-4488-9cbd-4f9ec29fcb8b"
+        EmailConfirmed = true,
+        PasswordHash = "AQAAAAEAACcQAAAAEHHZcifrXCQ1DciNISJi3aJgQJW+jyI+G66JPqVhhqfdn/wHXaXr8tQ0IK+F1iVJCw==",
+        SecurityStamp = "M5INRPR3EKT2FOPSOKK2PJZMR4A3AKYN",
+        ConcurrencyStamp = "48ad95fa-743a-4673-8927-5044d96b7717"
       });
 
       modelBuilder.Entity<Account>().HasData(new Account()
       {
         Id = 1,
         Name = "Gyro",
-        Balance = 14000,
+        InitialBalance = 14000,
         Currency = "HRK",
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00"
       });
 
       modelBuilder.Entity<Account>().HasData(new Account()
       {
         Id = 2,
         Name = "Euros",
-        Balance = 200,
+        InitialBalance = 200,
         Currency = "EUR",
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00"
       });
 
       modelBuilder.Entity<Account>().HasData(new Account()
       {
         Id = 3,
         Name = "Checking",
-        Balance = 0,
+        InitialBalance = 0,
         Currency = "HRK",
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00"
       });
 
       modelBuilder.Entity<Account>().HasData(new Account()
       {
         Id = 4,
         Name = "Pocket",
-        Balance = 800,
+        InitialBalance = 800,
         Currency = "HRK",
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5"
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00"
       });
 
       modelBuilder.Entity<Category>().HasData(new Category()
@@ -313,7 +313,7 @@ namespace avarice_backend
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 2,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-food-fork-drink",
         Name = "Food & Drinks"
@@ -322,7 +322,7 @@ namespace avarice_backend
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 3,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-food",
         Name = "Restaurant, fast-food",
@@ -332,7 +332,7 @@ namespace avarice_backend
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 4,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-glass-cocktail",
         Name = "Bar, cafe",
@@ -342,7 +342,7 @@ namespace avarice_backend
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 6,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-cart",
         Name = "Groceries",
@@ -354,7 +354,7 @@ namespace avarice_backend
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 7,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-basket",
         Name = "Shopping"
@@ -363,7 +363,7 @@ namespace avarice_backend
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 8,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-tshirt-crew",
         Name = "Clothes and shoes",
@@ -373,7 +373,7 @@ namespace avarice_backend
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 9,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-pill",
         Name = "Drug-store, chemist",
@@ -383,7 +383,7 @@ namespace avarice_backend
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 10,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-laptop",
         Name = "Electronics, accessories",
@@ -393,7 +393,7 @@ namespace avarice_backend
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 11,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-emoticon",
         Name = "Free time",
@@ -403,7 +403,7 @@ namespace avarice_backend
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 12,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-gift",
         Name = "Gifts, joy",
@@ -413,7 +413,7 @@ namespace avarice_backend
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 13,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-bottle-tonic-plus",
         Name = "Health and beauty",
@@ -423,7 +423,7 @@ namespace avarice_backend
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 14,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-home",
         Name = "Home, garden",
@@ -433,7 +433,7 @@ namespace avarice_backend
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 15,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-diamond-stone",
         Name = "Jewels, accessories",
@@ -443,7 +443,7 @@ namespace avarice_backend
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 16,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-baby-carriage",
         Name = "Kids",
@@ -453,7 +453,7 @@ namespace avarice_backend
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 17,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-paw",
         Name = "Pets, animals",
@@ -463,7 +463,7 @@ namespace avarice_backend
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 18,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-hammer-screwdriver",
         Name = "Stationery, tools",
@@ -475,7 +475,7 @@ namespace avarice_backend
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 19,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-home",
         Name = "Housing"
@@ -484,7 +484,7 @@ namespace avarice_backend
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 20,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-lightbulb",
         Name = "Energy, utilities",
@@ -494,7 +494,7 @@ namespace avarice_backend
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 21,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-hammer",
         Name = "Maintenance, repairs",
@@ -504,7 +504,7 @@ namespace avarice_backend
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 22,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-bank-plus",
         Name = "Mortgage",
@@ -514,7 +514,7 @@ namespace avarice_backend
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 23,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-shield-home",
         Name = "Property insurance",
@@ -524,7 +524,7 @@ namespace avarice_backend
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 24,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-key-variant",
         Name = "Rent",
@@ -534,7 +534,7 @@ namespace avarice_backend
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 25,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-home-circle-outline",
         Name = "Services",
@@ -546,7 +546,7 @@ namespace avarice_backend
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 26,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-bus",
         Name = "Transportation"
@@ -555,7 +555,7 @@ namespace avarice_backend
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 27,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-bag-suitcase",
         Name = "Business trips",
@@ -565,7 +565,7 @@ namespace avarice_backend
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 28,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-airplane",
         Name = "Long distance",
@@ -575,7 +575,7 @@ namespace avarice_backend
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 29,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-tram",
         Name = "Public transport",
@@ -585,7 +585,7 @@ namespace avarice_backend
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 30,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-taxi",
         Name = "Taxi",
@@ -597,7 +597,7 @@ namespace avarice_backend
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 31,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-car",
         Name = "Vehicle"
@@ -606,7 +606,7 @@ namespace avarice_backend
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 32,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-fuel",
         Name = "Fuel",
@@ -616,7 +616,7 @@ namespace avarice_backend
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 33,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-car",
         Name = "Leasing",
@@ -626,7 +626,7 @@ namespace avarice_backend
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 34,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-parking",
         Name = "Parking",
@@ -636,7 +636,7 @@ namespace avarice_backend
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 35,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-key",
         Name = "Rentals",
@@ -646,7 +646,7 @@ namespace avarice_backend
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 36,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-shield-car",
         Name = "Vehicle insurance",
@@ -656,7 +656,7 @@ namespace avarice_backend
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 37,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-tools",
         Name = "Vehicle maintenance",
@@ -668,7 +668,7 @@ namespace avarice_backend
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 38,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-account",
         Name = "Life & Entertainment"
@@ -677,7 +677,7 @@ namespace avarice_backend
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 39,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-dumbbell",
         Name = "Active sport, fitness",
@@ -687,7 +687,7 @@ namespace avarice_backend
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 40,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-cup",
         Name = "Alcohol, tobacco",
@@ -697,7 +697,7 @@ namespace avarice_backend
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 41,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-book-open-variant",
         Name = "Books, audio, subscriptions",
@@ -707,7 +707,7 @@ namespace avarice_backend
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 43,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-gift",
         Name = "Charity, gifts",
@@ -717,7 +717,7 @@ namespace avarice_backend
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 44,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-drama-masks",
         Name = "Culture, sports events",
@@ -727,7 +727,7 @@ namespace avarice_backend
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 45,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-school",
         Name = "Education, development",
@@ -737,7 +737,7 @@ namespace avarice_backend
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 46,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-doctor",
         Name = "Health care, doctor",
@@ -747,7 +747,7 @@ namespace avarice_backend
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 47,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-heart",
         Name = "Hobbies",
@@ -757,7 +757,7 @@ namespace avarice_backend
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 48,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-palm-tree",
         Name = "Holiday, trips, hotels",
@@ -767,7 +767,7 @@ namespace avarice_backend
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 49,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-cake",
         Name = "Life events",
@@ -777,7 +777,7 @@ namespace avarice_backend
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 50,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-dice-5",
         Name = "Lottery, gambling",
@@ -787,7 +787,7 @@ namespace avarice_backend
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 51,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-television-classic",
         Name = "TV, Streaming",
@@ -797,10 +797,20 @@ namespace avarice_backend
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 52,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-flower",
         Name = "Wellness, beauty",
+        ParentId = 38
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 53,
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
+        Color = "#ffffff",
+        Icon = "mdi-basketball",
+        Name = "Culture, sport events",
         ParentId = 38
       });
 
@@ -808,8 +818,8 @@ namespace avarice_backend
 
       modelBuilder.Entity<Category>().HasData(new Category()
       {
-        Id = 53,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Id = 54,
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-laptop",
         Name = "Communication, PC"
@@ -817,50 +827,60 @@ namespace avarice_backend
 
       modelBuilder.Entity<Category>().HasData(new Category()
       {
-        Id = 54,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Id = 55,
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-wifi",
         Name = "Internet",
-        ParentId = 53
-      });
-
-      modelBuilder.Entity<Category>().HasData(new Category()
-      {
-        Id = 55,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
-        Color = "#ffffff",
-        Icon = "mdi-phone",
-        Name = "Phone, cell phone",
-        ParentId = 53
+        ParentId = 54
       });
 
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 56,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
-        Icon = "mdi-email",
-        Name = "Postal services",
-        ParentId = 53
+        Icon = "mdi-phone",
+        Name = "Phone, cell phone",
+        ParentId = 54
       });
 
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 57,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
+        Color = "#ffffff",
+        Icon = "mdi-email",
+        Name = "Postal services",
+        ParentId = 54
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 58,
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-controller-classic",
         Name = "Software, apps, games",
-        ParentId = 53
+        ParentId = 54
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 59,
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
+        Color = "#ffffff",
+        Icon = "mdi-controller-classic",
+        Name = "Games",
+        ParentId = 54
       });
 
       // Financial expenses
 
       modelBuilder.Entity<Category>().HasData(new Category()
       {
-        Id = 58,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Id = 60,
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-currency-usd",
         Name = "Financial expenses"
@@ -868,80 +888,80 @@ namespace avarice_backend
 
       modelBuilder.Entity<Category>().HasData(new Category()
       {
-        Id = 59,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Id = 61,
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-account-alert",
         Name = "Advisory",
-        ParentId = 58
-      });
-
-      modelBuilder.Entity<Category>().HasData(new Category()
-      {
-        Id = 60,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
-        Color = "#ffffff",
-        Icon = "mdi-comment-remove",
-        Name = "Charges, Fees",
-        ParentId = 58
-      });
-
-      modelBuilder.Entity<Category>().HasData(new Category()
-      {
-        Id = 61,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
-        Color = "#ffffff",
-        Icon = "mdi-account-child",
-        Name = "Child Support",
-        ParentId = 58
+        ParentId = 60
       });
 
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 62,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
-        Icon = "mdi-alert-circle",
-        Name = "Fines",
-        ParentId = 58
+        Icon = "mdi-comment-remove",
+        Name = "Charges, Fees",
+        ParentId = 60
       });
 
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 63,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
-        Icon = "mdi-card-bulleted",
-        Name = "Insurances",
-        ParentId = 58
+        Icon = "mdi-account-child",
+        Name = "Child Support",
+        ParentId = 60
       });
 
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 64,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
-        Icon = "mdi-cards",
-        Name = "Loan, interests",
-        ParentId = 58
+        Icon = "mdi-alert-circle",
+        Name = "Fines",
+        ParentId = 60
       });
 
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 65,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
+        Color = "#ffffff",
+        Icon = "mdi-card-bulleted",
+        Name = "Insurances",
+        ParentId = 60
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 66,
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
+        Color = "#ffffff",
+        Icon = "mdi-cards",
+        Name = "Loan, interests",
+        ParentId = 60
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 67,
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-content-cut",
         Name = "Taxes",
-        ParentId = 58
+        ParentId = 60
       });
 
       // Investments
 
       modelBuilder.Entity<Category>().HasData(new Category()
       {
-        Id = 66,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Id = 68,
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-chart-line",
         Name = "Investments"
@@ -949,60 +969,60 @@ namespace avarice_backend
 
       modelBuilder.Entity<Category>().HasData(new Category()
       {
-        Id = 67,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Id = 69,
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-image",
         Name = "Collections",
-        ParentId = 66
-      });
-
-      modelBuilder.Entity<Category>().HasData(new Category()
-      {
-        Id = 68,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
-        Color = "#ffffff",
-        Icon = "mdi-chart-multiple",
-        Name = "Financial investments",
-        ParentId = 66
-      });
-
-      modelBuilder.Entity<Category>().HasData(new Category()
-      {
-        Id = 69,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
-        Color = "#ffffff",
-        Icon = "mdi-domain",
-        Name = "Realty",
-        ParentId = 66
+        ParentId = 68
       });
 
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 70,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
-        Icon = "mdi-account-cash",
-        Name = "Savings",
-        ParentId = 66
+        Icon = "mdi-chart-multiple",
+        Name = "Financial investments",
+        ParentId = 68
       });
 
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 71,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
+        Color = "#ffffff",
+        Icon = "mdi-domain",
+        Name = "Realty",
+        ParentId = 68
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 72,
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
+        Color = "#ffffff",
+        Icon = "mdi-account-cash",
+        Name = "Savings",
+        ParentId = 68
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 73,
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-car",
         Name = "Vehicles, chattels",
-        ParentId = 66
+        ParentId = 68
       });
 
       // Income
 
       modelBuilder.Entity<Category>().HasData(new Category()
       {
-        Id = 72,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Id = 74,
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-currency-usd",
         Name = "Income"
@@ -1010,120 +1030,120 @@ namespace avarice_backend
 
       modelBuilder.Entity<Category>().HasData(new Category()
       {
-        Id = 73,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Id = 75,
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-newspaper",
         Name = "Checks, coupons",
-        ParentId = 72
-      });
-
-      modelBuilder.Entity<Category>().HasData(new Category()
-      {
-        Id = 74,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
-        Color = "#ffffff",
-        Icon = "mdi-account-child",
-        Name = "Child Support",
-        ParentId = 72
-      });
-
-      modelBuilder.Entity<Category>().HasData(new Category()
-      {
-        Id = 75,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
-        Color = "#ffffff",
-        Icon = "mdi-check-decagram",
-        Name = "Dues & grants",
-        ParentId = 72
+        ParentId = 74
       });
 
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 76,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
-        Icon = "mdi-gift",
-        Name = "Gifts",
-        ParentId = 72
+        Icon = "mdi-account-child",
+        Name = "Child Support",
+        ParentId = 74
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 77,
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
+        Color = "#ffffff",
+        Icon = "mdi-check-decagram",
+        Name = "Dues & grants",
+        ParentId = 74
       });
 
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 78,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
-        Icon = "mdi-ticket-percent",
-        Name = "Interests, dividends",
-        ParentId = 72
+        Icon = "mdi-gift",
+        Name = "Gifts",
+        ParentId = 74
       });
 
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 79,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
-        Icon = "mdi-currency-usd",
-        Name = "Lending, renting",
-        ParentId = 72
+        Icon = "mdi-ticket-percent",
+        Name = "Interests, dividends",
+        ParentId = 74
       });
 
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 80,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
-        Icon = "mdi-dice-5",
-        Name = "Lottery, gambling",
-        ParentId = 72
+        Icon = "mdi-currency-usd",
+        Name = "Lending, renting",
+        ParentId = 74
       });
 
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 81,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
-        Icon = "mdi-undo",
-        Name = "Refunds (tax, purchase)",
-        ParentId = 72
+        Icon = "mdi-dice-5",
+        Name = "Lottery, gambling",
+        ParentId = 74
       });
 
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 82,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
-        Icon = "mdi-home",
-        Name = "Rental income",
-        ParentId = 72
+        Icon = "mdi-undo",
+        Name = "Refunds (tax, purchase)",
+        ParentId = 74
       });
 
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 83,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
-        Icon = "mdi-sale",
-        Name = "Sale",
-        ParentId = 72
+        Icon = "mdi-home",
+        Name = "Rental income",
+        ParentId = 74
       });
 
       modelBuilder.Entity<Category>().HasData(new Category()
       {
         Id = 84,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
+        Color = "#ffffff",
+        Icon = "mdi-sale",
+        Name = "Sale",
+        ParentId = 74
+      });
+
+      modelBuilder.Entity<Category>().HasData(new Category()
+      {
+        Id = 85,
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-currency-usd",
         Name = "Wage, invoices",
-        ParentId = 72
+        ParentId = 74
       });
 
       // Others
 
       modelBuilder.Entity<Category>().HasData(new Category()
       {
-        Id = 85,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Id = 86,
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-account-question",
         Name = "Others"
@@ -1131,8 +1151,8 @@ namespace avarice_backend
 
       modelBuilder.Entity<Category>().HasData(new Category()
       {
-        Id = 86,
-        UserId = "ee103364-7617-4474-889e-320838e5f3a5",
+        Id = 87,
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
         Color = "#ffffff",
         Icon = "mdi-help-circle",
         Name = "Missing",

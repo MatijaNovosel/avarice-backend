@@ -35,7 +35,7 @@ namespace avarice_backend.Services
       var fromRange = long.Parse(DateTime.Now.AddDays(-30).ToString("yyyyMMddHHmmss"));
 
       var transactions = await _transactionRepository.GetAsync(t =>
-        t.UserId == userId &&
+        t.Account.UserId == userId &&
         t.AccountId == accountId &&
         t.Id >= fromRange &&
         t.Id <= toRange
@@ -44,10 +44,10 @@ namespace avarice_backend.Services
       return new AccountExpenseAndIncomeModel
       {
         Expense = (double)transactions
-          .Where(x => x.TransactionType == TransactionType.Expense)
+          .Where(x => x.Amount < 0)
           .Sum(x => x.Amount),
         Income = (double)transactions
-          .Where(x => x.TransactionType == TransactionType.Income)
+          .Where(x => x.Amount > 0)
           .Sum(x => x.Amount)
       };
     }
@@ -56,13 +56,13 @@ namespace avarice_backend.Services
     {
       var res = new List<AccountHistoryModel>();
 
-      var accountBalance = (await _accountRepository.GetByIdAsync(accountId)).Balance;
+      var accountBalance = (await _accountRepository.GetByIdAsync(accountId)).InitialBalance;
 
       var toRange = long.Parse(DateTime.Now.ToString("yyyyMMddHHmmss"));
       var fromRange = long.Parse(DateTime.Now.AddDays(-30).ToString("yyyyMMddHHmmss"));
 
       var transactions = await _transactionRepository.GetAsync(t =>
-        t.UserId == userId &&
+        t.Account.UserId == userId &&
         t.AccountId == accountId &&
         t.Id >= fromRange &&
         t.Id <= toRange
@@ -88,11 +88,11 @@ namespace avarice_backend.Services
         {
           foreach (var t in transactionNow)
           {
-            if (t.TransactionType == TransactionType.Expense)
+            if (t.Amount < 0)
             {
               currentAmount += (double)t.Amount * -1;
             }
-            else if (t.TransactionType == TransactionType.Income)
+            else if (t.Amount > 0)
             {
               currentAmount -= (double)t.Amount;
             }
@@ -110,11 +110,11 @@ namespace avarice_backend.Services
           {
             foreach (var t in transactionAtDate)
             {
-              if (t.TransactionType == TransactionType.Expense)
+              if (t.Amount < 0)
               {
                 currentAmount += (double)t.Amount * -1;
               }
-              else if (t.TransactionType == TransactionType.Income)
+              else if (t.Amount > 0)
               {
                 currentAmount -= (double)t.Amount;
               }
