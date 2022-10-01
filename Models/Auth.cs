@@ -3,9 +3,15 @@ using System.ComponentModel.DataAnnotations;
 
 namespace avarice_backend.Models
 {
-  public class AuthResultModel
+  public class LoginResult
   {
     public string Token { get; set; }
+    public bool Result { get; set; }
+    public List<string> Errors { get; set; }
+  }
+
+  public class RegisterResult
+  {
     public bool Result { get; set; }
     public List<string> Errors { get; set; }
   }
