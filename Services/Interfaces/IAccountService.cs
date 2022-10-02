@@ -10,5 +10,6 @@ namespace avarice_backend.Services.Interfaces
     Task<IEnumerable<AccountModel>> GetLatestValues(string userId);
     Task<IEnumerable<AccountHistoryModel>> GetAccountHistory(string userId, long accountId, TimePeriodEnum timePeriod);
     Task<AccountExpenseAndIncomeModel> GetExpensesAndIncomeInTimePeriod(string userId, long accountId);
+    Task Create(string userId, CreateAccountModel payload);
   }
 }

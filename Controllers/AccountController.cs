@@ -46,5 +46,12 @@ namespace avarice_backend.Controllers
       var data = await _accountService.GetAccountHistory(((ClaimsIdentity)User.Identity).FindFirst("Id").Value, id, Utils.TimePeriodEnum.ThirtyDays);
       return data;
     }
+
+    [HttpPost]
+    public async Task<ActionResult> Create(CreateAccountModel payload)
+    {
+      await _accountService.Create(((ClaimsIdentity)User.Identity).FindFirst("Id").Value, payload);
+      return Ok("Account created!");
+    }
   }
 }

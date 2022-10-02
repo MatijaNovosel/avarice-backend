@@ -21,4 +21,10 @@ namespace avarice_backend.Models
     public DateTime Date { get; set; }
     public double Amount { get; set; }
   }
+
+  public class CreateAccountModel
+  {
+    public string Name { get; set; }
+    public double InitialBalance { get; set; }
+  }
 }

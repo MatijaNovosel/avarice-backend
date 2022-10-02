@@ -142,5 +142,16 @@ namespace avarice_backend.Services
 
       return res;
     }
+
+    public async Task Create(string userId, CreateAccountModel payload)
+    {
+      await _accountRepository.AddAsync(new Account()
+      {
+        Currency = "HRK",
+        InitialBalance = payload.InitialBalance,
+        Name = payload.Name,
+        UserId = userId
+      });
+    }
   }
 }
