@@ -7,8 +7,8 @@ namespace avarice_backend.Services.Interfaces
 {
   public interface IAuthService
   {
-    Task<AuthResultModel> Register(RegistrationModel payload);
-    Task<AuthResultModel> Login(LoginModel payload);
+    Task<RegisterResult> Register(RegistrationModel payload);
+    Task<LoginResult> Login(LoginModel payload);
     ClaimsPrincipal GetUser();
   }
 }

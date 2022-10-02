@@ -20,20 +20,24 @@ namespace avarice_backend.Services
     private readonly IHttpContextAccessor _accessor;
     private readonly IConfiguration _configuration;
 
-    public AuthService(UserManager<User> userManager, IConfiguration configuration, IHttpContextAccessor accessor)
+    public AuthService(
+      UserManager<User> userManager,
+      IConfiguration configuration,
+      IHttpContextAccessor accessor
+    )
     {
       _userManager = userManager;
       _configuration = configuration;
       _accessor = accessor;
     }
 
-    public async Task<AuthResultModel> Register(RegistrationModel payload)
+    public async Task<RegisterResult> Register(RegistrationModel payload)
     {
       var user = await _userManager.FindByEmailAsync(payload.Email);
 
       if (user != null)
       {
-        return new AuthResultModel()
+        return new RegisterResult()
         {
           Result = false,
           Errors = new List<string>() { "User with that email already exist!" }
@@ -51,30 +55,29 @@ namespace avarice_backend.Services
       if (isCreated.Succeeded)
       {
         var jwtToken = GenerateJwtToken(newUser);
-        return new AuthResultModel()
+        return new RegisterResult()
         {
           Result = true,
-          Token = jwtToken
         };
       }
 
-      return new AuthResultModel()
+      return new RegisterResult()
       {
         Result = false,
         Errors = new List<string>() { "Failed to create user!" }
       };
     }
 
-    public async Task<AuthResultModel> Login(LoginModel payload)
+    public async Task<LoginResult> Login(LoginModel payload)
     {
       var user = await _userManager.FindByEmailAsync(payload.Email);
 
       if (user == null)
       {
-        return new AuthResultModel()
+        return new LoginResult()
         {
           Result = false,
-          Errors = new List<string>() { "User with that email does not exist!" }
+          Errors = new List<string>() { "Incorrect credentials!" }
         };
       }
 
@@ -82,16 +85,16 @@ namespace avarice_backend.Services
 
       if (!correctPassword)
       {
-        return new AuthResultModel()
+        return new LoginResult()
         {
           Result = false,
-          Errors = new List<string>() { "Incorrect password!" }
+          Errors = new List<string>() { "Incorrect credentials!" }
         };
       }
 
       var jwtToken = GenerateJwtToken(user);
 
-      return new AuthResultModel()
+      return new LoginResult()
       {
         Token = jwtToken,
         Result = true

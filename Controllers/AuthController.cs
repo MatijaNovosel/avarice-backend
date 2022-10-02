@@ -26,18 +26,14 @@ namespace avarice_backend.Controllers
     }
 
     [HttpPost("register")]
-    public async Task<ActionResult<AuthResultModel>> Register(RegistrationModel payload)
+    public async Task<RegisterResult> Register(RegistrationModel payload)
     {
-      if (ModelState.IsValid)
-      {
-        var data = await _authService.Register(payload);
-        return Ok(data);
-      }
-      return BadRequest("Invalid data!");
+      var data = await _authService.Register(payload);
+      return data;
     }
 
     [HttpPost("login")]
-    public async Task<AuthResultModel> Login(LoginModel payload)
+    public async Task<LoginResult> Login(LoginModel payload)
     {
       var data = await _authService.Login(payload);
       return data;
