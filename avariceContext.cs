@@ -314,7 +314,8 @@ namespace avarice_backend
           UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
           Color = "#ffffff",
           Icon = c.Icon,
-          Name = c.Name
+          Name = c.Name,
+          ParentId = c.ParentId
         });
       });
 
