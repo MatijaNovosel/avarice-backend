@@ -11,6 +11,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
+using avarice_backend.Utils;
+using System.Linq;
 
 namespace avarice_backend.Services
 {
@@ -54,12 +56,21 @@ namespace avarice_backend.Services
 
       if (isCreated.Succeeded)
       {
-        var jwtToken = GenerateJwtToken(newUser);
         return new RegisterResult()
         {
           Result = true,
         };
       }
+
+
+      // Assign preset categories to the newly created user
+      var categories = PresetCategories.Categories.Select(c => new Category()
+      {
+        Color = "#fffffF",
+        Icon = c.Icon,
+        Name = c.Name,
+        UserId = newUser.Id
+      });
 
       return new RegisterResult()
       {
