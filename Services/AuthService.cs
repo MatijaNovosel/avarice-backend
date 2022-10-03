@@ -11,6 +11,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
+using avarice_backend.Utils;
+using System.Linq;
 
 namespace avarice_backend.Services
 {
@@ -19,16 +21,19 @@ namespace avarice_backend.Services
     private readonly UserManager<User> _userManager;
     private readonly IHttpContextAccessor _accessor;
     private readonly IConfiguration _configuration;
+    private readonly ICategoryService _categoryService;
 
     public AuthService(
       UserManager<User> userManager,
       IConfiguration configuration,
-      IHttpContextAccessor accessor
+      IHttpContextAccessor accessor,
+      ICategoryService categoryService
     )
     {
       _userManager = userManager;
       _configuration = configuration;
       _accessor = accessor;
+      _categoryService = categoryService;
     }
 
     public async Task<RegisterResult> Register(RegistrationModel payload)
@@ -54,11 +59,22 @@ namespace avarice_backend.Services
 
       if (isCreated.Succeeded)
       {
-        var jwtToken = GenerateJwtToken(newUser);
         return new RegisterResult()
         {
           Result = true,
         };
+      }
+
+
+      // Assign preset categories to the newly created user
+      foreach (var category in PresetCategories.Categories)
+      {
+        await _categoryService.Create(new CreateCategoryModel()
+        {
+          Color = "#fffffF",
+          Icon = category.Icon,
+          Name = category.Name,
+        }, newUser.Id);
       }
 
       return new RegisterResult()
