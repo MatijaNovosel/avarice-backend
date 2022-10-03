@@ -40,67 +40,67 @@ namespace avarice_backend.Utils
       {
         Icon = "mdi-tshirt-crew",
         Name = "Clothes and shoes",
-        ParentId = 7
+        ParentId = 6
       },
       new Category()
       {
         Icon = "mdi-pill",
         Name = "Drug-store, chemist",
-        ParentId = 7
+        ParentId = 6
       },
       new Category()
       {
         Icon = "mdi-laptop",
         Name = "Electronics, accessories",
-        ParentId = 7
+        ParentId = 6
       },
       new Category()
       {
         Icon = "mdi-emoticon",
         Name = "Free time",
-        ParentId = 7
+        ParentId = 6
       },
       new Category()
       {
         Icon = "mdi-gift",
         Name = "Gifts, joy",
-        ParentId = 7
+        ParentId = 6
       },
       new Category()
       {
         Icon = "mdi-bottle-tonic-plus",
         Name = "Health and beauty",
-        ParentId = 7
+        ParentId = 6
       },
       new Category()
       {
         Icon = "mdi-home",
         Name = "Home, garden",
-        ParentId = 7
+        ParentId = 6
       },
       new Category()
       {
         Icon = "mdi-diamond-stone",
         Name = "Jewels, accessories",
-        ParentId = 7
+        ParentId = 6
       },
       new Category()
       {
         Icon = "mdi-baby-carriage",
         Name = "Kids",
-        ParentId = 7
+        ParentId = 6
       },
       new Category()
       {
         Icon = "mdi-paw",
         Name = "Pets, animals",
-        ParentId = 7
+        ParentId = 6
       },
       new Category()
       {
         Icon = "mdi-hammer-screwdriver",
         Name = "Stationery, tools",
-        ParentId = 7
+        ParentId = 6
       },
       // Housing
       new Category()
@@ -112,37 +112,37 @@ namespace avarice_backend.Utils
       {
         Icon = "mdi-lightbulb",
         Name = "Energy, utilities",
-        ParentId = 20
+        ParentId = 18
       },
       new Category()
       {
         Icon = "mdi-hammer",
         Name = "Maintenance, repairs",
-        ParentId = 20
+        ParentId = 18
       },
       new Category()
       {
         Icon = "mdi-bank-plus",
         Name = "Mortgage",
-        ParentId = 20
+        ParentId = 18
       },
       new Category()
       {
         Icon = "mdi-shield-home",
         Name = "Property insurance",
-        ParentId = 20
+        ParentId = 18
       },
       new Category()
       {
         Icon = "mdi-key-variant",
         Name = "Rent",
-        ParentId = 20
+        ParentId = 18
       },
       new Category()
       {
         Icon = "mdi-home-circle-outline",
         Name = "Services",
-        ParentId = 20
+        ParentId = 18
       },
       // Transportation
       new Category()
@@ -154,25 +154,25 @@ namespace avarice_backend.Utils
       {
         Icon = "mdi-bag-suitcase",
         Name = "Business trips",
-        ParentId = 26
+        ParentId = 25
       },
       new Category()
       {
         Icon = "mdi-airplane",
         Name = "Long distance",
-        ParentId = 26
+        ParentId = 25
       },
       new Category()
       {
         Icon = "mdi-tram",
         Name = "Public transport",
-        ParentId = 26
+        ParentId = 25
       },
       new Category()
       {
         Icon = "mdi-taxi",
         Name = "Taxi",
-        ParentId = 26
+        ParentId = 25
       },
       // Vehicle
       new Category()
@@ -184,37 +184,37 @@ namespace avarice_backend.Utils
       {
         Icon = "mdi-fuel",
         Name = "Fuel",
-        ParentId = 31
+        ParentId = 30
       },
       new Category()
       {
         Icon = "mdi-car",
         Name = "Leasing",
-        ParentId = 31
+        ParentId = 30
       },
       new Category()
       {
         Icon = "mdi-parking",
         Name = "Parking",
-        ParentId = 31
+        ParentId = 30
       },
       new Category()
       {
         Icon = "mdi-key",
         Name = "Rentals",
-        ParentId = 31
+        ParentId = 30
       },
       new Category()
       {
         Icon = "mdi-shield-car",
         Name = "Vehicle insurance",
-        ParentId = 31
+        ParentId = 30
       },
       new Category()
       {
         Icon = "mdi-tools",
         Name = "Vehicle maintenance",
-        ParentId = 31
+        ParentId = 30
       },
       // Life & Entertainment
       new Category()
@@ -226,85 +226,85 @@ namespace avarice_backend.Utils
       {
         Icon = "mdi-dumbbell",
         Name = "Active sport, fitness",
-        ParentId = 38
+        ParentId = 37
       },
       new Category()
       {
         Icon = "mdi-cup",
         Name = "Alcohol, tobacco",
-        ParentId = 38
+        ParentId = 37
       },
       new Category()
       {
         Icon = "mdi-book-open-variant",
         Name = "Books, audio, subscriptions",
-        ParentId = 38
+        ParentId = 37
       },
       new Category()
       {
         Icon = "mdi-gift",
         Name = "Charity, gifts",
-        ParentId = 38
+        ParentId = 37
       },
       new Category()
       {
         Icon = "mdi-drama-masks",
         Name = "Culture, sports events",
-        ParentId = 38
+        ParentId = 37
       },
       new Category()
       {
         Icon = "mdi-school",
         Name = "Education, development",
-        ParentId = 38
+        ParentId = 37
       },
       new Category()
       {
         Icon = "mdi-doctor",
         Name = "Health care, doctor",
-        ParentId = 38
+        ParentId = 37
       },
       new Category()
       {
         Icon = "mdi-heart",
         Name = "Hobbies",
-        ParentId = 38
+        ParentId = 37
       },
       new Category()
       {
         Icon = "mdi-palm-tree",
         Name = "Holiday, trips, hotels",
-        ParentId = 38
+        ParentId = 37
       },
       new Category()
       {
         Icon = "mdi-cake",
         Name = "Life events",
-        ParentId = 38
+        ParentId = 37
       },
       new Category()
       {
         Icon = "mdi-dice-5",
         Name = "Lottery, gambling",
-        ParentId = 38
+        ParentId = 37
       },
       new Category()
       {
         Icon = "mdi-television-classic",
         Name = "TV, Streaming",
-        ParentId = 38
+        ParentId = 37
       },
       new Category()
       {
         Icon = "mdi-flower",
         Name = "Wellness, beauty",
-        ParentId = 38
+        ParentId = 37
       },
       new Category()
       {
         Icon = "mdi-basketball",
         Name = "Culture, sport events",
-        ParentId = 38
+        ParentId = 37
       },
       // Communication, PC
       new Category()
@@ -316,31 +316,31 @@ namespace avarice_backend.Utils
       {
         Icon = "mdi-wifi",
         Name = "Internet",
-        ParentId = 54
+        ParentId = 52
       },
       new Category()
       {
         Icon = "mdi-phone",
         Name = "Phone, cell phone",
-        ParentId = 54
+        ParentId = 52
       },
       new Category()
       {
         Icon = "mdi-email",
         Name = "Postal services",
-        ParentId = 54
+        ParentId = 52
       },
       new Category()
       {
         Icon = "mdi-controller-classic",
         Name = "Software, apps, games",
-        ParentId = 54
+        ParentId = 52
       },
       new Category()
       {
         Icon = "mdi-controller-classic",
         Name = "Games",
-        ParentId = 54
+        ParentId = 52
       },
       // Financial expenses
       new Category()
@@ -352,43 +352,43 @@ namespace avarice_backend.Utils
       {
         Icon = "mdi-account-alert",
         Name = "Advisory",
-        ParentId = 60
+        ParentId = 58
       },
       new Category()
       {
         Icon = "mdi-comment-remove",
         Name = "Charges, Fees",
-        ParentId = 60
+        ParentId = 58
       },
       new Category()
       {
         Icon = "mdi-account-child",
         Name = "Child Support",
-        ParentId = 60
+        ParentId = 58
       },
       new Category()
       {
         Icon = "mdi-alert-circle",
         Name = "Fines",
-        ParentId = 60
+        ParentId = 58
       },
       new Category()
       {
         Icon = "mdi-card-bulleted",
         Name = "Insurances",
-        ParentId = 60
+        ParentId = 58
       },
       new Category()
       {
         Icon = "mdi-cards",
         Name = "Loan, interests",
-        ParentId = 60
+        ParentId = 58
       },
       new Category()
       {
         Icon = "mdi-content-cut",
         Name = "Taxes",
-        ParentId = 60
+        ParentId = 58
       },
       // Investments
       new Category()
@@ -400,31 +400,31 @@ namespace avarice_backend.Utils
       {
         Icon = "mdi-image",
         Name = "Collections",
-        ParentId = 68
+        ParentId = 66
       },
       new Category()
       {
         Icon = "mdi-chart-multiple",
         Name = "Financial investments",
-        ParentId = 68
+        ParentId = 66
       },
       new Category()
       {
         Icon = "mdi-domain",
         Name = "Realty",
-        ParentId = 68
+        ParentId = 66
       },
       new Category()
       {
         Icon = "mdi-account-cash",
         Name = "Savings",
-        ParentId = 68
+        ParentId = 66
       },
       new Category()
       {
         Icon = "mdi-car",
         Name = "Vehicles, chattels",
-        ParentId = 68
+        ParentId = 66
       },
       // Income
       new Category()
@@ -436,67 +436,67 @@ namespace avarice_backend.Utils
       {
         Icon = "mdi-newspaper",
         Name = "Checks, coupons",
-        ParentId = 74
+        ParentId = 72
       },
       new Category()
       {
         Icon = "mdi-account-child",
         Name = "Child Support",
-        ParentId = 74
+        ParentId = 72
       },
       new Category()
       {
         Icon = "mdi-check-decagram",
         Name = "Dues & grants",
-        ParentId = 74
+        ParentId = 72
       },
       new Category()
       {
         Icon = "mdi-gift",
         Name = "Gifts",
-        ParentId = 74
+        ParentId = 72
       },
       new Category()
       {
         Icon = "mdi-ticket-percent",
         Name = "Interests, dividends",
-        ParentId = 74
+        ParentId = 72
       },
       new Category()
       {
         Icon = "mdi-currency-usd",
         Name = "Lending, renting",
-        ParentId = 74
+        ParentId = 72
       },
       new Category()
       {
         Icon = "mdi-dice-5",
         Name = "Lottery, gambling",
-        ParentId = 74
+        ParentId = 72
       },
       new Category()
       {
         Icon = "mdi-undo",
         Name = "Refunds (tax, purchase)",
-        ParentId = 74
+        ParentId = 72
       },
       new Category()
       {
         Icon = "mdi-home",
         Name = "Rental income",
-        ParentId = 74
+        ParentId = 72
       },
       new Category()
       {
         Icon = "mdi-sale",
         Name = "Sale",
-        ParentId = 74
+        ParentId = 72
       },
       new Category()
       {
         Icon = "mdi-currency-usd",
         Name = "Wage, invoices",
-        ParentId = 74
+        ParentId = 72
       },
       // Others
       new Category()
@@ -508,7 +508,7 @@ namespace avarice_backend.Utils
       {
         Icon = "mdi-help-circle",
         Name = "Missing",
-        ParentId = 85
+        ParentId = 84
       }
     };
   }
