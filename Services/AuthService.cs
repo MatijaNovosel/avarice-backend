@@ -21,19 +21,19 @@ namespace avarice_backend.Services
     private readonly UserManager<User> _userManager;
     private readonly IHttpContextAccessor _accessor;
     private readonly IConfiguration _configuration;
-    private readonly ICategoryService _categoryService;
+    private readonly ICategoryRepository _categoryRepository;
 
     public AuthService(
       UserManager<User> userManager,
       IConfiguration configuration,
       IHttpContextAccessor accessor,
-      ICategoryService categoryService
+      ICategoryRepository categoryRepository
     )
     {
       _userManager = userManager;
       _configuration = configuration;
       _accessor = accessor;
-      _categoryService = categoryService;
+      _categoryRepository = categoryRepository;
     }
 
     public async Task<RegisterResult> Register(RegistrationModel payload)
@@ -67,14 +67,29 @@ namespace avarice_backend.Services
 
 
       // Assign preset categories to the newly created user
-      foreach (var category in PresetCategories.Categories)
+      foreach (KeyValuePair<Category, List<Category>> entry in PresetCategories.CategoriesDictionary)
       {
-        await _categoryService.Create(new CreateCategoryModel()
+        var newParentCategory = new Category()
         {
-          Color = "#fffffF",
-          Icon = category.Icon,
-          Name = category.Name,
-        }, newUser.Id);
+          UserId = newUser.Id,
+          Color = "#ffffff",
+          Icon = entry.Key.Icon,
+          Name = entry.Key.Name
+        };
+
+        await _categoryRepository.AddAsync(newParentCategory);
+
+        foreach (var c in entry.Value)
+        {
+          await _categoryRepository.AddAsync(new Category()
+          {
+            UserId = newUser.Id,
+            Color = "#ffffff",
+            Icon = c.Icon,
+            Name = c.Name,
+            ParentId = newParentCategory.Id
+          });
+        }
       }
 
       return new RegisterResult()

@@ -306,18 +306,30 @@ namespace avarice_backend
 
       int ctr = 2;
 
-      PresetCategories.Categories.ForEach(c =>
+      foreach (KeyValuePair<Category, List<Category>> entry in PresetCategories.CategoriesDictionary)
       {
         modelBuilder.Entity<Category>().HasData(new Category()
         {
           Id = ctr++,
           UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
           Color = "#ffffff",
-          Icon = c.Icon,
-          Name = c.Name,
-          ParentId = c.ParentId
+          Icon = entry.Key.Icon,
+          Name = entry.Key.Name
         });
-      });
+
+        foreach (var c in entry.Value)
+        {
+          modelBuilder.Entity<Category>().HasData(new Category()
+          {
+            Id = ctr++,
+            UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
+            Color = "#ffffff",
+            Icon = c.Icon,
+            Name = c.Name,
+            ParentId = c.ParentId
+          });
+        }
+      }
 
       OnModelCreatingPartial(modelBuilder);
     }
