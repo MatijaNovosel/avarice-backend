@@ -77,6 +77,31 @@ namespace avarice_backend
           .HasConstraintName("account_ibfk_1");
       });
 
+      modelBuilder.Entity<Settings>(entity =>
+      {
+        entity.ToTable("settings");
+
+        entity.HasCharSet("latin1")
+          .UseCollation("latin1_swedish_ci");
+
+        entity.HasIndex(e => e.UserId, "userId");
+
+        entity.Property(e => e.AccentColor).HasColumnName("accentColor");
+
+        entity.Property(e => e.Id)
+          .HasColumnType("bigint")
+          .HasColumnName("id")
+          .ValueGeneratedOnAdd();
+
+        entity.Property(e => e.UserId)
+          .HasColumnName("userId");
+
+        entity.HasOne(d => d.User)
+          .WithMany(p => p.Settings)
+          .HasForeignKey(d => d.UserId)
+          .HasConstraintName("settings_ibfk_1");
+      });
+
       modelBuilder.Entity<Transaction>(entity =>
       {
         entity.ToTable("transaction");
@@ -256,6 +281,13 @@ namespace avarice_backend
         PasswordHash = "AQAAAAEAACcQAAAAEHHZcifrXCQ1DciNISJi3aJgQJW+jyI+G66JPqVhhqfdn/wHXaXr8tQ0IK+F1iVJCw==",
         SecurityStamp = "M5INRPR3EKT2FOPSOKK2PJZMR4A3AKYN",
         ConcurrencyStamp = "48ad95fa-743a-4673-8927-5044d96b7717"
+      });
+
+      modelBuilder.Entity<Settings>().HasData(new Settings()
+      {
+        Id = 1,
+        AccentColor = "#5c8065",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00"
       });
 
       modelBuilder.Entity<Account>().HasData(new Account()
