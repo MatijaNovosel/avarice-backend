@@ -286,7 +286,7 @@ namespace avarice_backend
       modelBuilder.Entity<Settings>().HasData(new Settings()
       {
         Id = 1,
-        AccentColor = "#5c8065",
+        AccentColor = "#ad2d1c",
         UserId = "b2beece6-28da-4c7f-b304-3a526d166f00"
       });
 
