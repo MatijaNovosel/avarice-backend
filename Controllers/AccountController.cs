@@ -9,6 +9,7 @@ using avarice_backend.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Security.Claims;
+using avarice_backend.Utils;
 
 namespace avarice_backend.Controllers
 {
@@ -41,9 +42,9 @@ namespace avarice_backend.Controllers
     }
 
     [HttpGet("history/{id}")]
-    public async Task<IEnumerable<AccountHistoryModel>> GetAccountHistory(int id)
+    public async Task<IEnumerable<AccountHistoryModel>> GetAccountHistory(int id, TimePeriodEnum timePeriod)
     {
-      var data = await _accountService.GetAccountHistory(((ClaimsIdentity)User.Identity).FindFirst("Id").Value, id, Utils.TimePeriodEnum.ThirtyDays);
+      var data = await _accountService.GetAccountHistory(((ClaimsIdentity)User.Identity).FindFirst("Id").Value, id, timePeriod);
       return data;
     }
 
