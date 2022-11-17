@@ -77,6 +77,31 @@ namespace avarice_backend
           .HasConstraintName("account_ibfk_1");
       });
 
+      modelBuilder.Entity<Settings>(entity =>
+      {
+        entity.ToTable("settings");
+
+        entity.HasCharSet("latin1")
+          .UseCollation("latin1_swedish_ci");
+
+        entity.HasIndex(e => e.UserId, "userId");
+
+        entity.Property(e => e.AccentColor).HasColumnName("accentColor");
+
+        entity.Property(e => e.Id)
+          .HasColumnType("bigint")
+          .HasColumnName("id")
+          .ValueGeneratedOnAdd();
+
+        entity.Property(e => e.UserId)
+          .HasColumnName("userId");
+
+        entity.HasOne(d => d.User)
+          .WithMany(p => p.Settings)
+          .HasForeignKey(d => d.UserId)
+          .HasConstraintName("settings_ibfk_1");
+      });
+
       modelBuilder.Entity<Transaction>(entity =>
       {
         entity.ToTable("transaction");
@@ -258,6 +283,13 @@ namespace avarice_backend
         ConcurrencyStamp = "48ad95fa-743a-4673-8927-5044d96b7717"
       });
 
+      modelBuilder.Entity<Settings>().HasData(new Settings()
+      {
+        Id = 1,
+        AccentColor = "#ad2d1c",
+        UserId = "b2beece6-28da-4c7f-b304-3a526d166f00"
+      });
+
       modelBuilder.Entity<Account>().HasData(new Account()
       {
         Id = 1,
@@ -306,18 +338,30 @@ namespace avarice_backend
 
       int ctr = 2;
 
-      PresetCategories.Categories.ForEach(c =>
+      foreach (KeyValuePair<Category, List<Category>> entry in PresetCategories.CategoriesDictionary)
       {
         modelBuilder.Entity<Category>().HasData(new Category()
         {
           Id = ctr++,
           UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
           Color = "#ffffff",
-          Icon = c.Icon,
-          Name = c.Name,
-          ParentId = c.ParentId
+          Icon = entry.Key.Icon,
+          Name = entry.Key.Name
         });
-      });
+
+        foreach (var c in entry.Value)
+        {
+          modelBuilder.Entity<Category>().HasData(new Category()
+          {
+            Id = ctr++,
+            UserId = "b2beece6-28da-4c7f-b304-3a526d166f00",
+            Color = "#ffffff",
+            Icon = c.Icon,
+            Name = c.Name,
+            ParentId = c.ParentId
+          });
+        }
+      }
 
       OnModelCreatingPartial(modelBuilder);
     }

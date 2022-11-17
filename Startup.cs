@@ -89,6 +89,7 @@ namespace avarice_backend
       services.AddScoped<IAccountRepository, AccountRepository>();
       services.AddScoped<ICategoryRepository, CategoryRepository>();
       services.AddScoped<ITemplateRepository, TemplateRepository>();
+      services.AddScoped<ISettingsRepository, SettingsRepository>();
 
       // Service layer
       services.AddScoped<ITransactionService, TransactionService>();

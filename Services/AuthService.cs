@@ -21,19 +21,22 @@ namespace avarice_backend.Services
     private readonly UserManager<User> _userManager;
     private readonly IHttpContextAccessor _accessor;
     private readonly IConfiguration _configuration;
-    private readonly ICategoryService _categoryService;
+    private readonly ICategoryRepository _categoryRepository;
+    private readonly ISettingsRepository _settingsRepository;
 
     public AuthService(
       UserManager<User> userManager,
       IConfiguration configuration,
       IHttpContextAccessor accessor,
-      ICategoryService categoryService
+      ICategoryRepository categoryRepository,
+      ISettingsRepository settingsRepository
     )
     {
       _userManager = userManager;
       _configuration = configuration;
       _accessor = accessor;
-      _categoryService = categoryService;
+      _categoryRepository = categoryRepository;
+      _settingsRepository = settingsRepository;
     }
 
     public async Task<RegisterResult> Register(RegistrationModel payload)
@@ -59,22 +62,42 @@ namespace avarice_backend.Services
 
       if (isCreated.Succeeded)
       {
+        // Assign preset categories to the newly created user
+        foreach (KeyValuePair<Category, List<Category>> entry in PresetCategories.CategoriesDictionary)
+        {
+          var newParentCategory = new Category()
+          {
+            UserId = newUser.Id,
+            Color = "#ffffff",
+            Icon = entry.Key.Icon,
+            Name = entry.Key.Name
+          };
+
+          await _categoryRepository.AddAsync(newParentCategory);
+
+          foreach (var c in entry.Value)
+          {
+            await _categoryRepository.AddAsync(new Category()
+            {
+              UserId = newUser.Id,
+              Color = "#ffffff",
+              Icon = c.Icon,
+              Name = c.Name,
+              ParentId = newParentCategory.Id
+            });
+          }
+        }
+
+        await _settingsRepository.AddAsync(new Settings()
+        {
+          AccentColor = "#ad2d1c",
+          UserId = newUser.Id
+        });
+
         return new RegisterResult()
         {
           Result = true,
         };
-      }
-
-
-      // Assign preset categories to the newly created user
-      foreach (var category in PresetCategories.Categories)
-      {
-        await _categoryService.Create(new CreateCategoryModel()
-        {
-          Color = "#fffffF",
-          Icon = category.Icon,
-          Name = category.Name,
-        }, newUser.Id);
       }
 
       return new RegisterResult()
@@ -126,6 +149,7 @@ namespace avarice_backend.Services
     {
       var jwtTokenHandler = new JwtSecurityTokenHandler();
       var key = Encoding.ASCII.GetBytes(_configuration["SecretKey"]);
+
       var tokenDescriptor = new SecurityTokenDescriptor
       {
         Subject = new ClaimsIdentity(new[]
@@ -137,8 +161,10 @@ namespace avarice_backend.Services
         Expires = DateTime.UtcNow.AddHours(6),
         SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha512Signature)
       };
+
       var token = jwtTokenHandler.CreateToken(tokenDescriptor);
       var jwtToken = jwtTokenHandler.WriteToken(token);
+
       return jwtToken;
     }
   }
