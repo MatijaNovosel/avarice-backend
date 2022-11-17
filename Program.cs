@@ -10,25 +10,18 @@ using Azure.Identity;
 using Microsoft.Azure.KeyVault;
 using Microsoft.Azure.Services.AppAuthentication;
 using Microsoft.Extensions.Configuration.AzureKeyVault;
+using avarice_backend;
 
-namespace avarice_backend
-{
-  public class Program
-  {
-    public static void Main(string[] args)
+static IHostBuilder CreateHostBuilder(string[] args) =>
+  Host.CreateDefaultBuilder(args)
+    .ConfigureAppConfiguration((context, config) =>
     {
-      CreateHostBuilder(args).Build().Run();
-    }
+      config.AddUserSecrets<Program>();
+    })
+    .ConfigureWebHostDefaults(webBuilder =>
+    {
+      webBuilder.UseStartup<Startup>();
+    });
 
-    public static IHostBuilder CreateHostBuilder(string[] args) =>
-      Host.CreateDefaultBuilder(args)
-        .ConfigureAppConfiguration((context, config) =>
-        {
-          config.AddUserSecrets<Program>();
-        })
-        .ConfigureWebHostDefaults(webBuilder =>
-        {
-          webBuilder.UseStartup<Startup>();
-        });
-  }
-}
+CreateHostBuilder(args).Build().Run();
+
