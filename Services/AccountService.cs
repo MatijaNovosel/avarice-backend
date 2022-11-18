@@ -22,6 +22,19 @@ namespace avarice_backend.Services
       _transactionRepository = transactionRepository ?? throw new ArgumentNullException(nameof(transactionRepository));
     }
 
+    private int CalculateDaysFromTimePeriod(TimePeriodEnum timePeriod)
+    {
+      switch (timePeriod)
+      {
+        case TimePeriodEnum.SevenDays: return 7;
+        case TimePeriodEnum.ThirtyDays: return 30;
+        case TimePeriodEnum.TwelveWeeks: return 84;
+        case TimePeriodEnum.SixMonths: return 180;
+        case TimePeriodEnum.OneYear: return 365;
+        default: return -30;
+      }
+    }
+
     public async Task<IEnumerable<AccountModel>> GetLatestValues(string userId)
     {
       var accounts = await _accountRepository.GetAsync(account => account.UserId == userId);
@@ -40,7 +53,7 @@ namespace avarice_backend.Services
     public async Task<AccountExpenseAndIncomeModel> GetExpensesAndIncomeInTimePeriod(string userId, long accountId)
     {
       var toRange = DateTime.Now;
-      var fromRange = DateTime.Now.AddDays(-30);
+      var fromRange = DateTime.Now.AddDays(-CalculateDaysFromTimePeriod(TimePeriodEnum.ThirtyDays));
 
       var transactions = await _transactionRepository.GetAsync(t =>
         t.Account.UserId == userId &&
@@ -69,8 +82,9 @@ namespace avarice_backend.Services
 
       accountBalance += sum;
 
+      int days = CalculateDaysFromTimePeriod(timePeriod);
       var toRange = DateTime.Now.Date;
-      var fromRange = DateTime.Now.AddDays(-30).Date;
+      var fromRange = DateTime.Now.AddDays(-days).Date;
 
       var transactions = accountTransactions.Where(t =>
         t.CreatedAt.Date >= fromRange &&
@@ -104,7 +118,7 @@ namespace avarice_backend.Services
           }
         }
 
-        for (int i = 1; i <= 30; i++)
+        for (int i = 1; i <= days; i++)
         {
           var date = DateTime.Now.AddDays(i * -1).Date;
           var transactionAtDate = transactions.Where(t => t.CreatedAt.Date == date).ToList();
@@ -133,7 +147,7 @@ namespace avarice_backend.Services
       }
       else
       {
-        for (int i = 0; i <= 30; i++) res.Add(new AccountHistoryModel
+        for (int i = 0; i <= days; i++) res.Add(new AccountHistoryModel
         {
           Amount = accountBalance,
           Date = DateTime.Now.AddDays(i * -1)
