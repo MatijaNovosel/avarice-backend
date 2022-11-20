@@ -1,6 +1,13 @@
 <h1 align=center>Avarice backend</h1>
 <p align=center>
-  Backend for the <a href="https://github.com/MatijaNovosel/avarice">Avarice</a> application.
+  Backend for the Avarice mobile & web application.
+</p>
+
+<p align="center">
+  <samp>
+    <a href="https://github.com/MatijaNovosel/avarice">🌟 Web</a> |
+    <a href="https://github.com/MatijaNovosel/avarice-mobile">📱 Mobile</a>
+  </samp>
 </p>
 
 ## 🔨 Built With
