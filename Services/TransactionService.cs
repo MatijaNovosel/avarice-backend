@@ -108,6 +108,19 @@ namespace avarice_backend.Services
       await _transactionRepository.DeleteAsync(transaction);
     }
 
+    public async Task DuplicateTransaction(string userId, long tId)
+    {
+      var transaction = await _transactionRepository.GetByIdAsync(tId);
+      await _transactionRepository.AddAsync(new Transaction()
+      {
+        AccountId = transaction.AccountId,
+        Amount = transaction.Amount,
+        CategoryId = transaction.CategoryId,
+        Description = transaction.Description,
+        CreatedAt = transaction.CreatedAt
+      });
+    }
+
     public async Task<IEnumerable<TransactionActivityHeatmapModel>> GetTransactionActivityHeatmap(string userId)
     {
       var res = new List<TransactionActivityHeatmapModel>();

@@ -44,6 +44,12 @@ namespace avarice_backend.Controllers
       await _transactionService.DeleteTransaction(((ClaimsIdentity)User.Identity).FindFirst("Id").Value, id);
     }
 
+    [HttpPost("duplicate/{id}")]
+    public async Task Duplicate(long id)
+    {
+      await _transactionService.DuplicateTransaction(((ClaimsIdentity)User.Identity).FindFirst("Id").Value, id);
+    }
+
     [HttpGet]
     public async Task<PageableCollection<TransactionModel>> Get(
       int skip,

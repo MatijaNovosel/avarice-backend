@@ -10,6 +10,7 @@ namespace avarice_backend.Services.Interfaces
     Task AddTransaction(AddTransactionDto transaction, string userId);
     Task AddTransfer(AddTransferDto transfer, string userId);
     Task DeleteTransaction(string userId, long tId);
+    Task DuplicateTransaction(string userId, long tId);
     Task<IEnumerable<TransactionModel>> GetAll(
       string userId,
       int? skip,
