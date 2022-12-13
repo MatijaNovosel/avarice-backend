@@ -19,8 +19,6 @@
 
 ### Install the dot net core dependencies
 
-Clone the backend [here](https://github.com/MatijaNovosel/avarice-backend).
-
 ```bash
 dotnet restore
 ```
